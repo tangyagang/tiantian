@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cssl.tiantian.dao.user.UserMapper">
+    <resultMap id="userMap" type="user">
+        <id property="userId" column="userId"/>
+    </resultMap>
+    <select id="getUserByUserName" resultMap="userMap" parameterType="String">
+        select * from user where userName = #{userName}
+    </select>
+    <select id="getUserByUserNameAndPassword" resultMap="userMap" parameterType="String">
+        select * from user where userName = #{userName} and password = #{password}
+    </select>
+    <insert id="saveUser" parameterType="user">
+        insert into user(userId,userName,password,userType,nickName,realName,sex,phone,email,birthday,identity,userUrl,money,integra,address)
+                values (${userId},#{userName},#{password},${userType},#{nickName},#{realName},${sex},#{phone},#{email},#{birthday},
+                        #{identity},#{userUrl},${money},${integra},#{address})
+    </insert>
+    <update id="updateUser" parameterType="user">
+        update user 
+                  <set>
+                      <if test="userName != null and userName != ''">userName=#{userName},</if>
+                      <if test="password != null and password != ''">password=#{password},</if>
+                      <if test="nickName != null and nickName != ''">nickName=#{nickName},</if>
+                      <if test="realName != null and realName != ''">realName=#{realName},</if>
+                      <if test="sex != null and sex != ''">sex=${sex},</if>
+                      <if test="phone != null and phone != ''">phone=#{phone},</if>
+                      <if test="email != null and email != ''">email=#{email},</if>
+                      <if test="birthday != null and birthday != ''">birthday=#{birthday},</if>
+                      <if test="userUrl != null and userUrl != ''">userUrl=#{userUrl},</if>
+                      <if test="money != null and money != ''">money=${money},</if>
+                      <if test="integra != null and integra != ''">integra=${integra},</if>
+                      <if test="address != null and address != ''">address=#{address},</if>
+                      <if test="userType != null and userType != ''">userType=${userType},</if>
+                      <if test="identity != null and identity != ''">identity=#{identity},</if>
+                  </set>
+                where userId=${userId}
+    </update>
+    <delete id="deleteUserByUserId" parameterType="int">
+        delete from user where userId=${userId}
+    </delete>
+</mapper>
