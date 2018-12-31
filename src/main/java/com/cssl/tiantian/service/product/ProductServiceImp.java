@@ -22,4 +22,14 @@ public class ProductServiceImp implements ProductService {
     public Product findProductByProId(int proId) {
         return productMapper.getProductByProId(proId);
     }
+
+    @Override
+    public int getCount(String proName) {
+        return productMapper.getCount(proName);
+    }
+
+    @Override
+    public List<Product> getProductByProName(String proName) {
+        return productMapper.getProductByProName(proName);
+    }
 }

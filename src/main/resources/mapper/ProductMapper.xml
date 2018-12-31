@@ -4,14 +4,42 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cssl.tiantian.dao.product.ProductMapper">
     <resultMap id="productMap" type="product">
-        <id column="proId" property="proId"/>
+        <id column="pId" property="proId"/>
+        <association property="shop" javaType="shop">
+            <id column="sId" property="shopId"/>
+            <association property="user" javaType="user"  resultMap="findUserByUserIdMap"></association>
+        </association>
+    </resultMap>
+    <resultMap id="findUserByUserIdMap" type="user">
+        <id column="uId" property="userId"/>
     </resultMap>
 
     <select id="getAll" resultMap="productMap">
         select * from product order by createTime asc
     </select>
+    <select id="getProductByProName" resultType="product">
+        select * from product
+        <trim prefix="where" prefixOverrides="and | or">
+            <if test="proName != null and proName != ''">
+                and proName like CONCAT("%",#{proName},"%")
+            </if>
+        </trim>
+    </select>
+    <select id="getCount" resultType="java.lang.Integer">
+        select count(1) from product
+        <trim prefix="where" prefixOverrides="and | or">
+            <if test="proName != null and proName != ''">
+                and proName like CONCAT("%",#{proName},"%")
+            </if>
+        </trim>
+    </select>
+
     <select id="getProductByProId" resultMap="productMap">
-        select * from product where proId=${proId}
+         SELECT p.*,p.proId pId,s.*,s.shopId sId,u.*,u.userId uId
+         FROM product p,shop s,user u
+         WHERE p.shopId=s.shopId
+         AND s.userId=u.userId
+         AND proId=${proId}
     </select>
 
 

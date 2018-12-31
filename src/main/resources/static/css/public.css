@@ -609,19 +609,19 @@ ul.menu_r li a:hover, ul.menu_r .active a {
 
 }
 .name >a >h2{
-	
-	width:80px;
-	margin:auto;
+    text-align: center;
+    width: 270px;
 	margin-top:20px;
 	margin-bottom:5px;
 	color:#666;
-	
 }
 .name >a >span{
 	font-weight:600;
-	margin-left:40px;
+	/*margin-left:40px;*/
 	color:#999;
-	
+	text-align: center;
+    display: inline-block;
+    width: 270px;
 	}
 	
 .name >a >h2:hover{
@@ -667,25 +667,6 @@ ul.menu_r li a:hover, ul.menu_r .active a {
 .fenye_main span >a:hover{
 	color:red;
 }
-		
-
-	
-	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 	
 /*尾部  footer*/

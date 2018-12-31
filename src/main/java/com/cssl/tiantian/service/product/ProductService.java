@@ -9,4 +9,8 @@ public interface ProductService {
     public List<Product> findAll();
     //根据ID查询一个商品信息
     public Product findProductByProId(int proId);
+    //获取数量
+    public int getCount(String proName);
+    //根据商品名称模糊查询
+    public List<Product> getProductByProName(String proName);
 }

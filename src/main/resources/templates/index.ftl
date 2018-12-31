@@ -118,7 +118,6 @@
         <div class="inews">
             <div class="news_t">
                 <h3 class="fl">公告</h3>
-
             </div>
              <#list newsList>
              <ul>
@@ -130,9 +129,6 @@
              </#list>
         </div>
     </div>
-
-
-
 
     <!--中间  中间热销部分-->
     <div class="hotSaleIndex_bg" >
@@ -186,102 +182,19 @@
 
         <div class="class2">
             <div class="test4">
-                <ul >
-                    <li class="but_m2">
+                <#list products>
+                    <ul >
+                        <#items as product>
+                            <li class="but_m2">
+                                <div class="but_img"><a><img src="images/center1.jpg" style="width:270px; height:250px;" /></a></div>
+                                <div class="name"><a><h2>${product.proName}</h2><span>${product.description}</span></a></div>
+                                <div class="price"><strong>￥<span>${product.proPrice}</span></strong></div>
+                            </li>
+                        </#items>
+                        <li style="clear:both"></li>
+                    </ul>
+                </#list>
 
-                        <div class="but_img"><a><img src="images/center1.jpg" style="width:270px; height:250px;" /></a></div>
-                        <div class="name"><a><h2>精品毛衣</h2><span>品牌时尚，特价选购,天天优选！</span></a></div>
-                        <div class="price"><strong>￥<span>699</span></strong></div>
-                    </li>
-
-                    <li class="but_m2">
-
-                        <div class="but_img"><a><img src="images/center2.jpg"  style="width:270px; height:250px;"/></a></div>
-                        <div class="name"><a><h2>精品毛衣</h2><span>品牌时尚，特价选购,天天优选！</span></a></div>
-                        <div class="price"><strong>￥<span>699</span></strong></div>
-
-                    </li>
-
-                    <li class="but_m2">
-
-                        <div class="but_img"><a><img src="images/center3.jpg" style="width:270px; height:250px;"/></a></div>
-                        <div class="name"><a><h2>精品毛衣</h2><span>品牌时尚，特价选购,天天优选！</span></a></div>
-
-                        <div class="price"><strong>￥<span>699</span></strong></div>
-
-                    </li>
-
-                    <li class="but_m2">
-
-                        <div class="but_img"><a><img src="images/center4.jpg" style="width:270px; height:250px;"/></a></div>
-                        <div class="name"><a><h2>精品毛衣</h2><span>品牌时尚，特价选购,天天优选！</span></a></div>
-                        <div class="price"><strong>￥</strong><span style="font-size:16px;">699</span></div>
-
-                    </li>
-                    <li class="but_m2">
-
-                        <div class="but_img"><a><img src="images/center4.jpg" style="width:270px; height:250px;"/></a></div>
-                        <div class="name"><a><h2>精品毛衣</h2><span>品牌时尚，特价选购,天天优选！</span></a></div>
-                        <div class="price"><strong>￥</strong><span style="font-size:16px;">699</span></div>
-
-                    </li>
-                    <li class="but_m2">
-
-                        <div class="but_img"><a><img src="images/center1.jpg" style="width:270px; height:250px;" /></a></div>
-                        <div class="name"><a><h2>精品毛衣</h2><span>品牌时尚，特价选购,天天优选！</span></a></div>
-                        <div class="price"><strong>￥<span>699</span></strong></div>
-                    </li>
-
-                    <li class="but_m2">
-
-                        <div class="but_img"><a><img src="images/center2.jpg"  style="width:270px; height:250px;"/></a></div>
-                        <div class="name"><a><h2>精品毛衣</h2><span>品牌时尚，特价选购,天天优选！</span></a></div>
-                        <div class="price"><strong>￥<span>699</span></strong></div>
-
-                    </li>
-
-                    <li class="but_m2">
-
-                        <div class="but_img"><a><img src="images/center3.jpg" style="width:270px; height:250px;"/></a></div>
-                        <div class="name"><a><h2>精品毛衣</h2><span>品牌时尚，特价选购,天天优选！</span></a></div>
-
-                        <div class="price"><strong>￥<span>699</span></strong></div>
-
-                    </li>
-                    <li class="but_m2">
-
-                        <div class="but_img"><a><img src="images/center1.jpg" style="width:270px; height:250px;" /></a></div>
-                        <div class="name"><a><h2>精品毛衣</h2><span>品牌时尚，特价选购,天天优选！</span></a></div>
-                        <div class="price"><strong>￥<span>699</span></strong></div>
-                    </li>
-
-                    <li class="but_m2">
-
-                        <div class="but_img"><a><img src="images/center2.jpg"  style="width:270px; height:250px;"/></a></div>
-                        <div class="name"><a><h2>精品毛衣</h2><span>品牌时尚，特价选购,天天优选！</span></a></div>
-                        <div class="price"><strong>￥<span>699</span></strong></div>
-
-                    </li>
-
-                    <li class="but_m2">
-
-                        <div class="but_img"><a><img src="images/center3.jpg" style="width:270px; height:250px;"/></a></div>
-                        <div class="name"><a><h2>精品毛衣</h2><span>品牌时尚，特价选购,天天优选！</span></a></div>
-
-                        <div class="price"><strong>￥<span>699</span></strong></div>
-
-                    </li>
-                    <li class="but_m2">
-
-                        <div class="but_img"><a><img src="images/center3.jpg" style="width:270px; height:250px;"/></a></div>
-                        <div class="name"><a><h2>精品毛衣</h2><span>品牌时尚，特价选购,天天优选！</span></a></div>
-
-                        <div class="price"><strong>￥<span>699</span></strong></div>
-
-                    </li>
-                    <li style="clear:both"></li>
-
-                </ul>
             </div>
 
         </div>
