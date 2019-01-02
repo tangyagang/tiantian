@@ -10,6 +10,7 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserMapper userMapper;
+
     @Override
     public User isExistUserName(String userName) {
         return userMapper.getUserByUserName(userName);
@@ -34,4 +35,10 @@ public class UserServiceImpl implements UserService {
     public int deleteUserByUserId(int userId) {
         return userMapper.deleteUserByUserId(userId);
     }
+
+    @Override
+    public User findUserByUserId(int userId) {
+        return userMapper.getUserByUserId(userId);
+    }
+
 }

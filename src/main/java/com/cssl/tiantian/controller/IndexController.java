@@ -4,11 +4,13 @@ package com.cssl.tiantian.controller;
  */
 
 import com.cssl.tiantian.pojo.News;
+import com.cssl.tiantian.pojo.Page;
 import com.cssl.tiantian.pojo.Product;
 import com.cssl.tiantian.pojo.ProductCategory;
 import com.cssl.tiantian.service.ProductCategory.ProductCategoryService;
 import com.cssl.tiantian.service.news.NewsService;
 import com.cssl.tiantian.service.product.ProductService;
+import com.cssl.tiantian.tools.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -27,13 +29,24 @@ public class IndexController {
     private NewsService newsService;
 
     @RequestMapping("/index")
-    public String listType(ModelMap modelMap){
+    public String listType(String pageNo,String proName , ModelMap modelMap){
         List<ProductCategory> list = productCategoryService.findAll();
-        List<Product> products = productService.findAll();
+        List<Product> products = productService.getProductByProName(proName);
         List<News> newsList = newsService.getAll();
+        Page page = new Page<>();
+        Integer pn = pageNo != null && pageNo.equals("") ? Integer.parseInt(pageNo) : 1;//当前页码
+        int totalCount = productService.getCount(proName);//总数据量
+        int totalPage = totalCount % Constants.PAGE_SIZE == 0 ? totalCount / Constants.PAGE_SIZE : totalCount / Constants.PAGE_SIZE + 1;//总页数
+        page.setList(products);
+        page.setPageNo(pn);
+        page.setPageSize(Constants.PAGE_SIZE);
+        page.setTotalCount(totalCount);
+        page.setTotalPage(totalPage);
+        int[] numbs = Page.getPageNumbers(pn,totalPage);
         modelMap.put("productCategorys",list);
-        modelMap.put("products",products);
+        modelMap.put("page",page);
         modelMap.put("newsList",newsList);
+        modelMap.put("numbs",numbs);
         return "index";
     }
 }

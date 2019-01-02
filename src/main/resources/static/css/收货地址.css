@@ -1,0 +1,128 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+.user-profile-wrap{
+    width: 100%;
+    height: 500px;
+}
+.user-profile-wrap p{
+    margin-left: 70px;
+    font-size: 14px;
+}
+.user-profile-wrap p>span:first-child{
+    color:#F88600;
+    font-size: 14px;
+}
+.user-profile-wrap p>span:last-child{
+    margin-left: 10px;
+    font-size: 14px;
+    font-weight: bold;
+}
+.address{
+    clear: both;
+    margin-left: 0px;
+    padding-left: 35px;
+    margin-top: 30px;
+    height: 30px;
+}
+.address>span:first-child{
+
+    display: inline-block;
+    color: #F2873B;
+    position: relative;
+
+}
+.address select{
+    height: 30px;
+    width: 130px;
+    color: #CCCCCC;
+}
+ a{
+     color: #000000;
+ }
+.sui-table th, .sui-table td {
+    padding: 6px 8px;
+    line-height: 18px;
+    text-align: left;
+    vertical-align: middle;
+    border-top: 1px solid #e6e6e6;
+    font-size: 14px;
+    color: #333333;
+}
+.sui-table{
+    margin-top: 20px;
+}
+.sui-table td
+{
+    font-size: 12px;
+}
+.sui-table tr td:nth-of-type(6){
+    color: #007AFF;
+}
+.ng-footer {
+    height: 130px;
+    margin-top: 0;
+}
+
+.ng-s-footer {
+    height: 130px;
+    background: none;
+    text-align: center;
+}
+
+.ng-s-footer p.ng-url-list {
+    height: 25px;
+    line-height: 25px;
+}
+
+.ng-s-footer p.ng-url-list a {
+    color: #666666;
+}
+
+.ng-s-footer p.ng-url-list a:hover {
+    color: #f60;
+}
+
+.ng-s-footer .ng-authentication {
+    float: none;
+    margin: 0 auto;
+    height: 25px;
+    width: 990px;
+    margin-top: 5px;
+}
+
+.ng-s-footer p.ng-copyright {
+    float: none;
+    width: 100%;
+}
+
+.root1200 .ng-s-footer p.ng-copyright {
+    width: 100%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

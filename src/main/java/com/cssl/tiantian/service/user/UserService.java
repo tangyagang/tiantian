@@ -14,4 +14,6 @@ public interface UserService {
     public int modifyUser(User user);
     //删除用户
     public int deleteUserByUserId(int userId);
+    //根据用户ID查询用户
+    public User findUserByUserId(int userId);
 }

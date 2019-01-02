@@ -40,4 +40,7 @@
     <delete id="deleteUserByUserId" parameterType="int">
         delete from user where userId=${userId}
     </delete>
+    <select id="getUserByUserId" resultMap="userMap">
+        select * from user where userId=${userId}
+    </select>
 </mapper>

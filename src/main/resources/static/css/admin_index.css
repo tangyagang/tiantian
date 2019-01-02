@@ -1,0 +1,39 @@
+.side-menu-tree>dt{
+    color: orangered;
+}
+.side-menu-tree>dd>a{
+    color: #333;
+}
+
+.button-left {
+    box-sizing: border-box;
+    display: inline-block;
+    border: none;
+    padding: 0 12px;
+    border-radius: 3px;
+    font-size: 12px;
+    cursor: pointer;
+    text-decoration: none;
+    height: 24px;
+    line-height: 22px;
+    background-color: #fff;
+    border: 1px solid #dcdcdc;
+    color: #3c3c3c;
+}
+.button-left:not([disabled]):hover {
+    border-color: #ff1d00;
+    color: #ff1d00;
+}
+#ms-center>.cont>.cont-side>.side-neck{
+    margin-top: 20px;
+}
+#ms-center>.cont>.cont-side>.ms-side{
+    margin-top: 20px;
+}
+#ms-center>.cont>.cont-side>.ms-side dl{
+    padding-left: 50px;
+}
+#ms-center>.cont>.cont-side>.ms-side dl>dt>img{
+    margin-right: 10px;
+    margin-left: -20px;
+}

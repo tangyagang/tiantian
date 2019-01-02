@@ -1,6 +1,7 @@
 package com.cssl.tiantian.dao.user;
 
 import com.cssl.tiantian.pojo.User;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -16,4 +17,6 @@ public interface UserMapper {
     public int updateUser(User user);
     //删除用户
     public int deleteUserByUserId(int userId);
+    //根据用户ID查询一个用户
+    public User getUserByUserId(@Param("userId") int userId);
 }

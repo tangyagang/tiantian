@@ -1,0 +1,111 @@
+/*register.css*/
+#secTab {
+	padding-top: 26px;
+    border: 1px solid red;
+}
+#registerForm{
+    border: 1px solid red;
+}
+.innerTab {
+	width: 550px;
+	margin: 0 auto;
+    border: 1px #333 solid;
+}
+.innerTab>h2 {
+	text-align: center;
+    font: bold 24px/50px "microsoft yahei";
+    color: #333;
+    margin-bottom: 10px;
+}
+.tableItem {
+	position: relative;
+    z-index: 100;
+    margin-bottom: 10px;
+    padding: 0;
+    border: 1px solid #dedede;
+    background: #FFF;
+    width: 300px;
+    height: 50px;
+    overflow: hidden;
+}
+.tableItem span {
+	position: absolute;
+    left: 20px;
+    top: 0;
+    display: inline-block;
+    height: 50px;
+    font: 14px/50px "sisum";
+    color: #666;
+}
+.onlyItem {
+	width: 192px!important;
+}
+.tableText {
+	display: inline-block;
+	/*position: relative;*/
+	/*z-index: 2;*/
+	width: 126px;
+	height: 50px;
+	margin-left: 10px;
+	text-align: center;
+	background-color: #57565f;
+	font: bold 12px/52px "sisum";
+	color: #fff;
+	cursor: default;
+	border-radius: 2px;
+	font-size: 14px;
+}
+.tableItem input {
+	vertical-align: middle;    
+	width: 100%;
+    height: 20px;
+    padding: 0 20px;
+    border: 0 none;
+    line-height: 20px;
+    vertical-align: middle;
+    font-family: "Microsoft YaHei";
+    font-size: 14px;
+    outline: none;
+    box-sizing: border-box;
+}
+.clickRegist {
+	height: 35px;
+	line-height: 35px;
+	color: #666;
+	text-indent: 1em;
+}
+.clickRegist a {
+	color: #06c;
+}
+.control-label{
+    border:1px #000 solid;
+    display: block;
+    width: 120px;
+    line-height: 30px;
+    float: left;
+    clear: both;
+    overflow: hidden;
+    text-align: right;
+}
+.innerTab>li{
+    overflow: hidden;
+}
+.innerTab>li p{
+    width: 400px;
+    line-height: 20px;
+    border:1px blue solid;
+    color: #999;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

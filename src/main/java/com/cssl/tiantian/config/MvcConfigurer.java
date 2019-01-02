@@ -31,6 +31,7 @@ public class MvcConfigurer implements WebMvcConfigurer {
         InternalResourceViewResolver resolver = new InternalResourceViewResolver();
         resolver.setPrefix("/");
         resolver.setSuffix(".ftl");
+        resolver.setRequestContextAttribute("request");
         registry.viewResolver(resolver);
     }
     /**
