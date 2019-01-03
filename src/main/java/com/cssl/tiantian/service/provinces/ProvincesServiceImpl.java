@@ -17,4 +17,9 @@ public class ProvincesServiceImpl implements ProvincesService {
     public List<Provinces> findAll() {
         return provincesMapper.getAll();
     }
+
+    @Override
+    public Provinces findProvincesByAreaId(int areaId) {
+        return provincesMapper.getProvincesByAreaId(areaId);
+    }
 }

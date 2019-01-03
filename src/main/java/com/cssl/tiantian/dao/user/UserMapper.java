@@ -10,7 +10,7 @@ public interface UserMapper {
     //判断用户名是否存在
     public User getUserByUserName(String userName);
     //登录
-    public User getUserByUserNameAndPassword(String userName,String password);
+    public User getUserByUserNameAndPassword(@Param("userName") String userName,@Param("password") String password);
     //注册
     public int saveUser(User user);
     //修改用户

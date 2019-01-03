@@ -22,6 +22,7 @@ public class User implements Serializable {
     private Double money;
     private int integra;
     private String address;
+    private Areas areas;
     //一对多
     private List<Shop> shops;
     private List<RecAddress> recAddresses;
@@ -178,5 +179,13 @@ public class User implements Serializable {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public Areas getAreas() {
+        return areas;
+    }
+
+    public void setAreas(Areas areas) {
+        this.areas = areas;
     }
 }

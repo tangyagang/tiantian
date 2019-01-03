@@ -7,4 +7,6 @@ import java.util.List;
 public interface ProvincesService {
 
     public List<Provinces> findAll();
+
+    public Provinces findProvincesByAreaId(int areaId);
 }

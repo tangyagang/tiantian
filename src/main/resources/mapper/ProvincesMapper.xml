@@ -23,5 +23,13 @@
             WHERE a.provinceCode = b.provinceId
               AND b.cityCode = c.cityId
     </select>
-
+    <select id="getProvincesByAreaId" resultMap="provincesMap">
+        SELECT a.provinceId,a.provinceCode,a.province,
+	            b.cityId,b.cityCode,b.city,b.provinceId b_provinceId,
+	            c.areaId,c.areaCode,c.area,c.cityId c_cityId
+            FROM provinces a,cities b,areas c
+            WHERE a.provinceCode = b.provinceId
+              AND b.cityCode = c.cityId
+              and c.areaId = ${areaId}
+    </select>
 </mapper>

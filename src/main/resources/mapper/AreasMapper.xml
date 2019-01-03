@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cssl.tiantian.dao.areas.AreasMapper">
+    <resultMap id="getAreasMap" type="areas">
+        <id property="areaId" column="areaId"/>
+        <association property="cities" javaType="cities" resultMap="getCitiesMap"/>
+    </resultMap>
+    <resultMap id="getCitiesMap" type="cities">
+        <id property="cityId" column="cityId"/>
+        <association property="provinces" javaType="provinces" resultMap="getProvincesMap"/>
+    </resultMap>
+    <resultMap id="getProvincesMap" type="provinces">
+        <id property="provinceId" column="provinceId"/>
+    </resultMap>
+    <select id="getAreasByAreaId" resultMap="getAreasMap">
+        SELECT a.provinceId,a.provinceCode,a.province,
+	            b.cityId,b.cityCode,b.city,b.provinceId b_provinceId,
+	            c.areaId,c.areaCode,c.area,c.cityId c_cityId
+            FROM provinces a,cities b,areas c
+            WHERE a.provinceCode = b.provinceId
+              AND b.cityCode = c.cityId
+              and c.areaId = ${areaId}
+    </select>
+
+</mapper>

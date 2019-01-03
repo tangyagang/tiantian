@@ -23,7 +23,7 @@
 		</script>
 	</head>
 	<body class="ms-body">
-	<#import "public.ftl" as public>
+	<#import "../public.ftl" as public>
 		<div id="" class="ng-top-banner"></div>
 		<div class="ng-toolbar">
 			<div class="ng-toolbar-con wrapper">
@@ -328,30 +328,29 @@
 						<div class="main-wrap-main">
 							<h3>
 								<strong>个人信息</strong>
-
 							</h3>
-							<form method="post" action="/userInfo">
-							<!--<div class="main-wrap-info"><a href="#"> <span>基本资料</span></a><a href="#"><span>头像照片</span></a></div>-->
-							<div class="user-profile clearfix">
-								<div class="user-profile-wrap">
-									<p>当前头像：</p>
-									<div class="profile-avatar">
-									<img src="img/头像.png" height="120" width="120">
-									<!--<a href="" name="">编辑头像</a>
-									<div class="edit_bg"></div>-->
+							<form method="post" name="user" action="${request.contextPath}/userModify" enctype="multipart/form-data">
+								<!--<div class="main-wrap-info"><a href="#"> <span>基本资料</span></a><a href="#"><span>头像照片</span></a></div>-->
+								<div class="user-profile clearfix">
+									<div class="user-profile-wrap">
+										<p>当前头像：</p>
+										<div class="profile-avatar">
+										<img src="img/头像.png" height="120" width="120">
+										<!--<a href="" name="">编辑头像</a>
+										<div class="edit_bg"></div>-->
+									</div>
+									</div>
+									<div class="modify-file">
+										<p>仅支持JPG、GIF、PNG图片文件，且文件小于5M</p>
+										<input type="file" name="filename" />
+									</div>
 								</div>
-								</div>
-								<div class="modify-file">
-									<p>仅支持JPG、GIF、PNG图片文件，且文件小于5M</p>
-									<input type="file" name="filename" />
-								</div>
-							</div>
 
-							<div class="form-list tab-switch personal-wrap-show">
-
+								<div class="form-list tab-switch personal-wrap-show">
 									<div class="control-group clearfix">
 										<label class="control-label"><em>*&nbsp;</em>用户名：</label>
 										<div class="controls">
+											<input type="hidden" value="${user.userId}" name="userId">
 											<input  type="text" class="text" maxlength="12" name="userName" value="${user.userName}">
 										</div>
 									</div>
@@ -365,11 +364,11 @@
 										<label class="control-label"><em>*&nbsp;</em>性别：</label>
 										<div id="gender" class="controls">
 											<label class="sex-label">
-												<input type="radio" name="sex" <#if user.sex==1>checked="checked"</#if>>
+												<input type="radio" value="1" name="sex" <#if user.sex==1>checked="checked"</#if>>
 												<span>男</span>
 											</label>
 											<label class="sex-label">
-												<input type="radio" name="sex" <#if user.sex==2>checked="checked"</#if>>
+												<input type="radio" value="2" name="sex" <#if user.sex==2>checked="checked"</#if>>
 												<span>女</span>
 											</label>
 										</div>
@@ -379,7 +378,7 @@
 										<div class="controls lh26">
 											<#--<span>${public.transPhone(user.phone)}</span>
 											<a >修改</a>-->
-                                            <input  type="text" class="text" maxlength="11" name="phone" value="${user.phone}">
+											<input  type="text" class="text" maxlength="11" name="phone" value="${user.phone}">
 										</div>
 									</div>
 									<div class="control-group clearfix">
@@ -394,8 +393,7 @@
 										<label class="control-label">出生日期：</label>
 										<div class="controls">
 											<span id="" class="dateSelector">
-
-											<input  value="${user.birthday?string("yyyy-MM-dd")}" type="date" class="text date-color"  >
+											<input  value="${user.birthday?string("yyyy-MM-dd")}" type="date" class="text date-color" name="birthday" >
 											<i class="date-icons"></i>
 											</span>
 										</div>
@@ -404,28 +402,37 @@
 										<label class="control-label"><em>*&nbsp;</em>居住地址：</label>
 										<div class="controls">
 											<div id="zhen" datas-id="" class="citySelect cityboxbtn">
-												<select>
-                                                    <option value="">请选择省</option>
-													<#list addressList>
-														<#items as provinces>
-															<option value="${provinces.provinceId}">${provinces.province}</option>
-														</#items>
+												<select >
+													<#list addressList as pro>
+														<option value="${pro.provinceId}" <#if pro.provinceId == areas.cities.provinces.provinceId> selected = "selected"</#if>>
+															${pro.province}
+														</option>
 													</#list>
 												</select>
 												<select>
-													<option value="">请选择市</option>
-													<#list addressList[0].citieses>
-														<#items as cities>
-															<option value="${cities.cityId}">${cities.city}</option>
-														</#items>
+													<#list addressList as pro>
+														<#if pro.provinceId == areas.cities.provinces.provinceId>
+															<#list pro.citieses as cities>
+																<option value="${cities.cityId}" <#if cities.cityId == areas.cities.cityId> selected = "selected"</#if>>
+																	${cities.city}
+																</option>
+															</#list>
+														</#if>
 													</#list>
 												</select>
-												<select>
-													<option value="">请选择区</option>
-													<#list addressList[0].citieses[0].areases>
-														<#items as areas>
-															<option value="${areas.areaId}">${areas.area}</option>
-														</#items>
+												<select name="areaId">
+													<#list addressList as pro>
+														<#if pro.provinceId == areas.cities.provinces.provinceId>
+															<#list pro.citieses as cities>
+																<#if cities.cityId == areas.cities.cityId>
+																	<#list cities.areases as area>
+																		<option value="${area.areaId}" <#if area.areaId == areas.areaId> selected = "selected"</#if>>
+																			${area.area}
+																		</option>
+																	</#list>
+																</#if>
+															</#list>
+														</#if>
 													</#list>
 												</select>
 											<div id="" class="error-place ml0">
@@ -434,28 +441,27 @@
 									</div>
 
 									<div id="code" class="control-group clearfix" >
-										<input id="" type="hidden" autocomplete="off" >
+										<#--<input id="" type="hidden" autocomplete="off" >
 										<label class="control-label"><em>*&nbsp;&nbsp;&nbsp;</em>验证码：</label>
 										<div class="controls">
 											<input id="" type="text" class="text" maxlength="4" autocomplete="off" name="" style="width:150px" value="">
 											<span class="tips-words"></span>
-                                            <#--<img id="veryCode" src="authImage" /><a id="rand" href="javascript:void(0)">看不清 换一张</a>-->
-											<img id="veryCode" src="${request.contextPath}/getVerify" <#--width="62" height="24"--> class="authCode">
-											<span class="changeAuthCode" style="margin-bottom: 10px;"><a href="" style="margin-bottom: -4px;position: absolute;" onclick="getVerify(this);">换一张</a></span>
+											<img id="veryCode" src="${request.contextPath}/getVerify" width="62" height="24" class="authCode">
+											<span class="changeAuthCode" style="margin-bottom: 15px;"><a href="" style="margin-bottom: -10px;position: absolute;" onclick="getVerify(this);">换一张</a></span>
 										</div>
 										<div id="" class="error-place">
-										</div>
+										</div>-->
 									</div>
 									<div class="control-group clearfix priority-low">
 										<label class="control-label">&nbsp;</label>
 										<div style="float:left;">
-											<a href=""  class="ms-stand-btn1" >保 存</a>
+											<input class="ms-stand-btn1" type="submit" value="保 存">
 										</div>
 										<div id="" class="error-place"></div>
 										<div class="error-place mt29"></div>
 									</div>
-								</form>
-							</div>
+								</div>
+                            </form>
 						</div>
 					</div>
 				</div>

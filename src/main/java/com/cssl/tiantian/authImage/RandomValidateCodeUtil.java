@@ -1,4 +1,4 @@
-package com.cssl.tiantian.tools;
+package com.cssl.tiantian.authImage;
 /**
  * 验证码生成工具类
  */

@@ -11,6 +11,7 @@ public class Areas implements Serializable {
     private String area;
     private Cities cities;
 
+    private List<User> users;
     private List<RecAddress> recAddresses;
 
     public List<RecAddress> getRecAddresses() {
@@ -51,5 +52,13 @@ public class Areas implements Serializable {
 
     public void setCities(Cities cities) {
         this.cities = cities;
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
     }
 }
