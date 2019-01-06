@@ -18,7 +18,7 @@ public class ProductCategoryController {
 
     //@RequestMapping("/listType")
     public String listType(ModelMap modelMap){
-        List<ProductCategory> list = productCategoryService.findAll();
+        List<ProductCategory> list = productCategoryService.findAll(null);
         modelMap.put("productCategorys",list);
         return "listType";
     }

@@ -55,13 +55,14 @@
                         <!--左边购物列表导航-->
                           <#list productCategorys>
                           <ul>
-                              <#items as productCategory>
+                              <#items as productCategory >
                               <li>
                                   <div class="fj">
                                       <span class="fl">${productCategory.pcName}</span>
                                   </div>
                                   <!--目前不显示，鼠标移入显示-->
-                                  <div class="zj">
+                                  <#assign num>${-40*productCategory?index}</#assign>
+                                  <div class="zj" style="top:${num}px;">
                                       <div class="zj_l">
                                           <#list productCategory.productCategorys>
                                               <#items as type2>

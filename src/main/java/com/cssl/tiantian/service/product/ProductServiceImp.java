@@ -29,7 +29,12 @@ public class ProductServiceImp implements ProductService {
     }
 
     @Override
-    public List<Product> getProductByProName(String proName) {
-        return productMapper.getProductByProName(proName);
+    public List<Product> getProductByProName(String proName,int pageNo,int pageSize) {
+        return productMapper.getProductByProName(proName,(pageNo-1)*pageSize,pageSize);
+    }
+
+    @Override
+    public List<Product> findProductByPcId(int pcId) {
+        return productMapper.getProductByPcId(pcId);
     }
 }

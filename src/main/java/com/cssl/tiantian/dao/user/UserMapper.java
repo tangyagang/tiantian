@@ -4,6 +4,8 @@ import com.cssl.tiantian.pojo.User;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Map;
+
 @Repository
 public interface UserMapper {
 
@@ -12,7 +14,7 @@ public interface UserMapper {
     //登录
     public User getUserByUserNameAndPassword(@Param("userName") String userName,@Param("password") String password);
     //注册
-    public int saveUser(User user);
+    public int saveUser(@Param("params")Map<String,Object> objectMap);
     //修改用户
     public int updateUser(User user);
     //删除用户

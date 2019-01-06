@@ -12,11 +12,23 @@
     <select id="getUserByUserNameAndPassword" resultMap="userMap" parameterType="String">
         select * from user where userName = #{userName} and password = #{password}
     </select>
-    <insert id="saveUser" parameterType="user">
+  <!--  <insert id="saveUser" parameterType="user">
         insert into user(userId,userName,password,userType,nickName,realName,sex,phone,email,birthday,identity,userUrl,money,integra,address)
                 values (${userId},#{userName},#{password},${userType},#{nickName},#{realName},${sex},#{phone},#{email},#{birthday},
                         #{identity},#{userUrl},${money},${integra},#{address})
+    </insert>-->
+    <!--动态更新-->
+    <insert id="saveUser" parameterType="map" useGeneratedKeys="true" keyProperty="id">
+        insert ignore into user
+        <foreach collection="params.keys" item="key" open="(" close=")" separator="," >
+            ${key}
+        </foreach>
+        values
+        <foreach collection="params.keys"  item="key" open="(" close=")" separator=",">
+            #{params.${key}}
+        </foreach>
     </insert>
+
     <update id="updateUser" parameterType="user">
         update user 
                   <set>
@@ -37,6 +49,20 @@
                   </set>
                 where userId=${userId}
     </update>
+    <!--<update id="updateInfoByID" parameterType="java.util.Map">
+        UPDATE ${tableName} set
+        <foreach item="value" index="key" collection="params" separator=",">
+            <if test="key != 'id'">
+                ${key} = #{value}
+            </if>
+        </foreach>
+        WHERE
+        <foreach item="value" index="key" collection="params" separator=",">
+            <if test="key == 'id'">
+                ID = #{value}
+            </if>
+        </foreach>
+    </update>-->
     <delete id="deleteUserByUserId" parameterType="int">
         delete from user where userId=${userId}
     </delete>

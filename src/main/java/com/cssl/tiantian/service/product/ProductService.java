@@ -12,5 +12,7 @@ public interface ProductService {
     //获取数量
     public int getCount(String proName);
     //根据商品名称模糊查询
-    public List<Product> getProductByProName(String proName);
+    public List<Product> getProductByProName(String proName,int pageNo,int pageSize);
+    //根据商品分类查询所有商品
+    public List<Product> findProductByPcId(int pcId);
 }

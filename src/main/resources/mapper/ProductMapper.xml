@@ -24,6 +24,7 @@
                 and proName like CONCAT("%",#{proName},"%")
             </if>
         </trim>
+        LIMIT ${currentPage},${pageSize}
     </select>
     <select id="getCount" resultType="java.lang.Integer">
         select count(1) from product
@@ -42,5 +43,11 @@
          AND proId=${proId}
     </select>
 
+    <select id="getProductByPcId" resultMap="productMap">
+        SELECT * FROM product WHERE pcId
+          IN(
+            SELECT pcId FROM productCategory WHERE parentId = ${pcId} OR pcId = ${pcId}
+          )
+    </select>
 
 </mapper>

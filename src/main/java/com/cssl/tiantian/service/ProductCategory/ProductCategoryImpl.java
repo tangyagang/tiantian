@@ -14,7 +14,7 @@ public class ProductCategoryImpl implements ProductCategoryService {
     private ProductCategoryMapper productCategoryMapper;
 
     @Override
-    public List<ProductCategory> findAll() {
-        return productCategoryMapper.getAll();
+    public List<ProductCategory> findAll(Integer parentId) {
+        return productCategoryMapper.getAll(parentId);
     }
 }

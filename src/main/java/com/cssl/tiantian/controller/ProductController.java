@@ -1,10 +1,13 @@
 package com.cssl.tiantian.controller;
 
 import com.cssl.tiantian.pojo.Product;
+import com.cssl.tiantian.pojo.ProductCategory;
+import com.cssl.tiantian.service.ProductCategory.ProductCategoryService;
 import com.cssl.tiantian.service.product.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -16,15 +19,24 @@ public class ProductController {
 
     @Autowired
     private ProductService productService;
+    @Autowired
+    private ProductCategoryService productCategoryService;
 
-    @RequestMapping("/pro")
+    //分类查询所有商品
+    @RequestMapping("/doDetail")
+    public String doDetail(@RequestParam(value = "pcId",required = false) int pcId){
+        List<Product> products = productService.findProductByPcId(pcId);
+        List<ProductCategory> productCategories = productCategoryService.findAll(null);
+        return "/detail";
+    }
+   /* @RequestMapping("/pro")
     public void findProductByProId(){
         Product product = productService.findProductByProId(1);
         int count = productService.getCount("手1");
         List<Product> products = productService.getProductByProName("手");
         System.out.println(">,..>>"+count);
         System.out.println(product.getProName()+">>>"+product.getShop().getShopName()+">>>"+product.getShop().getUser().getUserName());
-    }
+    }*/
 
     /**
      * 把当前商品的id，添加到cookie里面

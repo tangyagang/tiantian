@@ -12,10 +12,7 @@ import com.cssl.tiantian.tools.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
@@ -27,6 +24,7 @@ import java.io.*;
 import java.net.URLDecoder;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.sql.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
@@ -43,10 +41,7 @@ public class UserController {
     @Autowired
     private AreasService areasService;
 
-    @RequestMapping("/login")
-    public String toLogin(){
-        return "login";
-    }
+    //验证登录
     @RequestMapping("/doLogin")
     public String login(@RequestParam("userName")String userName,
                         @RequestParam("password")String password,
@@ -67,6 +62,27 @@ public class UserController {
             }
         }
         return "login";
+    }
+    //判断用户是否存在
+    @RequestMapping("/isExistUser")
+    @ResponseBody
+    public String isExistUser(String userName){
+        User user = userService.isExistUserName(userName);
+        if (user != null){
+            return "Y";
+        }
+        return "N";
+    }
+    //注册
+    @RequestMapping(value = "/doRegister")
+    @ResponseBody
+    public int doRequest(@ModelAttribute("user")User user,@RequestParam(value = "strBirthday",required = false)String strBirthday){
+        if(strBirthday != null && strBirthday != ""){
+            Date brithday = Date.valueOf(strBirthday);
+            user.setBirthday(brithday);
+        }
+        int count = userService.registerUser(user);
+        return count;
     }
 
     @RequestMapping("/userInfo")
@@ -167,28 +183,29 @@ public class UserController {
     }
 
     //核对验证码
-    @RequestMapping(value="validImage",method=RequestMethod.GET)
-    public String validImage(HttpServletRequest request,HttpSession session){
-        String code = request.getParameter("code");
-        Object verCode = session.getAttribute("verCode");
+    @RequestMapping(value="/validImage",method=RequestMethod.GET)
+    @ResponseBody
+    public String validImage(HttpServletRequest request,HttpSession session,@RequestParam("veryCode") String code){
+       // String code = request.getParameter("veryCode");
+        Object verCode = session.getAttribute("RANDOMVALIDATECODEKEY");
         if (null == verCode) {
-            request.setAttribute("errmsg", "验证码已失效，请重新输入");
-            return "验证码已失效，请重新输入";
+            request.setAttribute("message", "验证码已失效，请重新输入");
+            return "X";
         }
         String verCodeStr = verCode.toString();
         LocalDateTime localDateTime = (LocalDateTime)session.getAttribute("codeTime");
-        long past = localDateTime.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
-        long now = LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
+       /* long past = localDateTime.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
+        long now = LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();*/
         if(verCodeStr == null || code == null || code.isEmpty() || !verCodeStr.equalsIgnoreCase(code)){
-            request.setAttribute("errmsg", "验证码错误");
-            return "验证码错误";
-        } else if((now-past)/1000/60>5){
-            request.setAttribute("errmsg", "验证码已过期，重新获取");
+            request.setAttribute("message", "验证码错误");
+            return "N";
+        } /*else if((now-past)/1000/60>5){
+            request.setAttribute("message", "验证码已过期，重新获取");
             return "验证码已过期，重新获取";
-        } else {
+        }*/ else {
             //验证成功，删除存储的验证码
-            session.removeAttribute("verCode");
-            return "200";
+            session.removeAttribute("RANDOMVALIDATECODEKEY");
+            return "Y";
         }
     }
 

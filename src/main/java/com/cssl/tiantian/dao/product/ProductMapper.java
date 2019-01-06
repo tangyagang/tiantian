@@ -16,5 +16,7 @@ public interface ProductMapper {
     //获取数量
     public int getCount(@Param("proName") String proName);
     //根据商品名称模糊查询
-    public List<Product> getProductByProName(@Param("proName")String proName);
+    public List<Product> getProductByProName(@Param("proName")String proName,@Param("currentPage")int currentPage,@Param("pageSize")int pageSize);
+    //分类查询所有商品
+    public List<Product> getProductByPcId(@Param("pcId")int pcId);
 }
