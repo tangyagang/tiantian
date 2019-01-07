@@ -18,4 +18,8 @@ public class SkipController {
     public String toDetail(){
         return "detail";
     }
+    @RequestMapping("/detail2")
+    public String toDetail2(){
+        return "detail2";
+    }
 }

@@ -17,4 +17,14 @@
         SELECT * FROM productcategory WHERE parentId = #{pcId} ORDER BY pcId ASC
     </select>
 
+    <select id="getProductCategoryByPcId" resultType="productCategory">
+        select * from productCategory where pcId = ${pcId}
+    </select>
+
+    <select id="getProductCategoryByPcId3" resultMap="productcategoryMap">
+        SELECT * FROM productCategory a WHERE a.parentId
+        IN(
+          SELECT parentId FROM productCategory WHERE pcId = ${pcId}
+        )
+    </select>
 </mapper>

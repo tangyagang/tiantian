@@ -1,11 +1,14 @@
 package com.cssl.tiantian.controller;
 
+import com.cssl.tiantian.pojo.Page;
 import com.cssl.tiantian.pojo.Product;
 import com.cssl.tiantian.pojo.ProductCategory;
 import com.cssl.tiantian.service.ProductCategory.ProductCategoryService;
 import com.cssl.tiantian.service.product.ProductService;
+import com.cssl.tiantian.tools.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -24,9 +27,24 @@ public class ProductController {
 
     //分类查询所有商品
     @RequestMapping("/doDetail")
-    public String doDetail(@RequestParam(value = "pcId",required = false) int pcId){
-        List<Product> products = productService.findProductByPcId(pcId);
-        List<ProductCategory> productCategories = productCategoryService.findAll(null);
+    public String doDetail(@RequestParam(value = "pcId",required = false) int pcId,String pageNo, ModelMap modelMap){
+        List<ProductCategory> list = productCategoryService.findAll(null);
+        ProductCategory productCategory = productCategoryService.findProductCategoryByPcId(pcId);
+        Page page = new Page<>();
+        Integer pn = pageNo != null && pageNo.equals("") ? Integer.parseInt(pageNo) : 1;//当前页码
+        int totalCount = productService.getCountByPcId(pcId);//总数据量
+        List<Product> products = productService.findProductByPcId(pcId,pn, Constants.PAGE_SIZE);//结果集
+        int totalPage = totalCount % Constants.PAGE_SIZE == 0 ? totalCount / Constants.PAGE_SIZE : totalCount / Constants.PAGE_SIZE + 1;//总页数
+        page.setList(products);
+        page.setPageNo(pn);
+        page.setPageSize(Constants.PAGE_SIZE);
+        page.setTotalCount(totalCount);
+        page.setTotalPage(totalPage);
+        int[] numbs = Page.getPageNumbers(pn,totalPage);
+        modelMap.put("productCategorys",list);
+        modelMap.put("productCategory",productCategory);
+        modelMap.put("page",page);
+        modelMap.put("numbs",numbs);
         return "/detail";
     }
    /* @RequestMapping("/pro")

@@ -48,6 +48,31 @@
           IN(
             SELECT pcId FROM productCategory WHERE parentId = ${pcId} OR pcId = ${pcId}
           )
+          LIMIT ${currentPage},${pageSize}
     </select>
-
+    <select id="getCountByPcId" resultType="java.lang.Integer">
+        SELECT count(1) FROM product WHERE pcId
+          IN(
+            SELECT pcId FROM productCategory WHERE parentId = ${pcId} OR pcId = ${pcId}
+          )
+    </select>
+    <select id="getProductByPcId3" resultMap="productMap">
+        SELECT * FROM product WHERE pcId
+          IN (
+            SELECT pcId FROM productCategory a WHERE a.parentId
+              IN(
+                SELECT parentId FROM productCategory WHERE pcId = ${pcId}
+              )
+          )
+          LIMIT ${currentPage},${pageSize}
+    </select>
+    <select id="getCountByPcId3" resultType="java.lang.Integer">
+        SELECT count(1) FROM product WHERE pcId
+          IN (
+            SELECT pcId FROM productCategory a WHERE a.parentId
+              IN(
+                SELECT parentId FROM productCategory WHERE pcId = ${pcId}
+              )
+          )
+    </select>
 </mapper>

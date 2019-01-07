@@ -154,3 +154,28 @@ body {
 #footNav p a:hover {
 	color: #c00;
 }
+/*分页*/
+#fenye{
+	font-size:16px;
+
+}
+.fenye_main{
+
+	width:600px;
+	height:60px;
+	margin:0px 0px 60px 400px;;
+}
+
+.fenye_main span{
+	color:#666;
+	width: 50px;
+	line-height: 30px;
+	display: inline-block;
+	text-align: center;
+}
+.fenye_main span a{
+	color:#666;
+}
+.fenye_main span >a:hover{
+	color:red;
+}

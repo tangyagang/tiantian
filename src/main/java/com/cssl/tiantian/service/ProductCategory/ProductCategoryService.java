@@ -7,5 +7,8 @@ import java.util.List;
 
 public interface ProductCategoryService {
 
+    //根据父类ID查询所有之类（包括自己）
     public List<ProductCategory> findAll(Integer parentId);
+    //根据ID查询所属分类
+    public ProductCategory findProductCategoryByPcId(@Param("pcId")int pcId);
 }

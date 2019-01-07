@@ -35,7 +35,7 @@ public class IndexController {
         Page page = new Page<>();
         Integer pn = pageNo != null && pageNo.equals("") ? Integer.parseInt(pageNo) : 1;//当前页码
         int totalCount = productService.getCount(proName);//总数据量
-        List<Product> products = productService.getProductByProName(proName,pn,Constants.PAGE_SIZE);
+        List<Product> products = productService.getProductByProName(proName,pn,Constants.PAGE_SIZE);//结果集
         int totalPage = totalCount % Constants.PAGE_SIZE == 0 ? totalCount / Constants.PAGE_SIZE : totalCount / Constants.PAGE_SIZE + 1;//总页数
         page.setList(products);
         page.setPageNo(pn);

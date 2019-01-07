@@ -40,26 +40,35 @@
 
 <section class="center_class">
 	<div class="center_main1">
-    	<div class="t_btj"><span>当前分类：内衣</span>
+    	<div class="t_btj"><span>当前分类：${productCategory.pcName}</span>
         </div>
         <div class="t_but">
-        	<ul>
-            	<li><a href="#">男装</a></li>
-                <li><a href="#">女装</a>&nbsp;&nbsp;|&nbsp;&nbsp;</li>
-                <li><a href="#">中老年</a>&nbsp;&nbsp;|&nbsp;&nbsp;</li>
-                <li><a href="#">男装</a>&nbsp;&nbsp;|&nbsp;&nbsp;</li>
-                <li><a href="#">中老年</a>&nbsp;&nbsp;|&nbsp;&nbsp;</li>
-                <li><a href="#">男装</a>&nbsp;&nbsp;|&nbsp;&nbsp;</li>
-                <li><a href="#">男装</a>&nbsp;&nbsp;|&nbsp;&nbsp;</li>
-                <li><a href="#">男装</a>&nbsp;&nbsp;|&nbsp;&nbsp;</li>
-                <li><a href="#">男装</a>&nbsp;&nbsp;|&nbsp;&nbsp;</li>
-                <li><a href="#">男装</a>&nbsp;&nbsp;|&nbsp;&nbsp;</li>
+            <#list productCategorys>
+                <ul>
+                    <#items as productCategory>
+                        <#list productCategory.pcName?split("/") as pcName >
+                            <li><a href="#">${pcName}</a><#if pcName_has_next>&nbsp;&nbsp;|&nbsp;&nbsp;</#if></li>
+                            <#break>
+                        </#list>
+                        <#--<li><a href="#">男装</a></li>
+                        <li><a href="#">中老年</a>&nbsp;&nbsp;|&nbsp;&nbsp;</li>
+                        <li><a href="#">男装</a>&nbsp;&nbsp;|&nbsp;&nbsp;</li>
+                        <li><a href="#">中老年</a>&nbsp;&nbsp;|&nbsp;&nbsp;</li>
+                        <li><a href="#">男装</a>&nbsp;&nbsp;|&nbsp;&nbsp;</li>
+                        <li><a href="#">男装</a>&nbsp;&nbsp;|&nbsp;&nbsp;</li>
+                        <li><a href="#">男装</a>&nbsp;&nbsp;|&nbsp;&nbsp;</li>
+                        <li><a href="#">男装</a>&nbsp;&nbsp;|&nbsp;&nbsp;</li>
+                        <li><a href="#">男装</a>&nbsp;&nbsp;|&nbsp;&nbsp;</li>-->
+                    </#items>
+                </ul>
+            </#list>
+
         </div>
     </div>
     
 	<div class="center_main2">
     	<div class="bgm_center">
-        	全部:1798
+        	全部:${page.totalCount}
         </div>
     </div>
     
@@ -82,102 +91,18 @@
     <div class="center_main4">
     	<div class="class2">
             <div class="test4">
-                <ul >
-                    <li class="but_m2">	
-      
-                        <div class="but_img"><a><img src="img/center1.jpg" style="width:270px; height:250px;" /></a></div>
-                        <div class="name"><a><h2>精品毛衣</h2><span>品牌时尚，特价选购,天天优选！</span></a></div>
-                        <div class="price"><strong>￥<span>699</span></strong></div>
-                    </li>
-                        
-                    <li class="but_m2">
-                    
-                        <div class="but_img"><a><img src="img/center2.jpg"  style="width:270px; height:250px;"/></a></div>
-                        <div class="name"><a><h2>精品毛衣</h2><span>品牌时尚，特价选购,天天优选！</span></a></div>
-                        <div class="price"><strong>￥<span>699</span></strong></div>
-                        
-                        </li>
-                        
-                    <li class="but_m2">
-                    
-                        <div class="but_img"><a><img src="img/center3.jpg" style="width:270px; height:250px;"/></a></div>
-                        <div class="name"><a><h2>精品毛衣</h2><span>品牌时尚，特价选购,天天优选！</span></a></div>
-                        
-                        <div class="price"><strong>￥<span>699</span></strong></div>
-                        
-                        </li>
-                        
-                    <li class="but_m2">
-                    
-                        <div class="but_img"><a><img src="img/center4.jpg" style="width:270px; height:250px;"/></a></div>
-                        <div class="name"><a><h2>精品毛衣</h2><span>品牌时尚，特价选购,天天优选！</span></a></div>
-                        <div class="price"><strong>￥</strong><span style="font-size:16px;">699</span></div>
-                        
-                        </li>
-                        <li class="but_m2">
-                    
-                        <div class="but_img"><a><img src="img/center4.jpg" style="width:270px; height:250px;"/></a></div>
-                        <div class="name"><a><h2>精品毛衣</h2><span>品牌时尚，特价选购,天天优选！</span></a></div>
-                        <div class="price"><strong>￥</strong><span style="font-size:16px;">699</span></div>
-                        
-                        </li>
-                        <li class="but_m2">	
-      
-                        <div class="but_img"><a><img src="img/center1.jpg" style="width:270px; height:250px;" /></a></div>
-                        <div class="name"><a><h2>精品毛衣</h2><span>品牌时尚，特价选购,天天优选！</span></a></div>
-                        <div class="price"><strong>￥<span>699</span></strong></div>
-                    </li>
-                        
-                    <li class="but_m2">
-                    
-                        <div class="but_img"><a><img src="img/center2.jpg"  style="width:270px; height:250px;"/></a></div>
-                        <div class="name"><a><h2>精品毛衣</h2><span>品牌时尚，特价选购,天天优选！</span></a></div>
-                        <div class="price"><strong>￥<span>699</span></strong></div>
-                        
-                        </li>
-                        
-                    <li class="but_m2">
-                    
-                        <div class="but_img"><a><img src="img/center3.jpg" style="width:270px; height:250px;"/></a></div>
-                        <div class="name"><a><h2>精品毛衣</h2><span>品牌时尚，特价选购,天天优选！</span></a></div>
-                        
-                        <div class="price"><strong>￥<span>699</span></strong></div>
-                        
-                        </li>
-                        <li class="but_m2">	
-      
-                        <div class="but_img"><a><img src="img/center1.jpg" style="width:270px; height:250px;" /></a></div>
-                        <div class="name"><a><h2>精品毛衣</h2><span>品牌时尚，特价选购,天天优选！</span></a></div>
-                        <div class="price"><strong>￥<span>699</span></strong></div>
-                    </li>
-                        
-                    <li class="but_m2">
-                    
-                        <div class="but_img"><a><img src="img/center2.jpg"  style="width:270px; height:250px;"/></a></div>
-                        <div class="name"><a><h2>精品毛衣</h2><span>品牌时尚，特价选购,天天优选！</span></a></div>
-                        <div class="price"><strong>￥<span>699</span></strong></div>
-                        
-                        </li>
-                        
-                    <li class="but_m2">
-                    
-                        <div class="but_img"><a><img src="img/center3.jpg" style="width:270px; height:250px;"/></a></div>
-                        <div class="name"><a><h2>精品毛衣</h2><span>品牌时尚，特价选购,天天优选！</span></a></div>
-                        
-                        <div class="price"><strong>￥<span>699</span></strong></div>
-                        
-                        </li>
-                         <li class="but_m2">
-                    
-                        <div class="but_img"><a><img src="img/center3.jpg" style="width:270px; height:250px;"/></a></div>
-                        <div class="name"><a><h2>精品毛衣</h2><span>品牌时尚，特价选购,天天优选！</span></a></div>
-                        
-                        <div class="price"><strong>￥<span>699</span></strong></div>
-                        
-                        </li>
+                 <#list page.list>
+                    <ul >
+                        <#items as product>
+                            <li class="but_m2">
+                                <div class="but_img"><a><img src="img/center1.jpg" style="width:270px; height:250px;" /></a></div>
+                                <div class="name"><a><h2>${product.proName}</h2><span>${product.description}</span></a></div>
+                                <div class="price"><strong>￥<span>${product.proPrice}</span></strong></div>
+                            </li>
+                        </#items>
                         <li style="clear:both"></li>
-                        
-                </ul>
+                    </ul>
+                 </#list>
             </div>
        
         </div>
@@ -186,6 +111,36 @@
     
     </div>
 
+    <!--分页 -->
+    <div id="fenye">
+        <div class="fenye_main">
+            <#if page.pageNo == 1>
+                <span class="fenye_changIn">首页</span>
+            <#else >
+                <span class="fenye_changIn"><a href="#">首页</a></span>
+            </#if>
+            <#if page.pageNo == 1>
+                <span class="fenye_changIn">上页</span>
+            <#else >
+                <span class="fenye_changIn"><a href="#">上页</a></span>
+            </#if>
+            <#list numbs>
+                <#items as numb>
+                     <span class="fenye_test"><a href="#">${numb}</a></span>
+                </#items>
+            </#list>
+            <#if page.pageNo == page.totalPage>
+                <span class="fenye_changIn">下页</span>
+            <#else >
+                <span class="fenye_changIn"><a href="#">下页</a></span>
+            </#if>
+             <#if page.pageNo == page.totalPage>
+                <span class="fenye_changOut">末页</span>
+             <#else >
+                <span class="fenye_changOut"><a href="#">末页</a></span>
+             </#if>
+        </div>
+    </div>
 
 </section>
 <!--网页底部-->

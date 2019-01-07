@@ -1,6 +1,7 @@
 package com.cssl.tiantian.service.product;
 
 import com.cssl.tiantian.pojo.Product;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -14,5 +15,11 @@ public interface ProductService {
     //根据商品名称模糊查询
     public List<Product> getProductByProName(String proName,int pageNo,int pageSize);
     //根据商品分类查询所有商品
-    public List<Product> findProductByPcId(int pcId);
+    public List<Product> findProductByPcId(int pcId,int pageNo,int pageSize);
+    //分类查询所有商品数量
+    public int getCountByPcId(int pcId);
+    //分类查询所有商品(三级分类)
+    public List<Product> findProductByPcId3(int pcId,int pageNo,int pageSize);
+    //分类查询所有商品数量(三级分类)
+    public int findCountByPcId3(int pcId);
 }

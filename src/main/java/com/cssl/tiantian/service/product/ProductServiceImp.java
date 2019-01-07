@@ -34,7 +34,24 @@ public class ProductServiceImp implements ProductService {
     }
 
     @Override
-    public List<Product> findProductByPcId(int pcId) {
-        return productMapper.getProductByPcId(pcId);
+    public List<Product> findProductByPcId(int pcId,int pageNo,int pageSize) {
+        return productMapper.getProductByPcId(pcId,(pageNo-1)*pageSize,pageSize);
     }
+
+    @Override
+    public int getCountByPcId(int pcId) {
+        return productMapper.getCountByPcId(pcId);
+    }
+
+    @Override
+    public List<Product> findProductByPcId3(int pcId, int pageNo, int pageSize) {
+        return productMapper.getProductByPcId3(pcId,(pageNo-1)*pageSize,pageSize);
+    }
+
+    @Override
+    public int findCountByPcId3(int pcId) {
+        return productMapper.getCountByPcId3(pcId);
+    }
+
+
 }
