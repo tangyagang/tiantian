@@ -85,7 +85,7 @@
                     <ul >
                         <#items as product>
                             <li class="but_m2">
-                                <div class="but_img"><a><img src="img/center1.jpg" style="width:270px; height:250px;" /></a></div>
+                                <div class="but_img"><a><img src="E://upload/1.jpg" style="width:270px; height:250px;" /></a></div>
                                 <div class="name"><a><h2>${product.proName}</h2><span>${product.description}</span></a></div>
                                 <div class="price"><strong>￥<span>${product.proPrice}</span></strong></div>
                             </li>
