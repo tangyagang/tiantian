@@ -11,4 +11,6 @@ public interface ProductCategoryService {
     public List<ProductCategory> findAll(Integer parentId);
     //根据ID查询所属分类
     public ProductCategory findProductCategoryByPcId(@Param("pcId")int pcId);
+    //根据ID查询所属分类(三级分类)
+    public List<ProductCategory> findProductCategoryByPcId3(int pcId);
 }

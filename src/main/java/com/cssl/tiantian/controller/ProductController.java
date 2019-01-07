@@ -25,14 +25,14 @@ public class ProductController {
     @Autowired
     private ProductCategoryService productCategoryService;
 
-    //分类查询所有商品
+    //分类查询所有商品(一、二级分类)
     @RequestMapping("/doDetail")
     public String doDetail(@RequestParam(value = "pcId",required = false) int pcId,String pageNo, ModelMap modelMap){
         List<ProductCategory> list = productCategoryService.findAll(null);
         ProductCategory productCategory = productCategoryService.findProductCategoryByPcId(pcId);
         Page page = new Page<>();
         Integer pn = pageNo != null && pageNo.equals("") ? Integer.parseInt(pageNo) : 1;//当前页码
-        int totalCount = productService.getCountByPcId(pcId);//总数据量
+        int totalCount = productService.findCountByPcId(pcId);//总数据量
         List<Product> products = productService.findProductByPcId(pcId,pn, Constants.PAGE_SIZE);//结果集
         int totalPage = totalCount % Constants.PAGE_SIZE == 0 ? totalCount / Constants.PAGE_SIZE : totalCount / Constants.PAGE_SIZE + 1;//总页数
         page.setList(products);
@@ -46,6 +46,29 @@ public class ProductController {
         modelMap.put("page",page);
         modelMap.put("numbs",numbs);
         return "/detail";
+    }
+
+    //分类查询所有商品(三级分类)
+    @RequestMapping("/doDetail2")
+    public String doDetail2(@RequestParam(value = "pcId",required = false) int pcId,String pageNo, ModelMap modelMap){
+        List<ProductCategory> list = productCategoryService.findProductCategoryByPcId3(pcId);//所有同级分类
+        ProductCategory productCategory = productCategoryService.findProductCategoryByPcId(pcId);//查询所属分类
+        Page page = new Page<>();
+        Integer pn = pageNo != null && pageNo.equals("") ? Integer.parseInt(pageNo) : 1;//当前页码
+        int totalCount = productService.findCountByPcId3(pcId);//总数据量
+        List<Product> products = productService.findProductByPcId3(pcId,pn, Constants.PAGE_SIZE);//结果集
+        int totalPage = totalCount % Constants.PAGE_SIZE == 0 ? totalCount / Constants.PAGE_SIZE : totalCount / Constants.PAGE_SIZE + 1;//总页数
+        page.setList(products);
+        page.setPageNo(pn);
+        page.setPageSize(Constants.PAGE_SIZE);
+        page.setTotalCount(totalCount);
+        page.setTotalPage(totalPage);
+        int[] numbs = Page.getPageNumbers(pn,totalPage);
+        modelMap.put("productCategorys",list);
+        modelMap.put("productCategory",productCategory);
+        modelMap.put("page",page);
+        modelMap.put("numbs",numbs);
+        return "/detail2";
     }
    /* @RequestMapping("/pro")
     public void findProductByProId(){

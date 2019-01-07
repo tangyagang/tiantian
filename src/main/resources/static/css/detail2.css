@@ -345,9 +345,34 @@ ul{
 
 }
 
+/*分页*/
+#fenye{
+	font-size:16px;
+
+}
+.fenye_main{
+
+	width:600px;
+	line-height:60px;
+	margin:0px auto;
+}
+.fenye_main span{
+	display: inline-block;
+	width:50px;
+	line-height:30px;
+	text-align: center;
+}
+.fenye_main span >a{
+	color:#666;
+}
+.fenye_main span >a:hover{
+	color:red;
+}
 
 
-	
+
+
+
 /*尾部  footer*/
 .center{ width:1200px;height:600px;margin:5px auto 0;padding:5px 0 10px;line-height:22px}
 .about{font-family:"microsoft yahei";border-top:3px solid #ec1611;overflow: hidden;background:#fff;height:350px}
@@ -401,45 +426,44 @@ ul{
 .foot_center .commitment .commitment_img{background:url(//status.tuanimg.com/statics/zhe/subject/img/logo.jpg) no-repeat;width:30px;height:28px;background-size:30px 28px;display:block;float:left}
 
 
-	.about .area{width:1200px}
-	.about li{width:140px;padding-left:60px}
-	.about li.w2{width:162px}
-	.about li.w3{width:180px}
-	.about li.w1{width:140px}
-	.area.footer{width:1200px;letter-spacing:1px}
-	.area.footer .logo_img1{margin-left:500px}
-	.area.footer .logo_img2{margin-left:57px}
-	#right_min_window{display:none}
-	.loading{width:1200px}
+.about .area{width:1200px}
+.about li{width:140px;padding-left:60px}
+.about li.w2{width:162px}
+.about li.w3{width:180px}
+.about li.w1{width:140px}
+.area.footer{width:1200px;letter-spacing:1px}
+.area.footer .logo_img1{margin-left:500px}
+.area.footer .logo_img2{margin-left:57px}
+#right_min_window{display:none}
+.loading{width:1200px}
 
 
 
- .about li span.show_icon{background: url('//status.tuanimg.com/statics/zhe/common/img/foot_icon.png') no-repeat;}
-  
-.about .area li{
-	border-bottom:solid 2px #F00;}
+/*.about li span.show_icon{background: url('//status.tuanimg.com/statics/zhe/common/img/foot_icon.png') no-repeat;}*/
+
+
 .btmbg {
-    width: 100%;
-    min-width: 1200px;
-    overflow: hidden;
-    padding: 30px 0 40px 0;
-    border-top: 1px solid #eaeaea;
+	width: 100%;
+	min-width: 1200px;
+	overflow: hidden;
+	padding: 30px 0 40px 0;
+	border-top: 1px solid #eaeaea;
 }
 
 .btm {
-    width: 1200px;
-    overflow: hidden;
-    color: #999999;
-    text-align: center;
+	width: 1200px;
+	overflow: hidden;
+	color: #999999;
+	text-align: center;
 }
 .about li span.show_icon img {
-    width: 75px;
-    height:75px;
-    display: inline-block;
-    margin: auto;
- 
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
+	width: 75px;
+	height:75px;
+	display: inline-block;
+	margin: auto;
+
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
 }
 

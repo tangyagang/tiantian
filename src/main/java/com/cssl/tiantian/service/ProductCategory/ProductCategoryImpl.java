@@ -22,4 +22,9 @@ public class ProductCategoryImpl implements ProductCategoryService {
     public ProductCategory findProductCategoryByPcId(int pcId) {
         return productCategoryMapper.getProductCategoryByPcId(pcId);
     }
+
+    @Override
+    public List<ProductCategory> findProductCategoryByPcId3(int pcId) {
+        return productCategoryMapper.getProductCategoryByPcId3(pcId);
+    }
 }

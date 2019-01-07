@@ -24,12 +24,12 @@ public class ProductServiceImp implements ProductService {
     }
 
     @Override
-    public int getCount(String proName) {
+    public int findCount(String proName) {
         return productMapper.getCount(proName);
     }
 
     @Override
-    public List<Product> getProductByProName(String proName,int pageNo,int pageSize) {
+    public List<Product> findProductByProName(String proName,int pageNo,int pageSize) {
         return productMapper.getProductByProName(proName,(pageNo-1)*pageSize,pageSize);
     }
 
@@ -39,7 +39,7 @@ public class ProductServiceImp implements ProductService {
     }
 
     @Override
-    public int getCountByPcId(int pcId) {
+    public int findCountByPcId(int pcId) {
         return productMapper.getCountByPcId(pcId);
     }
 

@@ -50,19 +50,9 @@
                             <li><a href="#">${pcName}</a><#if pcName_has_next>&nbsp;&nbsp;|&nbsp;&nbsp;</#if></li>
                             <#break>
                         </#list>
-                        <#--<li><a href="#">男装</a></li>
-                        <li><a href="#">中老年</a>&nbsp;&nbsp;|&nbsp;&nbsp;</li>
-                        <li><a href="#">男装</a>&nbsp;&nbsp;|&nbsp;&nbsp;</li>
-                        <li><a href="#">中老年</a>&nbsp;&nbsp;|&nbsp;&nbsp;</li>
-                        <li><a href="#">男装</a>&nbsp;&nbsp;|&nbsp;&nbsp;</li>
-                        <li><a href="#">男装</a>&nbsp;&nbsp;|&nbsp;&nbsp;</li>
-                        <li><a href="#">男装</a>&nbsp;&nbsp;|&nbsp;&nbsp;</li>
-                        <li><a href="#">男装</a>&nbsp;&nbsp;|&nbsp;&nbsp;</li>
-                        <li><a href="#">男装</a>&nbsp;&nbsp;|&nbsp;&nbsp;</li>-->
                     </#items>
                 </ul>
             </#list>
-
         </div>
     </div>
     
