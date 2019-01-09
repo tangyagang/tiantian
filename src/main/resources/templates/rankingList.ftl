@@ -2,12 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>detail</title>
-<link href="css/detail.css" type="text/css" rel="stylesheet"/>
+<title>排行榜</title>
+<link href="css/ranking_list.css" type="text/css" rel="stylesheet" />
 </head>
 
 <body>
-
 <!--网页头部-->
 <header  class="main">
 	<div class="main1">
@@ -32,56 +31,22 @@
               </div>
             </div>
             <div class="head_nav_main">
-              <div class="head_nav_main1"> <a href="#" class="head_index_on" style="color:#FFF"> 首页 </a> <a href="#"> 天天精选 </a> <a href="#"> 9块9包邮 </a> <a href="#"> 排行榜 </a> <a href="#"> 品牌团 </a> <a href="#">积分商城</a> <span class="n"></span> </div>
+              <div class="head_nav_main1"> 
+              	<a href="#" class="head_index_on" > 首页 </a>
+                <a href="#" class="head_index_one"> 天天精选 </a> 
+                <a href="#" class="head_index_two"> 9块9包邮 </a> 
+                <a href="#" class="head_index_stree"> 排行榜 </a> 
+                <a href="#"> 品牌团 </a> <a href="#" class="head_index_for">积分商城</a> 
+             </div>
     </div>
 </header>
-
 <!--中间部分-->
-
 <section class="center_class">
-	<div class="center_main1">
-    	<div class="t_btj"><span>当前分类：${productCategory.pcName}</span>
-        </div>
-        <div class="t_but">
-            <#list productCategorys>
-                <ul>
-                    <#items as productCategory>
-                        <#list productCategory.pcName?split("/") as pcName >
-                            <li><a href="#">${pcName}</a><#if pcName_has_next>&nbsp;&nbsp;|&nbsp;&nbsp;</#if></li>
-                            <#break>
-                        </#list>
-                    </#items>
-                </ul>
-            </#list>
-        </div>
-    </div>
-    
-	<div class="center_main2">
-    	<div class="bgm_center">
-        	全部:${page.totalCount}
-        </div>
-    </div>
-    
-    <div class="center_main3">
-    	<ul>
-        	<li class="h1"><a href="#">综合</a></li>
-            <li class="h2"><a href="#">销量</a></li>
-            <li class="h2"><a href="#">最新</a></li>
-            <li class="h3">
-            <a href="#">价格 : </a>
-            	<select>
-                	<option >请选择</option>
-                	<option>从高到低</option>
-                    <option>从低到高</option>
-                </select>
-            </li>
-        </ul>
-    </div>
-    
+	<div class="pictrue"><img src="img/top_banner_85986.jpg" /></div>
     <div class="center_main4">
     	<div class="class2">
             <div class="test4">
-                 <#list page.list>
+                <#list pageInfo.list>
                     <ul >
                         <#items as product>
                             <li class="but_m2">
@@ -92,9 +57,8 @@
                         </#items>
                         <li style="clear:both"></li>
                     </ul>
-                 </#list>
+                </#list>
             </div>
-       
         </div>
     
 
@@ -104,12 +68,12 @@
     <!--分页 -->
     <div id="fenye">
         <div class="fenye_main">
-            <#if page.pageNo == 1>
+            <#if pageInfo.pageNum == 1>
                 <span class="fenye_changIn">首页</span>
             <#else >
                 <span class="fenye_changIn"><a href="#">首页</a></span>
             </#if>
-            <#if page.pageNo == 1>
+            <#if pageInfo.pageNum == 1>
                 <span class="fenye_changIn">上页</span>
             <#else >
                 <span class="fenye_changIn"><a href="#">上页</a></span>
@@ -119,12 +83,12 @@
                      <span class="fenye_test"><a href="#">${numb}</a></span>
                 </#items>
             </#list>
-            <#if page.pageNo == page.totalPage>
+            <#if pageInfo.pageNum == pageInfo.pages>
                 <span class="fenye_changIn">下页</span>
             <#else >
                 <span class="fenye_changIn"><a href="#">下页</a></span>
             </#if>
-             <#if page.pageNo == page.totalPage>
+             <#if pageInfo.pageNum == pageInfo.pages>
                 <span class="fenye_changOut">末页</span>
              <#else >
                 <span class="fenye_changOut"><a href="#">末页</a></span>
@@ -132,7 +96,12 @@
         </div>
     </div>
 
+
 </section>
+
+
+
+
 <!--网页底部-->
 <footer class="center">
   <div class="about" style="height:400px;">

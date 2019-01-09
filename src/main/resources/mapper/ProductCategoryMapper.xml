@@ -18,13 +18,13 @@
     </select>
 
     <select id="getProductCategoryByPcId" resultType="productCategory">
-        select * from productCategory where pcId = ${pcId}
+        select * from productcategory where pcId = ${pcId}
     </select>
 
     <select id="getProductCategoryByPcId3" resultMap="productcategoryMap">
-        SELECT * FROM productCategory a WHERE a.parentId
+        SELECT * FROM productcategory a WHERE a.parentId
         IN(
-          SELECT parentId FROM productCategory WHERE pcId = ${pcId}
+          SELECT parentId FROM productcategory WHERE pcId = ${pcId}
         )
     </select>
 </mapper>

@@ -22,4 +22,20 @@ public class SkipController {
     public String toDetail2(){
         return "detail2";
     }
+    @RequestMapping("/addressModify")
+    public String toAddressModify(){
+        return "userManager/addressModify";
+    }
+    @RequestMapping("/dailySelection")
+    public String toDailySelection(){
+        return "dailySelection";
+    }
+    @RequestMapping("tejia")
+    public String toTeJia(){
+        return "tejia";
+    }
+    @RequestMapping("/rankingList")
+    public String toRankingList(){
+        return "rankingList";
+    }
 }

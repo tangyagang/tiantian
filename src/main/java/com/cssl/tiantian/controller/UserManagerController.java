@@ -10,6 +10,7 @@ import com.cssl.tiantian.service.areas.AreasService;
 import com.cssl.tiantian.service.product.ProductService;
 import com.cssl.tiantian.service.provinces.ProvincesService;
 import com.cssl.tiantian.service.user.UserService;
+import com.cssl.tiantian.tools.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -29,7 +30,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
-@Controller("/userManager")
+@Controller
+//@RequestMapping(value = "/userManager")
 public class UserManagerController {
 
     @Autowired
@@ -51,7 +53,7 @@ public class UserManagerController {
         modelMap.put("addressList",addressList);
         //modelMap.put("provinces",provinces);
         modelMap.put("areas",areas);
-        return "userManager/userInfo";
+        return "/userManager/userInfo";
     }
     @RequestMapping("/userModify")
     public String userIndex(@ModelAttribute("user")User user,
@@ -63,7 +65,7 @@ public class UserManagerController {
         if (!upload.exists())
             upload.mkdirs();
         String path = upload + "\\";*/
-        String path = "E:/upload/";
+        String path = Constants.UPLOAD;
         path = URLDecoder.decode(path, "utf-8");
         //创建CommonsMultipartResolver
         CommonsMultipartResolver resolver = new CommonsMultipartResolver(request.getServletContext());
@@ -116,6 +118,6 @@ public class UserManagerController {
                 }
             }
         }
-        return "个人中心首页";
+        return "userManager/userIndex";
     }
 }

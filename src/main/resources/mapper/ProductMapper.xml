@@ -9,9 +9,13 @@
             <id column="sId" property="shopId"/>
             <association property="user" javaType="user"  resultMap="findUserByUserIdMap"></association>
         </association>
+        <collection property="orderDetails" ofType="orderDetail" resultMap="findOrderDetailMap"/>
     </resultMap>
     <resultMap id="findUserByUserIdMap" type="user">
         <id column="uId" property="userId"/>
+    </resultMap>
+    <resultMap id="findOrderDetailMap" type="orderDetail">
+        <id column="odId" property="odId"/>
     </resultMap>
 
     <select id="getAll" resultMap="productMap">
@@ -46,22 +50,22 @@
     <select id="getProductByPcId" resultMap="productMap">
         SELECT * FROM product WHERE pcId
           IN(
-            SELECT pcId FROM productCategory WHERE parentId = ${pcId} OR pcId = ${pcId}
+            SELECT pcId FROM productcategory WHERE parentId = ${pcId} OR pcId = ${pcId}
           )
           LIMIT ${currentPage},${pageSize}
     </select>
     <select id="getCountByPcId" resultType="java.lang.Integer">
         SELECT count(1) FROM product WHERE pcId
           IN(
-            SELECT pcId FROM productCategory WHERE parentId = ${pcId} OR pcId = ${pcId}
+            SELECT pcId FROM productcategory WHERE parentId = ${pcId} OR pcId = ${pcId}
           )
     </select>
     <select id="getProductByPcId3" resultMap="productMap">
         SELECT * FROM product WHERE pcId
           IN (
-            SELECT pcId FROM productCategory a WHERE a.parentId
+            SELECT pcId FROM productcategory a WHERE a.parentId
               IN(
-                SELECT parentId FROM productCategory WHERE pcId = ${pcId}
+                SELECT parentId FROM productcategory WHERE pcId = ${pcId}
               )
           )
           LIMIT ${currentPage},${pageSize}
@@ -71,8 +75,18 @@
           IN (
             SELECT pcId FROM productCategory a WHERE a.parentId
               IN(
-                SELECT parentId FROM productCategory WHERE pcId = ${pcId}
+                SELECT parentId FROM productcategory WHERE pcId = ${pcId}
               )
           )
+    </select>
+    <select id="getAllByOrder" resultMap="productMap">
+        SELECT * FROM product ORDER BY proPrice DESC
+          LIMIT ${currentPage},${pageSize}
+    </select>
+    <select id="getAllByPrice" resultMap="productMap">
+        SELECT * FROM product WHERE proPrice=9.9
+    </select>
+    <select id="getAllByOrderCount" resultMap="productMap">
+        SELECT a.*,a.proId pId,b.* FROM product a,orderdetail b WHERE a.proId = b.proId
     </select>
 </mapper>

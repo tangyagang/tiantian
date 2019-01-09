@@ -2,12 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>detail</title>
-<link href="css/detail.css" type="text/css" rel="stylesheet"/>
+<title>天天精选</title>
+<link href="css/changs.css" type="text/css" rel="stylesheet"/>
 </head>
 
 <body>
-
 <!--网页头部-->
 <header  class="main">
 	<div class="main1">
@@ -32,50 +31,30 @@
               </div>
             </div>
             <div class="head_nav_main">
-              <div class="head_nav_main1"> <a href="#" class="head_index_on" style="color:#FFF"> 首页 </a> <a href="#"> 天天精选 </a> <a href="#"> 9块9包邮 </a> <a href="#"> 排行榜 </a> <a href="#"> 品牌团 </a> <a href="#">积分商城</a> <span class="n"></span> </div>
+            <div class="head_nav_main1"> 
+              	<a href="#" class="head_index_on" > 首页 </a>
+                <a href="#" class="head_index_one"> 天天精选 </a> 
+                <a href="#" class="head_index_two"> 9块9包邮 </a> 
+                <a href="#" class="head_index_stree"> 排行榜 </a> 
+                <a href="#"> 品牌团 </a> <a href="#" class="head_index_for">积分商城</a> 
+             </div>
     </div>
 </header>
 
-<!--中间部分-->
 
+
+<!--主体部分-->
 <section class="center_class">
 	<div class="center_main1">
-    	<div class="t_btj"><span>当前分类：${productCategory.pcName}</span>
-        </div>
-        <div class="t_but">
-            <#list productCategorys>
-                <ul>
-                    <#items as productCategory>
-                        <#list productCategory.pcName?split("/") as pcName >
-                            <li><a href="#">${pcName}</a><#if pcName_has_next>&nbsp;&nbsp;|&nbsp;&nbsp;</#if></li>
-                            <#break>
-                        </#list>
-                    </#items>
-                </ul>
-            </#list>
-        </div>
-    </div>
-    
-	<div class="center_main2">
-    	<div class="bgm_center">
-        	全部:${page.totalCount}
-        </div>
-    </div>
-    
-    <div class="center_main3">
-    	<ul>
-        	<li class="h1"><a href="#">综合</a></li>
-            <li class="h2"><a href="#">销量</a></li>
-            <li class="h2"><a href="#">最新</a></li>
-            <li class="h3">
-            <a href="#">价格 : </a>
-            	<select>
-                	<option >请选择</option>
-                	<option>从高到低</option>
-                    <option>从低到高</option>
-                </select>
-            </li>
-        </ul>
+    	<a href="#" class="nav_main" style="color:red">全部</a>
+         <#list productCategorys>
+            <#items as productCategory>
+                <#list productCategory.pcName?split("/") as pcName >
+                   <a href="#" class="nav">${pcName}</a></li>
+                    <#break>
+                </#list>
+            </#items>
+         </#list>
     </div>
     
     <div class="center_main4">
@@ -131,6 +110,7 @@
              </#if>
         </div>
     </div>
+
 
 </section>
 <!--网页底部-->
