@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cssl.tiantian.dao.order.OrderMapper">
+
+    <resultMap id="orderMap" type="order">
+        <id property="orderId" column="orderId"/>
+        <association property="recAddress"  column="recAddressId" select="findRecAddress"/>
+        <collection property="orderDetails" ofType="orderDetail" column="orderId" select="findOrderDetail"/>
+        <collection property="proScores" ofType="proScore" column="orderId" select="findProScore"/>
+
+    </resultMap>
+
+    <select id="getAllByUserId" resultMap="orderMap">
+        SELECT * FROM `order` WHERE userid = ${userId}
+    </select>
+
+    <select id="findOrderDetail" resultType="OrderDetail">
+        select * from orderdetail where orderid = #{orderId}
+    </select>
+    <select id="findProScore" resultType="proScore">
+       select * from proScore where orderid = #{orderId}
+    </select>
+    <select id="findRecAddress" parameterType="int" resultType="recAddress">
+        select * from recaddress where recaddressId = #{recAddressId}
+    </select>
+
+</mapper>
