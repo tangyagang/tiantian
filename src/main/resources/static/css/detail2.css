@@ -347,31 +347,38 @@ ul{
 
 /*分页*/
 #fenye{
-	font-size:16px;
+
+	font-size:14px;
+	clear:both;
 
 }
 .fenye_main{
+	margin:auto;
+	width:550px;
+	height:60px;
 
-	width:600px;
-	line-height:60px;
-	margin:0px auto;
 }
 .fenye_main span{
-	display: inline-block;
-	width:50px;
+	background-color: #FFF;
+	margin-left:10px;
+	border:1px solid #CCC;
+	width:40px;
+	display:inline-block;
+	height:30px;
+	text-align:center;
+	margin-top:15px;
 	line-height:30px;
-	text-align: center;
+
+
+
 }
 .fenye_main span >a{
 	color:#666;
+
 }
 .fenye_main span >a:hover{
 	color:red;
 }
-
-
-
-
 
 /*尾部  footer*/
 .center{ width:1200px;height:600px;margin:5px auto 0;padding:5px 0 10px;line-height:22px}
