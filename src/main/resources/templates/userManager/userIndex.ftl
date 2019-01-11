@@ -378,8 +378,8 @@ a{
 								<div style="width: 680px;padding: 10px;float: left;background-color: #fff;height: 250px;">
 								<div style="float: left;width:200px ;height: 152px;border: 1px #ccc solid;box-shadow: 1px 1px 1px #F5F5F5;padding: 5px;">
 									<div style="width: 100%;height: 100%;border: 1px #F2873B dashed;">
-										<span style="font-size: 18px;color: #686868;font-weight: bold;display: block;    display: block; width: 100px; margin-left: 50px;    margin-top:20px;">2016年4月</span>
-										<span style="font-size: 36px;color: #F88600;display: block;    display: block; width: 100px; margin-left: 50px;margin-top: 28;">12</span>
+										<span style="font-size: 18px;color: #686868;font-weight: bold;display: block;    display: block; width: 100px; margin-left: 50px;    margin-top:20px;">${.now?string("yyyyMM")}</span>
+										<span style="font-size: 36px;color: #F88600;display: block;    display: block; width: 100px; margin-left: 50px;margin-top: 28;">${.now?string("dd")}</span>
 									     <input  type="button" value="签到领买豆" style="background-color: #f56a48;border-radius: 5px;color: #fff; font-size:14px;border: 0px;width: 107px;height: 26px;margin-top: 30px;" />
 									</div>
 								</div>
