@@ -38,6 +38,8 @@ head{
     line-height:35px;
     padding-right:5px;
 }
+.test2 a:hover{
+    color:red;}
 .A1{float:left;  overflow: hidden;}
 .A2{
     float:left;  overflow: hidden;}
@@ -656,30 +658,41 @@ ul.menu_r li a:hover, ul.menu_r .active a {
 
 
 /*分页*/
+
+/*分页*/
 #fenye{
-    font-size:16px;
+
+    font-size:14px;
+    clear:both;
 
 }
 .fenye_main{
-
-    width:600px;
+    margin:auto;
+    width:550px;
     height:60px;
-    margin:0px 0px 60px 400px;;
-}
 
-.fenye_main span{
-    color:#666;
-    width: 50px;
-    line-height: 30px;
-    display: inline-block;
-    text-align: center;
 }
-.fenye_main span a{
+.fenye_main span{
+    margin-left:10px;
+    border:1px solid #CCC;
+    width:40px;
+    display:inline-block;
+    height:30px;
+    text-align:center;
+    margin-top:15px;
+    line-height:30px;
+
+
+
+}
+.fenye_main span >a{
     color:#666;
+
 }
 .fenye_main span >a:hover{
     color:red;
 }
+
 
 
 
@@ -767,10 +780,9 @@ ul.menu_r li a:hover, ul.menu_r .active a {
 
 
 
-.about li span.show_icon{background: url('//status.tuanimg.com/statics/zhe/common/img/foot_icon.png') no-repeat;}
+/*.about li span.show_icon{background: url('//status.tuanimg.com/statics/zhe/common/img/foot_icon.png') no-repeat;}*/
 
-.about .area li{
-    border-bottom:solid 2px #F00;}
+
 .btmbg {
     width: 100%;
     min-width: 1200px;
@@ -795,8 +807,6 @@ ul.menu_r li a:hover, ul.menu_r .active a {
     -moz-border-radius: 5px;
     border-radius: 5px;
 }
- 
-
 
 
 

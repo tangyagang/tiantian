@@ -223,38 +223,39 @@ ul{
 
 }
 /*分页*/
-#fenye{	
-	font-size:16px;
-	
+#fenye{
+
+	font-size:14px;
+	clear:both;
+
 }
 .fenye_main{
-	
-	width:600px;
+	margin:auto;
+	width:550px;
 	height:60px;
-	margin:0px 0px 60px 300px;;
+
 }
 .fenye_main span{
-
-	width:80px;
+	background-color: #FFF;
+	margin-left:10px;
+	border:1px solid #CCC;
+	width:40px;
+	display:inline-block;
 	height:30px;
-	
-	
-	
+	text-align:center;
+	margin-top:15px;
+	line-height:30px;
+
+
+
 }
 .fenye_main span >a{
 	color:#666;
-	margin-left:30px;
+
 }
 .fenye_main span >a:hover{
 	color:red;
 }
-	
-
-
-
-
-
-
 
 
 
@@ -312,45 +313,43 @@ ul{
 .foot_center .commitment .commitment_img{background:url(//status.tuanimg.com/statics/zhe/subject/img/logo.jpg) no-repeat;width:30px;height:28px;background-size:30px 28px;display:block;float:left}
 
 
-	.about .area{width:1200px}
-	.about li{width:140px;padding-left:60px}
-	.about li.w2{width:162px}
-	.about li.w3{width:180px}
-	.about li.w1{width:140px}
-	.area.footer{width:1200px;letter-spacing:1px}
-	.area.footer .logo_img1{margin-left:500px}
-	.area.footer .logo_img2{margin-left:57px}
-	#right_min_window{display:none}
-	.loading{width:1200px}
+.about .area{width:1200px}
+.about li{width:140px;padding-left:60px}
+.about li.w2{width:162px}
+.about li.w3{width:180px}
+.about li.w1{width:140px}
+.area.footer{width:1200px;letter-spacing:1px}
+.area.footer .logo_img1{margin-left:500px}
+.area.footer .logo_img2{margin-left:57px}
+#right_min_window{display:none}
+.loading{width:1200px}
 
 
 
- .about li span.show_icon{background: url('//status.tuanimg.com/statics/zhe/common/img/foot_icon.png') no-repeat;}
-  
-.about .area li{
-	border-bottom:solid 2px #F00;}
+/*.about li span.show_icon{background: url('//status.tuanimg.com/statics/zhe/common/img/foot_icon.png') no-repeat;}*/
+
+
 .btmbg {
-    width: 100%;
-    min-width: 1200px;
-    overflow: hidden;
-    padding: 30px 0 40px 0;
-    border-top: 1px solid #eaeaea;
+	width: 100%;
+	min-width: 1200px;
+	overflow: hidden;
+	padding: 30px 0 40px 0;
+	border-top: 1px solid #eaeaea;
 }
 
 .btm {
-    width: 1200px;
-    overflow: hidden;
-    color: #999999;
-    text-align: center;
+	width: 1200px;
+	overflow: hidden;
+	color: #999999;
+	text-align: center;
 }
 .about li span.show_icon img {
-    width: 75px;
-    height:75px;
-    display: inline-block;
-    margin: auto;
- 
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-}
+	width: 75px;
+	height:75px;
+	display: inline-block;
+	margin: auto;
 
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
