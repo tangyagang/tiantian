@@ -1,4 +1,7 @@
 package com.cssl.tiantian.pojo;
+/**
+ * 区
+ */
 
 import java.io.Serializable;
 import java.util.List;
