@@ -9,6 +9,8 @@
             <id column="sId" property="shopId"/>
             <association property="user" javaType="user"  resultMap="findUserByUserIdMap"></association>
         </association>
+        <association property="productCategory" javaType="productCategory" column="pcId"
+                     select="com.cssl.tiantian.dao.productCategory.ProductCategoryMapper.getProductCategoryByPcId"/>
         <collection property="orderDetails" ofType="orderDetail" resultMap="findOrderDetailMap"/>
     </resultMap>
     <resultMap id="findUserByUserIdMap" type="user">
@@ -39,12 +41,12 @@
         </trim>
     </select>
 
-    <select id="getProductByProId" resultMap="productMap">
-         SELECT p.*,p.proId pId,s.*,s.shopId sId,u.*,u.userId uId
+    <select id="getProductByProId" parameterType="java.lang.Integer" resultMap="productMap">
+         SELECT p.*,p.proId pId,p.pcId pcId,s.*,s.shopId sId,u.*,u.userId uId
          FROM product p,shop s,user u
          WHERE p.shopId=s.shopId
          AND s.userId=u.userId
-         AND proId=${proId}
+         AND proId=#{proId}
     </select>
 
     <select id="getProductByPcId" resultMap="productMap">

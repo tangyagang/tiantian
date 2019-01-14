@@ -3,22 +3,24 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cssl.tiantian.dao.productCategory.ProductCategoryMapper">
-    <!--自关联递归查询-->
+    <!--自关联递归查询，一对多-->
     <resultMap type="productcategory" id="productcategoryMap">
         <id column="pcId" property="pcId"/>
         <collection property="productCategorys" ofType="productcategory" column="pcId" select="findMenuByParentId"/>
     </resultMap>
-
     <select id="getAll" resultMap="productcategoryMap">
         SELECT * FROM productcategory WHERE parentId ='' or parentId is NULL ORDER BY pcId ASC
     </select>
-
     <select id="findMenuByParentId" resultMap="productcategoryMap">
         SELECT * FROM productcategory WHERE parentId = #{pcId} ORDER BY pcId ASC
     </select>
-
-    <select id="getProductCategoryByPcId" resultType="productCategory">
-        select * from productcategory where pcId = ${pcId}
+    <!--自关联递归查询，一对一 -->
+    <resultMap id="getProductCategoryMap" type="productcategory">
+        <id column="pcId" property="pcId"/>
+        <association property="productCategory" column="parentId" select="getProductCategoryByPcId"/>
+    </resultMap>
+    <select id="getProductCategoryByPcId" resultMap="getProductCategoryMap">
+        select * from productcategory where pcId = #{pcId}
     </select>
 
     <select id="getProductCategoryByPcId3" resultMap="productcategoryMap">

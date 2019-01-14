@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cssl.tiantian.dao.proScore.ProScoreMapper">
+    <resultMap id="proScoreMap" type="proScore">
+        <id column="scoreId" property="scoreId"/>
+        <association property="user" javaType="user" column="userId" select="com.cssl.tiantian.dao.user.UserMapper.getUserByUserId"/>
+    </resultMap>
+    <select id="getAllByProId" resultMap="proScoreMap">
+        select * from proScore
+        <where>
+            <if test="proId != null and proId != ''"> and proid = ${proId}</if>
+        </where>
+    </select>
+
+</mapper>

@@ -1,7 +1,7 @@
 package com.cssl.tiantian.config;
 
 import com.cssl.tiantian.converter.DateConverter;
-import com.cssl.tiantian.interceptors.MyInterceptor;
+import com.cssl.tiantian.interceptors.LoginInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.support.ConversionServiceFactoryBean;
@@ -25,12 +25,6 @@ import java.util.Set;
 
 @Component
 public class MvcConfigurer implements WebMvcConfigurer {
-
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        MyInterceptor myInterceptor = new MyInterceptor();
-        registry.addInterceptor(myInterceptor);
-    }
 
     @Override
     public void configureViewResolvers(ViewResolverRegistry registry) {

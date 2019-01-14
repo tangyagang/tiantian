@@ -17,7 +17,7 @@
                 values (${userId},#{userName},#{password},${userType},#{nickName},#{realName},${sex},#{phone},#{email},#{birthday},
                         #{identity},#{userUrl},${money},${integra},#{address})
     </insert>-->
-    <!--动态更新-->
+    <!--动态更新 // 设置useGeneratedKeys为true，返回数据库自动生成的记录主键id-->
     <insert id="saveUser" parameterType="map" useGeneratedKeys="true" keyProperty="id">
         insert ignore into user
         <foreach collection="params.keys" item="key" open="(" close=")" separator="," >
@@ -66,7 +66,7 @@
     <delete id="deleteUserByUserId" parameterType="int">
         delete from user where userId=${userId}
     </delete>
-    <select id="getUserByUserId" resultMap="userMap">
-        select * from user where userId=${userId}
+    <select id="getUserByUserId" resultMap="userMap" parameterType="java.lang.String">
+        select * from user where userId=#{userId}
     </select>
 </mapper>

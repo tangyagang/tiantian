@@ -60,9 +60,5 @@ public class SkipController {
     public String toProScore(){
         return "proScore";
     }
-    @RequestMapping("/shopping")
-    public String shopping(){
-        return "shopping";
-    }
 
 }
