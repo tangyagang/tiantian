@@ -31,7 +31,7 @@ import java.util.List;
 import java.util.Random;
 
 @Controller
-//@RequestMapping(value = "/userManager")
+@RequestMapping(value = "/userManager")
 public class UserManagerController {
 
     @Autowired

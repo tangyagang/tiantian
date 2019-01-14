@@ -12,10 +12,11 @@ public class ProductCategory implements Serializable {
     private String pcName;
     //父菜单ID
     private int parentId;
+    //父类
+    private ProductCategory productCategory;
     //子菜单
     private List<ProductCategory> productCategorys;
     private int typeId;
-
     private List<Product> products;
 
     public List<Product> getProducts() {
@@ -49,7 +50,13 @@ public class ProductCategory implements Serializable {
     public void setParentId(int parentId) {
         this.parentId = parentId;
     }
+    public ProductCategory getProductCategory() {
+        return productCategory;
+    }
 
+    public void setProductCategory(ProductCategory productCategory) {
+        this.productCategory = productCategory;
+    }
     public List<ProductCategory> getProductCategorys() {
         return productCategorys;
     }

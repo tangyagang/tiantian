@@ -396,81 +396,52 @@
 										</div>
 									 </div>
 
-								<div style="margin-top: 30px;width: 100%;height: 150px;border: 1px #ccc solid;">
-								 <div style="width: 100%;height: 50px;background-color: #eaf9ff;vertical-align: middle;font-size: 12px;">
-								<input type="checkbox" style="line-height: 50px;margin-left: 20px;"/>
-								<span style="line-height: 50px;">2016-04-02</span>
-								<span style="line-height: 50px;margin-left: 20px;">订单号：18000889898989</span>
-								<span style="line-height: 50px;margin-left: 100px;">如熙旗舰店</span>
-								 </div>	
-								 <div style="float: left;width: 65%;height: 12px;">
-								 	<div style="width: 100%;">
-								 	<img src="img/tb1yczdhpxxxxxzxxxxxxxxxxxx_!!2-item_pic.png" style="height: 100px;float: left;" />
-								 	<dl style="width: 220px;float: left;margin-left: 20px;margin-top: 20px;">如熙2016春季新款韩版春季新款韩版春季新款韩版春季新款韩版春季新款韩版春季新款韩版春季新款韩版春季新款韩版</dl>
-								    <del style="display: inline-block;margin-left: -38px;margin-top: 20px;color: #858585;">199.00</del>
-								    <dl style="float: left;margin-left: 50px;margin-top: 40px;">129.00</dl>
-								    <span style="margin-left: 40px;">1</span>
-								    <dl style="float: right;margin-right: 50px;margin-top: 20px;">退款/退货
-								    <br />投诉卖家
-								    <br>
-								    退运保险
-								    </dl>
-								    </div>
-								 </div>	
-								 
-								 <div style="float: left;border-left: 1px #ccc solid;width: 11%;height:100px;text-align: center;">
-								 	<span style="font-weight: bold;margin-top: 30px;display: block;">129</span>
-								 	<dl>(含运费:00)</dl>
-								 </div>
-								 <div style="float: left;border-left: 1px #ccc solid;width: 11%;height:100px;text-align: center ;">
-								 	<dl style="margin-top: 30px;">卖家已发货</dl>
-								 	<dl>订单详情</dl>
-								 	<dl>查看物流</dl>
-								 </div>
-								 <div style="float: left;border-left: 1px #ccc solid;width: 11%;height:100px;text-align: center ;">
-								 	<dl style="margin-top: 30px;">还有9天10时4分</dl>
-								 	<button style="color:#fff;background-color: #65b5ff;border: 0px;padding: 4px;margin-top: 5px;margin-top: 5px;">确认收货</button>
-								 </div>
-								 </div>
-								 
-								 
-								 
-								 <div style="margin-top: 30px;width: 100%;height: 150px;border: 1px #ccc solid;">
-								 <div style="width: 100%;height: 50px;background-color: #eaf9ff;vertical-align: middle;font-size: 12px;">
-								<input type="checkbox" style="line-height: 50px;margin-left: 20px;"/>
-								<span style="line-height: 50px;">2016-04-02</span>
-								<span style="line-height: 50px;margin-left: 20px;">订单号：18000889898989</span>
-								<span style="line-height: 50px;margin-left: 100px;">如熙旗舰店</span>
-								 </div>	
-								 <div style="float: left;width: 65%;height: 12px;">
-								 	<div style="width: 100%;">
-								 	<img src="img/tb1yczdhpxxxxxzxxxxxxxxxxxx_!!2-item_pic.png" style="height: 100px;float: left;" />
-								 	<dl style="width: 220px;float: left;margin-left: 20px;margin-top: 20px;">如熙2016春季新款韩版春季新款韩版春季新款韩版春季新款韩版春季新款韩版春季新款韩版春季新款韩版春季新款韩版</dl>
-								    <del style="display: inline-block;margin-left: -38px;margin-top: 20px;color: #858585;">199.00</del>
-								    <dl style="float: left;margin-left: 50px;margin-top: 40px;">129.00</dl>
-								    <span style="margin-left: 40px;">1</span>
-								    <dl style="float: right;margin-right: 50px;margin-top: 20px;">退款/退货
-								    <br />投诉卖家
-								    <br>
-								    退运保险
-								    </dl>
-								    </div>
-								 </div>	
-								 
-								 <div style="float: left;border-left: 1px #ccc solid;width: 11%;height:100px;text-align: center;">
-								 	<span style="font-weight: bold;margin-top: 30px;display: block;">129</span>
-								 	<dl>(含运费:00)</dl>
-								 </div>
-								 <div style="float: left;border-left: 1px #ccc solid;width: 11%;height:100px;text-align: center ;">
-								 	<dl style="margin-top: 30px;">卖家已发货</dl>
-								 	<dl>订单详情</dl>
-								 	<dl>查看物流</dl>
-								 </div>
-								 <div style="float: left;border-left: 1px #ccc solid;width: 11%;height:100px;text-align: center ;">
-								 	<dl style="margin-top: 30px;">还有9天10时4分</dl>
-								 	<button style="color: fff;background-color: #65b5ff;border: 0px;padding: 4px;margin-top: 5px;">确认收货</button>
-								 </div>
-								 </div>
+									 <#list pageInfo.list as order>
+										<div style="margin-top: 30px;width: 100%;height: 150px;border: 1px #ccc solid;">
+											<div style="width: 100%;height: 50px;background-color: #eaf9ff;vertical-align: middle;font-size: 12px;">
+												<input type="checkbox" style="line-height: 50px;margin-left: 20px;"/>
+												<span style="line-height: 50px;">${order.createTime?string("yyyy-MM-dd")}</span>
+												<span style="line-height: 50px;margin-left: 20px;">订单号：${order.orderNum}</span>
+												<span style="line-height: 50px;margin-left: 100px;">如熙旗舰店</span>
+											</div>
+											<div style="float: left;width: 65%;height: 12px;">
+												<div style="width: 100%;">
+													<img src="img/tb1yczdhpxxxxxzxxxxxxxxxxxx_!!2-item_pic.png"
+														 style="height: 100px;float: left;"/>
+													<dl style="width: 220px;float: left;margin-left: 20px;margin-top: 20px;">
+														如熙2016春季新款韩版春季新款韩版春季新款韩版春季新款韩版春季新款韩版春季新款韩版春季新款韩版春季新款韩版
+													</dl>
+													<del style="display: inline-block;margin-left: -38px;margin-top: 20px;color: #858585;">
+														199.00
+													</del>
+													<dl style="float: left;margin-left: 50px;margin-top: 40px;">129.00</dl>
+													<span style="margin-left: 40px;">1</span>
+													<dl style="float: right;margin-right: 50px;margin-top: 20px;">退款/退货
+														<br/>投诉卖家
+														<br>
+														退运保险
+													</dl>
+												</div>
+											</div>
+
+											<div style="float: left;border-left: 1px #ccc solid;width: 11%;height:100px;text-align: center;">
+												<span style="font-weight: bold;margin-top: 30px;display: block;">129</span>
+												<dl>(含运费:00)</dl>
+											</div>
+											<div style="float: left;border-left: 1px #ccc solid;width: 11%;height:100px;text-align: center ;">
+												<dl style="margin-top: 30px;">卖家已发货</dl>
+												<dl>订单详情</dl>
+												<dl>查看物流</dl>
+											</div>
+											<div style="float: left;border-left: 1px #ccc solid;width: 11%;height:100px;text-align: center ;">
+												<dl style="margin-top: 30px;">还有9天10时4分</dl>
+												<button style="color:#fff;background-color: #65b5ff;border: 0px;padding: 4px;margin-top: 5px;margin-top: 5px;">
+													确认收货
+												</button>
+											</div>
+										</div>
+									 </#list>
+
 								 <div style="width: 100%;height: 0px;padding: 10px;">
 									<input class="index_all" type="checkbox">
 								 	<span style="line-height: 20px;">全选</span>

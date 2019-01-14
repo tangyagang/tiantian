@@ -66,7 +66,7 @@
                     <li>
                         <div class="c1">
                             <div class="centre-left"><span class="pan">*</span>密码</div>
-                            <div class="centre-right"><input type="text"name="password" id="password"/>
+                            <div class="centre-right"><input type="password"name="password" id="password"/>
                                 <p class="centre-right-bottom">请您填写您的密码</p>
                             </div>
                             <div class="pass"></div>

@@ -49,7 +49,7 @@ public class UserController {
         User user = userService.loginUser(userName,password);
         if (user != null){
             //登录成功
-            request.getSession().setAttribute(Constants.USER_SESSION,user);
+            Constants.USER_SESSION = user;
             if (user.getUserType()==1){
                 //买家
                 return "userManager/userIndex";
