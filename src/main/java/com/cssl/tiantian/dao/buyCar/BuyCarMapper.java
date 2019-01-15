@@ -16,5 +16,9 @@ public interface BuyCarMapper {
     //根据ID修改数量
     public int updateBuyCar(@Param("buyCarId")int buyCarId,@Param("num") int num);
     //根据ID删除购物车
-    public int deleteBuyCarById(@Param("buyCarId")int[] buyCarIds);
+    public int deleteBuyCarById(@Param("buyCarIds")Integer[] buyCarIds);
+    //根据ID查询购物车信息
+    public List<Buycar> getAllBuycarById(@Param("buyCarIds") Integer[] buyCarIds);
+    //根据ID查询一条购物车信息
+    public Buycar getBuyCarById(int buyCarId);
 }

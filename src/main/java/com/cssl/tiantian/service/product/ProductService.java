@@ -6,6 +6,7 @@ import com.github.pagehelper.PageInfo;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ProductService {
 
@@ -30,4 +31,8 @@ public interface ProductService {
     public PageInfo<Product> findAllByPrice(int pageNo, int pageSize);
     //根据销量查询所有商品
     public PageInfo<Product> findAllByOrderCount(int pageNo, int pageSize);
+    //根据ID修改库存
+    public int modifyProductById(Product product);
+    //根据ID修改库存
+    public int modifyStockById(int proId,int stock);
 }

@@ -42,7 +42,8 @@ $(function(){
                     totalPrice();
                 }
             }else {
-                alert("数量修改失败，请输入正确的数字！");
+                $(".J_inputCount:eq("+index+")").val(1);
+                alert("库存不足，请修改数量！");
             }
         });
     });
@@ -70,7 +71,8 @@ $(function(){
                         totalPrice();
                     }
                 }else {
-                    alert("数量修改失败，请输入正确的数字！");
+                    $(".J_inputCount:eq("+index+")").val(1);
+                    alert("库存不足，请修改数量！");
                 }
             });
         }else{
@@ -114,7 +116,8 @@ $(function(){
                     $(".J_smallTotalPrice:eq("+index+")").html("￥"+prices.toFixed(1));
                     $(".J_inputCount:eq("+index+")").val(num);
                 } else {
-                    alert("数量修改失败，请输入正确的数字！");
+                    $(".J_inputCount:eq("+index+")").val(1);
+                    alert("库存不足，请修改数量！");
                 }
             });
         }else{
@@ -123,8 +126,8 @@ $(function(){
         }
         totalPrice();
     });
-    //单击结算删除按钮；
-    $(".buy>a").click(function(){
+    //单击删除按钮；
+    $(".buy>a:first").click(function(){
         totalPrice();
     });
     //批量删除
@@ -146,6 +149,36 @@ $(function(){
         totalPrice();
         noshop();
     });
+    //立即结算
+    $(".buy_count").click(function () {
+        var buyCarIds = new Array();//存放购物车所有商品
+        var totalPrice = $(".J_totalPrice").text();//总金额
+        totalPrice = totalPrice.substr(1,totalPrice.length);
+        if(parseInt(totalPrice)>0){
+            $.get(path+"/userManager/checkPrice?totalPrice="+totalPrice,function (data) {
+                if (data > 0){
+                    //余额够买商品
+                    for(var i=0;i<$(".J_smallTotalPrice").length;i++){
+                        if ($(".li_input:eq("+i+")").is(':checked')) {
+                            var buyCarId = $(".shop ul li input:hidden:eq("+i+")").val();
+                            buyCarIds.push(buyCarId);
+                        }
+                    }
+                    if (buyCarIds.length > 0){
+                        $.getJSON(path+"/userManager/doSent?buyCarIds="+buyCarIds,"totalPrice="+totalPrice,function (data) {
+                            if (data == 7){
+                                window.location.href = path + "/"
+                            }
+                        });
+                    }
+                } else {
+                    alert("余额不足，请充值！");
+                }
+            })
+        }
+
+
+    })
 
 });
 //商品减到剩下一件时的删除操作；
@@ -200,9 +233,6 @@ function totalPrice(){
     return totalCount;
 }
 
-//立即结算
-$(".buy_count").click(function () {
-    
-})
+
 
 

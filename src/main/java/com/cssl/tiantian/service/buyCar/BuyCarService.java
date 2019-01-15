@@ -4,6 +4,8 @@ import com.cssl.tiantian.pojo.Buycar;
 import com.github.pagehelper.PageInfo;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 
 public interface BuyCarService {
 
@@ -14,6 +16,9 @@ public interface BuyCarService {
     //根据ID修改数量
     public boolean modifyBuyCar(int buyCarId, int num);
     //根据ID删除购物车
-    public boolean deleteBuyCarById(int[] buyCarIds);
-
+    public boolean deleteBuyCarById(Integer[] buyCarIds);
+    //根据ID查询购物车信息
+    public List<Buycar> findAllBuycarById(Integer[] buyCarId);
+    //根据ID查询一条购物车信息
+    public Buycar findBuyCarById(int buyCarId);
 }

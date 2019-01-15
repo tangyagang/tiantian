@@ -108,15 +108,7 @@ public class UploadHandleServlet extends HttpServlet {
             e.printStackTrace();
 
         }
-
-//        response.setCharacterEncoding("UTF-8");
-//        response.setContentType("html/text;charset=utf-8");
         response.sendRedirect("/message.html");
-//        response.getWriter().write(message);
-
-
-//        request.setAttribute("message",message);
-//        request.getRequestDispatcher("/index.html").forward(request, response);
     }
 
     private String getJarRootPath() throws FileNotFoundException {

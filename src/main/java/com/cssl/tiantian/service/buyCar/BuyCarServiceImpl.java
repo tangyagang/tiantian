@@ -36,10 +36,20 @@ public class BuyCarServiceImpl implements BuyCarService {
     }
 
     @Override
-    public boolean deleteBuyCarById(int[] buyCarIds) {
+    public boolean deleteBuyCarById(Integer[] buyCarIds) {
         if (buyCarMapper.deleteBuyCarById(buyCarIds) > 0){
             return true;
         }
         return false;
+    }
+
+    @Override
+    public List<Buycar> findAllBuycarById(Integer[] buyCarId) {
+        return buyCarMapper.getAllBuycarById(buyCarId);
+    }
+
+    @Override
+    public Buycar findBuyCarById(int buyCarId) {
+        return buyCarMapper.getBuyCarById(buyCarId);
     }
 }

@@ -26,4 +26,26 @@
         select * from recaddress where recaddressId = #{recAddressId}
     </select>
 
+    <!--动态添加 // 设置useGeneratedKeys为true，返回数据库自动生成的记录主键id-->
+    <insert id="saveOrder" parameterType="order" useGeneratedKeys="true" keyProperty="order.orderId">
+        insert ignore into `order`
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="order.user neq null">userId,</if>
+            <if test="order.recAddress neq null">recAddressId,</if>
+            <if test="order.cost &gt; 0 ">cost,</if>
+            <if test="order.orderNum neq null and order.orderNum neq ''">orderNum,</if>
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="order.user neq null">#{order.user.userId},</if>
+            <if test="order.recAddress neq null ">#{order.recAddress.recAddressId},</if>
+            <if test="order.cost &gt; 0 ">#{order.cost},</if>
+            <if test="order.orderNum neq null and order.orderNum neq ''">#{order.orderNum},</if>
+        </trim>
+    </insert>
+
+    <select id="getOrderById" resultType="order">
+        select * from `order` where orderId = ${orderId}
+    </select>
+
 </mapper>

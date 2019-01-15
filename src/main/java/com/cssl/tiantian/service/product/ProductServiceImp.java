@@ -2,6 +2,7 @@ package com.cssl.tiantian.service.product;
 
 import com.cssl.tiantian.dao.product.ProductMapper;
 import com.cssl.tiantian.pojo.Product;
+import com.cssl.tiantian.tools.PojoTransformationMap;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -77,6 +78,16 @@ public class ProductServiceImp implements ProductService {
         List<Product> list = productMapper.getAllByOrderCount();
         PageInfo<Product> pageInfo = new PageInfo<Product>(list);
         return pageInfo;
+    }
+
+    @Override
+    public int modifyProductById(Product product) {
+        return productMapper.updateProductById(PojoTransformationMap.objectMap(product));
+    }
+
+    @Override
+    public int modifyStockById(int proId, int stock) {
+        return productMapper.updateStockById(proId,stock);
     }
 
 

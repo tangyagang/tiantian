@@ -91,4 +91,23 @@
     <select id="getAllByOrderCount" resultMap="productMap">
         SELECT a.*,a.proId pId,b.* FROM product a,orderdetail b WHERE a.proId = b.proId
     </select>
+
+    <update id="updateProductById" parameterType="java.util.Map">
+        UPDATE product set
+        <foreach item="value" index="key" collection="product" separator=",">
+            <if test="key != 'proId'">
+                ${key} = #{value}
+            </if>
+        </foreach>
+        WHERE
+        <foreach item="value" index="key" collection="product" separator=",">
+            <if test="key == 'proId'">
+                proId = #{value}
+            </if>
+        </foreach>
+    </update>
+
+    <update id="updateStockById" parameterType="int">
+        update product set stock = #{stock} where proId = #{proId}
+    </update>
 </mapper>

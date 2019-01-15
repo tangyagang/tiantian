@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.sound.midi.SoundbankResource;
+
 
 @Controller
 @RequestMapping("/userManager")
@@ -44,20 +44,20 @@ public class ShoppingController {
     @RequestMapping(value = "/modifyNum",method = RequestMethod.GET)
     @ResponseBody
     public boolean modifyNum(int buyCarId,int num){
-        boolean isModify = buyCarService.modifyBuyCar(buyCarId,num);
-        return isModify;
+        //先判断库存是否足够
+        Buycar buycar = buyCarService.findBuyCarById(buyCarId);
+        if (buycar.getProduct().getStock() > num){
+            return buyCarService.modifyBuyCar(buyCarId,num);
+        }
+       return false;
     }
     //批量删除购物车
-    @RequestMapping(value = "/deleteBuycar",method = RequestMethod.GET)
+/*    @RequestMapping(value = "/deleteBuycar",method = RequestMethod.GET)
     @ResponseBody
     public boolean deleteBuycar(int[] buyCarIds){
         System.out.println(buyCarIds.length);
         boolean isDelete = buyCarService.deleteBuyCarById(buyCarIds);
         return isDelete;
-    }
-    @RequestMapping("/doSent")
-    public String doSent(Buycar buycar, Product product){
-        return "/userOrder";
+    }*/
 
-    }
 }

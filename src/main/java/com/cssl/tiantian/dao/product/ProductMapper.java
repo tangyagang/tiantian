@@ -1,12 +1,14 @@
 package com.cssl.tiantian.dao.product;
 
 import com.cssl.tiantian.pojo.Product;
+import com.cssl.tiantian.tools.PojoTransformationMap;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public interface ProductMapper {
@@ -32,5 +34,9 @@ public interface ProductMapper {
     public List<Product> getAllByPrice();
     //根据销量查询所有商品
     public  List<Product> getAllByOrderCount();
+    //根据ID修改商品
+    public int updateProductById(@Param("product")Map<String,Object> product);
+    //根据ID修改库存
+    public int updateStockById(@Param("proId")int proId,@Param("stock")int stock);
 
 }

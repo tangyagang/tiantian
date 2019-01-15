@@ -12,13 +12,9 @@
     <select id="getUserByUserNameAndPassword" resultMap="userMap" parameterType="String">
         select * from user where userName = #{userName} and password = #{password}
     </select>
-  <!--  <insert id="saveUser" parameterType="user">
-        insert into user(userId,userName,password,userType,nickName,realName,sex,phone,email,birthday,identity,userUrl,money,integra,address)
-                values (${userId},#{userName},#{password},${userType},#{nickName},#{realName},${sex},#{phone},#{email},#{birthday},
-                        #{identity},#{userUrl},${money},${integra},#{address})
-    </insert>-->
-    <!--动态更新 // 设置useGeneratedKeys为true，返回数据库自动生成的记录主键id-->
-    <insert id="saveUser" parameterType="map" useGeneratedKeys="true" keyProperty="id">
+
+    <!--动态添加 // 设置useGeneratedKeys为true，返回数据库自动生成的记录主键id-->
+    <insert id="saveUser" parameterType="map" useGeneratedKeys="true" keyProperty="userId">
         insert ignore into user
         <foreach collection="params.keys" item="key" open="(" close=")" separator="," >
             ${key}
@@ -41,10 +37,10 @@
                       <if test="email != null and email != ''">email=#{email},</if>
                       <if test="birthday != null">birthday=#{birthday},</if>
                       <if test="userUrl != null and userUrl != ''">userUrl=#{userUrl},</if>
-                      <if test="money != null and money != ''">money=${money},</if>
-                      <if test="integra != null and integra != ''">integra=${integra},</if>
+                      <if test="money &gt; 0">money=${money},</if>
+                      <if test="integra &gt; 0">integra=${integra},</if>
                       <if test="address != null and address != ''">address=#{address},</if>
-                      <if test="userType != null and userType != ''">userType=${userType},</if>
+                      <if test="userType &gt; 0">userType=${userType},</if>
                       <if test="identity != null and identity != ''">identity=#{identity},</if>
                   </set>
                 where userId=${userId}

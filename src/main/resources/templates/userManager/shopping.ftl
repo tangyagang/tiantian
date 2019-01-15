@@ -78,7 +78,7 @@
               <ul>
                   <#items as buyCar>
                       <li>
-                          <input class="li_input" name="store" onclick="checkboxOnclick(this)" type="checkbox" value="" style="margin-top: 15px;margin-left: 20px;" />
+                          <input class="li_input" name="store" onclick="checkboxOnclick(this)" type="checkbox" value="${buyCar.product.proId}" style="margin-top: 15px;margin-left: 20px;" />
                           <div class="shopImg">
                               <img src="${request.contextPath}/${buyCar.product.proUrl}" width="60px" height="70px" alt=""/>
                           </div>
@@ -125,7 +125,7 @@
               </div>
               <a href="#" class="buy_delete">批量删除</a>
 
-              <a href="#" class="buy_count">立即结算<span class="J_totalCount">(0)</span></a>
+              <a href="javascript:void(0)" class="buy_count">立即结算<span class="J_totalCount">(0)</span></a>
               <p>合计 <span class="J_totalPrice">￥0.0</span></p>
           </div>
 

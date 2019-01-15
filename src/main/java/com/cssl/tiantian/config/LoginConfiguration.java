@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.*;
 
 
-@Configuration
+//@Configuration
 public class LoginConfiguration implements WebMvcConfigurer {
     //    以下WebMvcConfigurerAdapter 比较常用的重写接口
 //    /** 解决跨域问题 **/

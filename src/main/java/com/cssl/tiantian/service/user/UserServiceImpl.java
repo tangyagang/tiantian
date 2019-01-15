@@ -2,6 +2,7 @@ package com.cssl.tiantian.service.user;
 
 import com.cssl.tiantian.dao.user.UserMapper;
 import com.cssl.tiantian.pojo.User;
+import com.cssl.tiantian.tools.PojoTransformationMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,34 +28,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public int registerUser(User user) {
-        return userMapper.saveUser(objectMap(user));
+        return userMapper.saveUser(PojoTransformationMap.objectMap(user));
     }
-    /**
-     * 实体对象转成Map
-     * @param obj 实体对象
-     * @return
-     */
-    public static Map<String, Object> objectMap(Object obj) {
-        Map<String, Object> map = new HashMap<>();
-        if (obj == null) {
-            return map;
-        }
-        Class clazz = obj.getClass();
-        Field[] fields = clazz.getDeclaredFields();
-        try {
-            for (Field field : fields) {
-                field.setAccessible(true);
-                if(field.get(obj) == null || field.get(obj).equals("")){
-                    continue;
-                }
-                map.put(field.getName(), field.get(obj));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return map;
-    }
-
 
     @Override
     public int modifyUser(User user) {
