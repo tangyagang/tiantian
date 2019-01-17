@@ -46,4 +46,9 @@ public class UserServiceImpl implements UserService {
         return userMapper.getUserByUserId(userId);
     }
 
+    @Override
+    public User findUserByPhone(String phone) {
+        return userMapper.getUserByPhone(phone);
+    }
+
 }

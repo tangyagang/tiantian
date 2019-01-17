@@ -65,4 +65,8 @@
     <select id="getUserByUserId" resultMap="userMap" parameterType="java.lang.String">
         select * from user where userId=#{userId}
     </select>
+
+    <select id="getUserByPhone" resultType="user">
+        select * from user where phone = #{phone}
+    </select>
 </mapper>

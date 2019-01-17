@@ -4,16 +4,24 @@
 .header{
 	border:1px red solid;
 	height:580px;
-	width:1360px;
-	position: relative;
-	top:10px;
+	width:100%;
+	background-color: #E73131;
+}
+.header_center{
+	height:100%;
+	width:1190px;
+	margin: 0px auto;
 	background-image:url(../img/TB1H2sxAcbpK1RjSZFywu0_qFXa.png);
+	background-repeat: no-repeat;
+	background-size: contain;
+	-webkit-background-size: contain;
+	-o-background-size: contain;
+	background-position:center;
+
 }
 .shangbiao{
 	height:115px;
 	width:100px;
-	position: relative;
-	left:50px;
 }
 .b{
 	width:1360px;
@@ -23,44 +31,78 @@
 	height:40px;
 	color:#000;
 	width:150px;
-	position: relative;
-	left:80px;
-	bottom:-25px;
 	font-size:26px;
 }
 .a2{
 	width:136px;
-	position: relative;
-	left:85px;
-	top:350px;
 }
-.ul{
+.login{
+	font-size: 20px;
+	color: #666666;
+	font-weight: bolder;
+	line-height: 60px;
+	width: 140px;
+	text-align: center;
+}
+.register{
+	font-size: 12px;
+	float: right;
+	width: 120px;
+	line-height: 60px;
+}
+.header_login{
 	overflow: hidden;
-	margin-top:135px;
 	text-align:center;
-	width:410px;
-	position: relative;
-	top:-75px;
-	left:830px;
-	height:460px;
+	width:350px;
+	height:400px;
 	background-color:#FFF;
+	position:relative;
+	right: -800px;
+	top: 60px;
+}
+ul{
+	padding: 0px;
+	width: 350px;
 }
 li{
 	list-style-type:none;
+	height: 60px;
+	margin-bottom: 30px;
+}
+li>div{
+	float: left;
+}
+ul>li:first-child{
+	margin-bottom: 20px;
+}
+ul>li input{
+	line-height: 30px;
+	width: 200px;
+}
+ul>li:last-child a{
+	line-height: 25px;
+	display: inline-block;
+	text-align: right;
+	font-size: 12px;
+	color:#666;
+	text-decoration: none;
+}
+ul>li:nth-child(4){
+	margin: 0px;
+	height: 50px;
 }
 .centre-left{
-	width:80px;
+	width:60px;
 	height:20px;
-	position:relative;
-	left:-10px;
-	top:75px;
+	margin-left: 30px;
 }
 .centre-right{
-	width:220px;
-	height:50px;
-	position:relative;
-	left:75px;
-	bottom:-53px;
+	width:180px;
+	line-height:20px;
+}
+.centre-right p{
+	margin: 0px;
+	font-size: 12px;
 }
 .centre-right-bottom{
 	height:20px;
@@ -71,49 +113,33 @@ li{
 	font-size:9px;
 }
 .uName{
-	position:relative;
-	left:270px;
-	top:2px;
 	color:red;
 	width:120px;
 	height:20px;
 }
 .pass{
-	position:relative;
-	left:270px;
-	top:2px;
 	color:red;
 	width:120px;
 	height:20px;
 }
 .eml{
-	position:relative;
-	left:375px;
-	top:-68px;
 	width:180px;
 	height:20px;
 }
 .c{
-	position:relative;
-	right:25px;
 	width:400px;
 	height:60px;
-	top:-20px;
+
 }
 .c1{
-	position:relative;
-	top:10px;
-	right:25px;
 	width:425px;
 	height:60px;
 }
 #button{
-	width:170px;
+	width:200px;
 	height:40px;
 	background:red;
-	position:relative;
-	left:-5px;
-	top:100px;
+	margin-left: 25px;
 }
 .button-span{
 	font-size:20px;
@@ -127,10 +153,12 @@ li{
 	overflow:hidden;
 	font-size:9px;
 	color:#999;
-	position:relative;
-	top:10px;
 	margin-left:50px;
 }
 .bottom-p{
 	height:100px;
+}
+
+#send{
+	width: 70px;
 }

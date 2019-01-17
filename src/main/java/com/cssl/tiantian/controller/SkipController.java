@@ -38,6 +38,14 @@ public class SkipController {
     public String toRankingList(){
         return "rankingList";
     }
+    @RequestMapping("/findPwd")
+    public String toFindPwd(){
+        return "findPwd";
+    }
+    @RequestMapping("/finish")
+    public String toFinish(){
+        return "finish";
+    }
 
     //后台user用户跳转页面
     @RequestMapping("/addressModify")

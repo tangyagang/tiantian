@@ -1,6 +1,7 @@
 package com.cssl.tiantian.service.user;
 
 import com.cssl.tiantian.pojo.User;
+import org.apache.ibatis.annotations.Param;
 
 public interface UserService {
 
@@ -16,4 +17,6 @@ public interface UserService {
     public int deleteUserByUserId(int userId);
     //根据用户ID查询用户
     public User findUserByUserId(int userId);
+    //根据电话号码查询用户
+    public User findUserByPhone(@Param("phone")String phone);
 }

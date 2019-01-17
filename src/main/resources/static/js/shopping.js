@@ -168,6 +168,8 @@ $(function(){
                         $.getJSON(path+"/userManager/doSent?buyCarIds="+buyCarIds,"totalPrice="+totalPrice,function (data) {
                             if (data == 7){
                                 window.location.href = path + "/"
+                            }else {
+                                alert("订单生成失败！");
                             }
                         });
                     }

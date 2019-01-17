@@ -21,4 +21,6 @@ public interface UserMapper {
     public int deleteUserByUserId(int userId);
     //根据用户ID查询一个用户
     public User getUserByUserId(@Param("userId") int userId);
+    //根据电话号码查询用户
+    public User getUserByPhone(@Param("phone")String phone);
 }
