@@ -26,7 +26,7 @@ public class LoginConfiguration implements WebMvcConfigurer {
 //    /** 默认静态资源处理器 **/
 //    void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer);
 
-    @Autowired
+   // @Autowired
     private LoginInterceptor loginInterceptor;
 
     public void addViewControllers(ViewControllerRegistry registry) {

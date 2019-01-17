@@ -30,7 +30,7 @@ public class SendMessageUtil {
    //private static final String[] phoneNumbers = {"18674814289"};
 
     // 短信模板ID，需要在短信应用中申请
-    //private static final int templateId = 267063; // NOTE: 这里的模板ID`7839`只是一个示例，真实的模板ID需要在短信控制台中申请
+    private static final int templateId = 267063; // NOTE: 这里的模板ID`7839`只是一个示例，真实的模板ID需要在短信控制台中申请
     // templateId7839对应的内容是"您的验证码是: {1}"
     // 签名
     private static final String smsSign = "Leo技术交流";// NOTE: 这里的签名"腾讯云"只是一个示例，真实的签名需要在短信控制台中申请，另外签名参数使用的是`签名内容`，而不是`签名ID`
@@ -43,9 +43,6 @@ public class SendMessageUtil {
      * @return
      */
     public static String send(String[] phoneNumbers,String RandomCode,String time) {
-        // 短信模板ID，需要在短信应用中申请
-        final int templateId = 267063; // NOTE: 这里的模板ID`7839`只是一个示例，真实的模板ID需要在短信控制台中申请
-        // templateId7839对应的内容是"您的验证码是: {1}"
         try {
             String[] params = {RandomCode, time};// 数组具体的元素个数和模板中变量个数必须一致，例如事例中templateId:5678对应一个变量，参数数组中元素个数也必须是一个
             SmsSingleSender ssender = new SmsSingleSender(appid, appkey);

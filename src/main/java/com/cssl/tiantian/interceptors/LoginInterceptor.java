@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 /**
  * 自定义拦截器
  */
-@Component
+//@Component
 public class LoginInterceptor implements HandlerInterceptor {
     /**
      * 在请求被处理之前调用

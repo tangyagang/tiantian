@@ -10,6 +10,7 @@ import com.cssl.tiantian.service.user.UserService;
 import com.cssl.tiantian.authImage.RandomValidateCodeUtil;
 import com.cssl.tiantian.tools.Constants;
 import com.cssl.tiantian.tools.SendMessageUtil;
+import com.cssl.tiantian.tools.SendPasswordUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -98,8 +99,6 @@ public class UserController {
             return map;
         }
         HttpSession session = request.getSession();
-        Object ob = session.getAttribute(phone);
-        System.out.println(ob);
         //获取四位随机数
         String  randomCode = SendMessageUtil .getRandomCode(4);
         // 需要发送短信的手机号码
@@ -142,7 +141,6 @@ public class UserController {
     }
 
     //2.校验短信是否超时
-
     /**
      *
      * @param phone
@@ -202,10 +200,34 @@ public class UserController {
         return map;
     }
 
-    /*public static int differentDaysByMillisecond(Date date1,Date date2){
-        int days = (int) ((date2.getTime() - date1.getTime()) / (1000*3600*24));
-        return days;
-    }*/
+    @RequestMapping("/sendPassword")
+    @ResponseBody
+    public Map<String,Object> sendPassword(@RequestParam("phone") String phone){
+        Map<String,Object> map = new HashMap<String,Object>();
+        User user = userService.findUserByPhone(phone);
+        if (user != null){
+            // 需要发送短信的手机号码
+            String[] phoneNumbers = {phone};
+            String password = user.getPassword();
+            String result = SendPasswordUtil.sendPassword(phoneNumbers,password);
+            System.out.println(result);
+            if ("ok".equalsIgnoreCase(result)){
+                //发送成功
+                map.put("success", true);
+                map.put("msg", "验证成功");
+                System.out.println("短信验证码验证成功,手机号为"+phone);
+                return map;
+            }else {
+                System.out.println("发送短信失败:"+result.toString());
+                map.put("success", false);
+                map.put("msg", "发送失败");
+                return map;
+            }
+        }
+        map.put("success", false);
+        map.put("msg", "该手机号码暂未注册！");
+        return map;
+    }
 
     /**
      * 生成验证码

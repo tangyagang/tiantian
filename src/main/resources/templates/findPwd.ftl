@@ -18,29 +18,35 @@
                         //给指定手机号发送验证码
                         var $mobile=$("#phone").val();
                         $.get("${request.contextPath}/sendMessage?phone="+$mobile,function (data) {
-                            alert(data.success);
 							if (!data.success) {
 							    alert(data.msg);
 							}
                         });
 					}
-                })
+                });
+                //验证手机验证码
                 $(".am-btn").click(function (data) {
-                    //验证手机验证码
                     var $mobile=$("#phone").val();
                     var $code = $("#code").val();
                     if(checkMobile() && checkCode()){
                         $.get("${request.contextPath}/checkMessage?phone="+$mobile,"code="+$code,function (data) {
-                            alert(data.success);
                             if (!data.success) {
                                 alert(data.msg);
                             }else {
-                                window.location.href = "${request.contextPath}/finish"
+                                //判断手机号是否注册
+                                $.get("${request.contextPath}/sendPassword?phone="+$mobile,function (data) {
+                                    if (data.success){
+                                        $("#mobile_prompt").html("");
+                                        window.location.href = "${request.contextPath}/finish"
+                                    } else {
+                                        $("#mobile_prompt").html(data.msg);
+                                    }
+                                })
                             }
                         });
                     }
                 })
-            })
+            });
             //验证手机号；
             function checkMobile(){
                 var $mobile=$("#phone");
@@ -137,7 +143,7 @@
 		</div>-->
 		<div style="background-color: #F8F8F8;padding-top: 40px;">
 		<div class="am-g" >
-			<div class="logo"> <img src="img/logo1.png" style=" width:50px;height: 50px;float: left" />
+			<div class="logo"> <img src="img/logo1.png" style=" width:50px;height: 50px;float: left;background-color: #666" />
 				<p style="font-size: 16px;color: #3d3d3d;margin-left: 16px;font-weight: bold;margin-top: 20px;    float: left">忘记密码</p>
 			</div>
 			<div style="width: 1200px;margin: 0 auto;font-size: 12px;margin-top: -38px;"> <span style="float: right;color: #333333;"><a href="" style="color: #333333;">注册</a><span style="margin-left: 20px;margin-right: 20px;">|</span><a href="" style="color: #333333;">登录</a><span style="margin-left: 20px;margin-right: 20px;">|</span><a href="" style="color: #333333;">天天商城</a></span>
