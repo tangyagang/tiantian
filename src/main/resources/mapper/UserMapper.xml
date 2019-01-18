@@ -59,10 +59,10 @@
             </if>
         </foreach>
     </update>-->
-    <delete id="deleteUserByUserId" parameterType="int">
-        delete from user where userId=${userId}
+    <delete id="deleteUserByUserId" parameterType="java.lang.Integer">
+        delete from user where userId=#{userId}
     </delete>
-    <select id="getUserByUserId" resultMap="userMap" parameterType="java.lang.String">
+    <select id="getUserByUserId" resultMap="userMap" parameterType="java.lang.Integer">
         select * from user where userId=#{userId}
     </select>
 

@@ -50,7 +50,7 @@ public class SkipController {
     //后台user用户跳转页面
     @RequestMapping("/addressModify")
     public String toAddressModify(){
-        return "userManager/addressModify";
+        return "addressModify";
     }
     @RequestMapping("/buyStore")
     public String toBuyStore(){
@@ -67,6 +67,32 @@ public class SkipController {
     @RequestMapping("/proScore")
     public String toProScore(){
         return "proScore";
+    }
+
+    //后台admin卖家跳转页面
+    @RequestMapping("/orderList")
+    public String toOrderList(){
+        return "adminManager/orderList";
+    }
+    @RequestMapping("/productAdd")
+    public String toProductAdd(){
+        return "adminManager/productAdd";
+    }
+    @RequestMapping("/productDetail")
+    public String toProductDetail(){
+        return "adminManager/productDetail";
+    }
+    @RequestMapping("/productList")
+    public String toProductList(){
+        return "adminManager/productList";
+    }
+    @RequestMapping("/productStock")
+    public String toProductStock(){
+        return "adminManager/productStock";
+    }
+    @RequestMapping("/updateProduct")
+    public String toUpdateProduct(){
+        return "adminManager/updateProduct";
     }
 
 }

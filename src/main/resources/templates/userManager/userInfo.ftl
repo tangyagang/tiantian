@@ -2,18 +2,18 @@
 	<head>
 		<meta charset="utf-8">
 		<title></title>
-		<script type="text/javascript" src="js/safe/aywmq_qt.js" ></script>
-		<script type="text/javascript" src="js/safe/da_opt.js" ></script>
+		<script type="text/javascript" src="../js/safe/aywmq_qt.js" ></script>
+		<script type="text/javascript" src="../js/safe/da_opt.js" ></script>
 		<meta name="keywords" content="">
 		<meta name="description" content="">
-		<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
-		<link rel="stylesheet" href="css/safe/css.css" />
-		<link rel="stylesheet" href="css/safe/common.min.css" />
-		<link rel="stylesheet" href="css/safe/ms-style.min.css" />
-		<link rel="stylesheet" href="css/safe/personal_member.min.css" />
-		<link rel="stylesheet" href="css/safe/Snaddress.min.css" />
-		<link rel="stylesheet" href="css/admin_index.css">
-		<script type="text/javascript" src="js/sui.js" ></script>
+		<script type="text/javascript" src="../js/jquery-1.9.1.min.js"></script>
+		<link rel="stylesheet" href="../css/safe/css.css" />
+		<link rel="stylesheet" href="../css/safe/common.min.css" />
+		<link rel="stylesheet" href="../css/safe/ms-style.min.css" />
+		<link rel="stylesheet" href="../css/safe/personal_member.min.css" />
+		<link rel="stylesheet" href="../css/safe/Snaddress.min.css" />
+		<link rel="stylesheet" href="../css/admin_index.css">
+		<script type="text/javascript" src="../js/sui.js" ></script>
 		<script type="text/javascript">
             //获取验证码
             function getVerify(obj){
@@ -29,11 +29,11 @@
 			<div class="ng-toolbar-con wrapper">
 				<div class="ng-toolbar-left">
 					<a  class="ng-bar-node ng-bar-node-backhome" id="ng-bar-node-backhome" style="display: block;">
-						<span><img src="img/Home.png" style="margin-right: 10px;"/>返回买啦首页</span>
+						<span><img src="../img/Home.png" style="margin-right: 10px;"/>返回买啦首页</span>
 					</a>
 					<div class="ng-bar-node-box ng-site-nav-box">
 						<a href="" class="ng-bar-node ng-bar-node-site" >
-							<span><img src="img/daohang.png" style="margin-right: 5px;" />网站导航</span><em class="ng-iconfont down"></em>
+							<span><img src="../img/daohang.png" style="margin-right: 5px;" />网站导航</span><em class="ng-iconfont down"></em>
 						</a>
 						<div class="ng-sn-site-nav ng-d-box site-nav-child" style="display:none;">
 							<dl class="sn-site-list lnb">
@@ -119,7 +119,7 @@
 						</div>
 					</div>
 					<a class="ng-bar-node ng-bar-node-mini-cart"  rel="nofollow" href="">
-						<span><img src="img/购物车.png" />购物车</span>
+						<span><img src="../img/购物车.png" />购物车</span>
 					<span class="total-num-bg-box">
 						<em></em>
 						<i></i>
@@ -249,7 +249,7 @@
 				<div class="header-useinfo" id="">
 					<div class="ms-avatar">
 						<div class="useinfo-avatar">
-							<img src="img/头像.png">
+							<img src="../img/头像.png">
 							<div class="edit-avatar"></div>
 							<a class="text-edit-avatar" >修改</a>
 						</div>
@@ -271,10 +271,10 @@
         				<a >安全等级：<span>中</span></a>
 							</span>
 							<a class="bind-phone" >
-								<i style="background-image: url(img/修改手机.png);"></i>修改手机</a>
+								<i style="background-image: url(../img/修改手机.png);"></i>修改手机</a>
 							<a class="bind-email" >
-								<i style="background-image: url(img/绑定邮箱.png);"></i>修改邮箱</a>
-							<a  class="manage-addr" ><i style="background-image: url(img/地址管理.png);"></i>地址管理</a>
+								<i style="background-image: url(../img/绑定邮箱.png);"></i>修改邮箱</a>
+							<a  class="manage-addr" ><i style="background-image: url(../img/地址管理.png);"></i>地址管理</a>
 						</div>
 					</div>
 				</div>
@@ -290,8 +290,8 @@
 					<div class="ms-side">
 						<article class="side-menu side-menu-off">
 							<dl class="side-menu-tree" style="padding-left: 50px;">
-								<dt><img src="img/左侧/我的购物车.png"  style="margin-right: 10px;margin-left: -20px;"/>我的购物车</dt>
-								<dt><img src="img/左侧/file.png"  style="margin-right: 10px;margin-left: -20px;"/>订单管理</dt>
+								<dt><img src="../img/左侧/我的购物车.png"  style="margin-right: 10px;margin-left: -20px;"/>我的购物车</dt>
+								<dt><img src="../img/左侧/file.png"  style="margin-right: 10px;margin-left: -20px;"/>订单管理</dt>
 								<dd>
 									<a href="我的订单.html">我的订单</a>
 								</dd>
@@ -310,7 +310,7 @@
 								<dd>
 									<a href="购买过的店铺.html">购买过的店铺</a>
 								</dd>
-								<dt><img src="img/左侧/我的买啦.png"  style="margin-right: 10px;margin-left: -20px;"/>个人信息</dt>
+								<dt><img src="../img/左侧/我的买啦.png"  style="margin-right: 10px;margin-left: -20px;"/>个人信息</dt>
 								<dd>
 									<a href="基本资料.html">基本资料</a>
 								</dd>
@@ -335,7 +335,7 @@
 									<div class="user-profile-wrap">
 										<p>当前头像：</p>
 										<div class="profile-avatar">
-										<img src="img/头像.png" height="120" width="120">
+										<img src="../img/头像.png" height="120" width="120">
 										<!--<a href="" name="">编辑头像</a>
 										<div class="edit_bg"></div>-->
 									</div>

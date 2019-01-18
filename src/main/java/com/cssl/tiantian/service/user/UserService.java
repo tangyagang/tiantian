@@ -18,5 +18,5 @@ public interface UserService {
     //根据用户ID查询用户
     public User findUserByUserId(int userId);
     //根据电话号码查询用户
-    public User findUserByPhone(@Param("phone")String phone);
+    public User findUserByPhone(String phone);
 }
