@@ -1,6 +1,6 @@
 package com.cssl.tiantian.tools;
 /**
- * 有问题，暂时不用
+ * 发送验证码用
  */
 
 import java.io.IOException;

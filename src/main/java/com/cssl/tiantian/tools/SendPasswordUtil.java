@@ -1,6 +1,6 @@
 package com.cssl.tiantian.tools;
 /**
- * 有问题，暂时不用
+ * 发送密码用
  */
 
 import com.github.qcloudsms.SmsSingleSender;

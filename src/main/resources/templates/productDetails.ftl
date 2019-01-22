@@ -35,8 +35,8 @@
 <div class="top">
   <div class="logo"> <a href="#"> <img src="img/log.png"/> </a> </div>
   <div class="search">
-    <form>
-      <input type="search" value="" placeholder="请输入关键字" class="s_ipt"/>
+    <form action="${request.contextPath}/index" method="post">
+      <input type="search" value="<#if proName??>${proName}</#if>" placeholder="请输入关键字" class="s_ipt"/>
       <input type="submit" value="搜索" class="s_btn"/>
     </form>
   </div>
@@ -114,7 +114,7 @@
         </#list>
 	</div>
  </div>
- <!--分页-->
+
 <!--分页 -->
 <div id="fenye">
     <div class="fenye_main">

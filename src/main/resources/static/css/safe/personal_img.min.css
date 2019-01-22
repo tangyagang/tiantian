@@ -1,7 +1,4 @@
 @charset "UTF-8";
-a:hover{
-	text-decoration: none;
-}
 .w990 .personal-member {
 	width: 990px
 }
@@ -15,73 +12,40 @@ a:hover{
 }
 
 .personal-member .main-wrap {
-	width: 1000px;
+	width: 1068px;
+	height: 500px;
 	margin: 15px 0 30px 180px;
 	padding: 0 0 39px 0;
-	background: #fff;
+	border: 1px solid #ddd;
+	background: #fff
 }
 
 .personal-member .main-wrap h3 {
 	height: 38px;
 	padding: 0 10px;
-	color: #666;
 	background: #fafafa;
+	color: #666
 }
-.personal-member .main-wrap h4{
-	font-size: 14px;
-	color: #333333;
-	margin-left: 10px;
-}
+
 .personal-member .main-wrap h3 strong {
 	line-height:38px;
-	margin-left: 10px;
+}
 
+.personal-member .main-wrap h3 span {
+	float: right;
+	font: 400 12px/38px simsun
 }
-.main-wrap-main{
-	border: 1px solid #ddd;
-}
-/*.personal-member .main-wrap .main-wrap-info {
-	height: 38px;
-	background: #fafafa;
-	border-bottom: 1px #ccc solid;
-!*	float: right;
-	font: 400 12px/38px simsun*!
-}
-.personal-member .main-wrap .main-wrap-info span{
-	line-height: 38px;
-	padding: 5px 10px;
-	margin-left: 10px;
-	color: #666;
-}*/
-.modify-file{
-	width: 300px;
-	float: left;
-	position: relative;
-	top: 78px;
-}
-.modify-file p{
-	color: #999;
-	font-size: 11px;
-}
-.modify-file input{
-	width: 300px;
-	display: inline-block;
-	border:1px solid #ccc;
 
-}
 .personal-member .cont-main {
 	width: 1068px;
 	overflow: visible
-}
-.personal-member .main-wrap .main-wrap-info span:hover{
-	border: 1px solid #dcdcdc;
 }
 
 .vip {
 	display: inline-block;
 	width: 43px;
 	height: 25px;
-	background: url(img/icon-nameInfo.png?v=201602180925) top left no-repeat;
+	background: url(images/icon-nameInfo.png?v=201602180925) top left no-repeat;
 	vertical-align: -5px
 }
 
@@ -104,7 +68,7 @@ a:hover{
 .user-profile {
 	width: 968px;
 	margin-left: 66px;
-	padding: 20px 0;
+	padding: 30px 0;
 	border-bottom: 1px solid #f1f1f1
 }
 
@@ -114,14 +78,11 @@ a:hover{
 
 .user-profile-wrap {
 	float: left;
-	margin-left: 66px;
 	position: relative;
-	width: 220px;
-	height: 120px;
+	/*width: 200px;*/
+	height: 120px
 }
-.user-profile-wrap>p{
-	float: left;
-}
+
 .user-profile-wrap .vip {
 	position: absolute;
 	right: 0;
@@ -131,13 +92,9 @@ a:hover{
 .user-profile .profile-avatar {
 	float: left;
 	position: relative;
-	width: 110px;
-	height: 110px;
+	width: 200px;
+	height: 200px;
 	border: 5px solid #e3e3e3;
-	-webkit-border-radius: 50%;
-	-moz-border-radius: 50%;
-	-o-border-radius: 50%;
-	border-radius: 50%;
 	overflow: hidden
 }
 
@@ -146,17 +103,12 @@ a:hover{
 	top: -5px;
 	left: -5px;
 	display: block;
-	-webkit-border-radius: 50%;
-	-moz-border-radius: 50%;
-	-o-border-radius: 50%;
-	border-radius: 50%
 }
 
 .user-profile .profile-avatar a {
 	position: absolute;
-	left: -5px;
-	top: 90px;
-	width: 120px;
+	top: 180px;
+	width: 200px;
 	height: 25px;
 	text-align: center;
 	color: #FFF;
@@ -165,9 +117,9 @@ a:hover{
 
 .user-profile .profile-avatar .edit_bg {
 	position: absolute;
-	left: -5px;
-	top: 88px;
-	width: 120px;
+
+	top: 175px;
+	width: 200px;
 	height: 25px;
 	font-size: 0;
 	opacity: .5;
@@ -256,24 +208,14 @@ a:hover{
 }
 
 .form-list .control-group {
-	display:block;
-	clear: both;
+	margin-bottom: 20px
 }
 
 .control-group {
-	margin-bottom: 25px;
+	margin-bottom: 25px
 }
-#code{
-	height: 50px;
-	position: relative;
-	top: 25px;
-}
-/*.priority-high {
-	position: relative;
-	z-index: 2
-}*/
+
 .control-label {
-	float: left;
 	width: 194px;
 	text-align: right;
 	line-height: 26px;
@@ -362,6 +304,15 @@ a:hover{
 	color: #333
 }
 
+.controls .adress-detail {
+	position: relative;
+	margin-top: 11px
+}
+
+.controls .adress-detail input {
+	width: 335px
+}
+
 .controls .ide-num-modify {
 	line-height: 26px
 }
@@ -372,7 +323,7 @@ a:hover{
 }
 
 .controls .btn-sub {
-	float: left;
+
 	width: 103px;
 	height: 33px;
 	margin: 19px 0 0 194px;
@@ -445,7 +396,7 @@ a:hover{
 	top: 6px;
 	width: 20px;
 	height: 15px;
-	background: url(img/littleIcon.png) no-repeat;
+	background: url(images/littleIcon.png) no-repeat;
 	background-position: -108px -4px;
 	cursor: pointer
 }
@@ -481,7 +432,7 @@ a:hover{
 	width: 16px;
 	height: 16px;
 	margin: 5px 5px 0 10px;
-	background: url(img/tipIcon.png) no-repeat
+	background: url(images/tipIcon.png) no-repeat
 }
 
 .error-place .error {
@@ -571,7 +522,7 @@ a:hover{
 	float: left;
 	width: 26px;
 	height: 26px;
-	background: url(img/littleIcon.png) no-repeat
+	background: url(images/littleIcon.png) no-repeat
 }
 
 .head-title i.custom {
@@ -610,7 +561,7 @@ a:hover{
 	color: #999
 }
 
-.choice-img {
+.choice-images {
 	position: relative;
 	float: left;
 	width: 298px;
@@ -620,7 +571,7 @@ a:hover{
 	overflow: hidden
 }
 
-.choice-img .file {
+.choice-images .file {
 	position: absolute;
 	top: 0;
 	right: 0;
@@ -631,13 +582,13 @@ a:hover{
 	cursor: pointer
 }
 
-.choice-img .click-upload {
+.choice-images .click-upload {
 	position: absolute;
 	top: 104px;
 	left: 99px;
 	width: 95px;
 	height: 90px;
-	background: url(img/littleIcon.png) no-repeat;
+	background: url(images/littleIcon.png) no-repeat;
 	background-position: -44px -20px;
 	z-index: 1
 }
@@ -818,7 +769,7 @@ a:hover{
 	bottom: -2px;
 	width: 14px;
 	height: 14px;
-	background: url(img/littleIcon.png) no-repeat;
+	background: url(images/littleIcon.png) no-repeat;
 	background-position: -28px -96px
 }
 
@@ -890,7 +841,7 @@ a:hover{
 	height: 16px;
 	right: 10px;
 	top: 10px;
-	background: url(img/littleIcon.png) no-repeat;
+	background: url(images/littleIcon.png) no-repeat;
 	background-position: -62px -2px
 }
 
@@ -922,7 +873,7 @@ a:hover{
 	top: 10px;
 	width: 16px;
 	height: 16px;
-	background: url(img/littleIcon.png) no-repeat;
+	background: url(images/littleIcon.png) no-repeat;
 	background-position: -44px -2px
 }
 
@@ -937,7 +888,7 @@ a:hover{
 }
 
 .extend-list-current dt i {
-	background: url(img/littleIcon.png) no-repeat;
+	background: url(images/littleIcon.png) no-repeat;
 	background-position: -80px -2px;
 	color: #fff
 }
@@ -1072,7 +1023,7 @@ a:hover{
 	top: 10px;
 	width: 16px;
 	height: 16px;
-	background: url(img/littleIcon.png) no-repeat;
+	background: url(images/littleIcon.png) no-repeat;
 	background-position: -44px -2px
 }
 
@@ -1082,7 +1033,7 @@ a:hover{
 }
 
 .interest-list-current dt i {
-	background: url(img/littleIcon.png) no-repeat;
+	background: url(images/littleIcon.png) no-repeat;
 	background-position: -80px -2px;
 	color: #fff
 }
@@ -1218,7 +1169,7 @@ a:hover{
 	top: 4px;
 	width: 7px;
 	height: 7px;
-	background: url(img/littleIcon.png) no-repeat;
+	background: url(images/littleIcon.png) no-repeat;
 	background-position: -100px -10px;
 	overflow: hidden
 }
@@ -1303,7 +1254,7 @@ a:hover{
 }
 
 .personal-member .cont-side {
-	top: -15px;
+	top: -15px
 }
 
 .ie6 .cont-side,
@@ -1311,7 +1262,10 @@ a:hover{
 	top: 0
 }
 
-
+.priority-high {
+	position: relative;
+	z-index: 2
+}
 
 .priority-low {
 	position: relative;
@@ -1391,7 +1345,7 @@ a:hover{
 	width: 36px;
 	height: 32px;
 	margin: 0 6px 2px 0;
-	background: url(img/faceBtn_bg.png) -20px -65px;
+	background: url(images/faceBtn_bg.png) -20px -65px;
 	vertical-align: middle
 }
 
@@ -1461,7 +1415,7 @@ a:hover{
 	width: 14px;
 	height: 12px;
 	margin-right: 3px;
-	background: url(img/faceBtn_bg.png) -35px -99px;
+	background: url(images/faceBtn_bg.png) -35px -99px;
 	vertical-align: middle
 }
 
@@ -1482,7 +1436,7 @@ a:hover{
 	display: inline-block;
 	width: 16px;
 	height: 16px;
-	background: url(img/tipIcon.png?v=ba8d8) no-repeat;
+	background: url(images/tipIcon.png?v=ba8d8) no-repeat;
 	vertical-align: middle
 }
 
@@ -1551,7 +1505,7 @@ a:hover{
 	bottom: -2px;
 	width: 14px;
 	height: 14px;
-	background: url(img/littleIcon.png) no-repeat;
+	background: url(images/littleIcon.png) no-repeat;
 	background-position: -28px -96px
 }
 
@@ -1624,3 +1578,25 @@ a:hover{
 .m-dialog .content {
 	overflow: hidden
 }
+.control-group .save{
+	width: 77px;
+	height: 30px;
+	position: relative;
+	top: 170px;
+	left: 100px;
+}
+.modify-file{
+	margin-bottom: 20px;
+}
+.modify-file>input{
+	border: 1px #999 solid;
+}
+
+
+
+
+
+
+
+
+

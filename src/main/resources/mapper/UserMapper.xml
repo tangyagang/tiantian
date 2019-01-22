@@ -5,7 +5,11 @@
 <mapper namespace="com.cssl.tiantian.dao.user.UserMapper">
     <resultMap id="userMap" type="user">
         <id property="userId" column="userId"/>
+        <association property="areas" javaType="areas" column="areaId" select="getAreas"/>
     </resultMap>
+    <select id="getAreas" resultType="areas">
+        select * from areas where areaid = #{areaId}
+    </select>
     <select id="getUserByUserName" resultMap="userMap" parameterType="String">
         select * from user where userName = #{userName}
     </select>
@@ -42,6 +46,7 @@
                       <if test="address != null and address != ''">address=#{address},</if>
                       <if test="userType &gt; 0">userType=${userType},</if>
                       <if test="identity != null and identity != ''">identity=#{identity},</if>
+                      <if test="areas != null and areas.areaId > 0 ">areaId=#{areas.areaId},</if>
                   </set>
                 where userId=${userId}
     </update>

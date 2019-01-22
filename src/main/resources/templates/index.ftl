@@ -5,16 +5,77 @@
     <link href="css/public.css" type="text/css" rel="stylesheet"/>
     <title>public.class</title>
     <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
-    <script type="text/javascript" src="js/public.js">
-
+    <script type="text/javascript" src="js/public.js"></script>
+    <script type="text/javascript" src="js/jquery-1.8.3.js"></script>
+    <script type="text/javascript">
+        var proName = "";
+        var pageNo = "";
+        var totalPage = "";
+        $(function () {
+            //条件筛选
+            $(".s_btn").click(function () {
+                proName = $(".s_ipt").val();
+                pageNo = $("input:hidden[name=pageNo]").val();
+                window.location.href="${request.contextPath}/index?proName="+proName;
+            });
+            //分页
+            $("#first_page").click(function(){
+                //首页
+                proName = $(".s_ipt").val();
+                pageNo = $("#current").val();
+                proName = $(".s_ipt").val();
+                if(pageNo > 1){
+                    pageNo = 1;
+                    $("#current").val(pageNo);
+                    window.location.href="${request.contextPath}/index?pageNo="+pageNo+"&proName="+proName;
+                }
+            })
+            $("#pre_page").click(function(){
+                //上一页
+                proName = $(".s_ipt").val();
+                pageNo = $("#current").val();
+                if(pageNo > 1){
+                    pageNo = pageNo-1;
+                    $("#current").val(pageNo);
+                    window.location.href="${request.contextPath}/index?pageNo="+pageNo+"&proName="+proName;
+                }
+            });
+            $("#fenye .fenye_main #next_page").click(function(){
+                //下一页
+                proName = $(".s_ipt").val();
+                pageNo = $("#current").val();
+                totalPage = $("#totalPage").val();
+                if(pageNo < totalPage){
+                    pageNo = $("#current").val();
+                    pageNo = parseInt(pageNo) + 1
+                    $("#current").val(pageNo);
+                    window.location.href="${request.contextPath}/index?pageNo="+pageNo+"&proName="+proName;
+                }
+            });
+            $("#end_page").click(function(){
+                //末页
+                proName = $(".s_ipt").val();
+                pageNo = $("#current").val();
+                totalPage = $("#totalPage").val();
+                if(totalPage > pageNo){
+                    pageNo = totalPage;
+                    $("#current").val(pageNo);
+                    window.location.href="${request.contextPath}/index?pageNo="+pageNo+"&proName="+proName;
+                }
+            });
+            $(".fenye_test").click(function () {
+                pageNo = $(this).children("a").html();
+                proName = $(".s_ipt").val();
+                window.location.href="${request.contextPath}/index?pageNo="+pageNo+"&proName="+proName;
+            });
+        });
     </script>
-
 
 </head>
 
-
 <body>
 
+<form id="subform" method="post" action="${request.contextPath}/index?pageNo="+pageNo>
 <!--网页头部-->
 <header>
     <div class="main1">
@@ -32,10 +93,8 @@
     <div class="top">
         <div class="logo"> <a href="#"> <img src="img/log.png"/> </a> </div>
         <div class="search">
-            <form>
-                <input type="search" value="" placeholder="请输入关键字" class="s_ipt"/>
-                <input type="submit" value="搜索" class="s_btn"/>
-            </form>
+            <input type="text" name="proName" value="<#if proName??>${proName}</#if>" placeholder="请输入关键字" class="s_ipt" id="search"/>
+            <input type="button" value="搜索" class="s_btn"/>
         </div>
     </div>
     <div class="head_nav_main">
@@ -91,8 +150,6 @@
             </div>
         </div>
 
-
-
         <!--焦点图-->
         <div class="banner">
             <div class="top_slide_wrap">
@@ -112,9 +169,7 @@
                 </div>
             </div>
         </div>
-
-
-
+        
         <!--新闻列表-->
         <div class="inews">
             <div class="news_t">
@@ -188,7 +243,7 @@
                         <#items as product>
                             <li class="but_m2">
                                 <div class="but_img"><a href="${request.contextPath}/productDetails?proId=${product.proId}"><img src="img/center1.jpg" style="width:270px; height:250px;" /></a></div>
-                                <div class="name"><a><h2>${product.proName}</h2><span>${product.description}</span></a></div>
+                                <div class="name"><a href="${request.contextPath}/productDetails?proId=${product.proId}"><h2>${product.proName}</h2><span>${product.description}</span></a></div>
                                 <div class="price"><strong>￥<span>${product.proPrice}</span></strong></div>
                             </li>
                         </#items>
@@ -204,30 +259,35 @@
     <!--分页 -->
     <div id="fenye">
         <div class="fenye_main">
+            <#--保存当前页-->
+            <input type="hidden" name="pageNo" value="${page.pageNo}" id="current"/>
+            <input type="hidden" value="${page.totalPage}" id="totalPage"/>
             <#if page.pageNo == 1>
-                <span class="fenye_changIn">首页</span>
-              <#else >
-                <span class="fenye_changIn"><a href="#">首页</a></span>
-              </#if>
+                <span class="fenye_changIn" >首页</span>
+            <#else >
+                <span class="fenye_changIn" id="first_page"><a href="javascript:void(0)">首页</a></span>
+            </#if>
             <#if page.pageNo == 1>
                 <span class="fenye_changIn">上页</span>
             <#else >
-                <span class="fenye_changIn"><a href="#">上页</a></span>
+                <span class="fenye_changIn" id="pre_page"><a href="javascript:void(0)">上页</a></span>
             </#if>
-            <#list numbs>
+            <div id="numbs" style="display: inline-block">
+                <#list numbs>
                 <#items as numb>
-                     <span class="fenye_test"><a href="#">${numb}</a></span>
+                     <span class="fenye_test"><a href="javascript:void(0)">${numb}</a></span>
                 </#items>
-            </#list>
+                </#list>
+            </div>
             <#if page.pageNo == page.totalPage>
                 <span class="fenye_changIn">下页</span>
             <#else >
-                <span class="fenye_changIn"><a href="#">下页</a></span>
+                <span class="fenye_changIn" id="next_page" ><a href='javascript:void(0)'>下页</a></span>
             </#if>
              <#if page.pageNo == page.totalPage>
                 <span class="fenye_changOut">末页</span>
              <#else >
-                <span class="fenye_changOut"><a href="#">末页</a></span>
+                <span class="fenye_changOut" id="end_page"><a href="javascript:void(0)">末页</a></span>
              </#if>
         </div>
     </div>
@@ -255,5 +315,6 @@
             <img src="img/b_1.gif"/> <img src="img/b_2.gif"/> <img src="img/b_3.gif"/> <img src="img/b_4.gif"/> <img src="img/b_5.gif"/> <img src="img/b_6.gif"/> </div>
     </div>
 </footer>
+</form>
 </body>
 </html>

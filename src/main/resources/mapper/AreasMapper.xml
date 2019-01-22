@@ -24,4 +24,8 @@
               and c.areaId = ${areaId}
     </select>
 
+    <select id="getAreasByCityCode" resultType="areas">
+        select * from areas where cityId = #{cityCode}
+    </select>
+
 </mapper>

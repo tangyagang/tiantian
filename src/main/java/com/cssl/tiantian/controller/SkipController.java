@@ -48,49 +48,50 @@ public class SkipController {
     }
 
     //后台user用户跳转页面
-    @RequestMapping("/addressModify")
+    @RequestMapping("/userManager/addressModify")
     public String toAddressModify(){
         return "addressModify";
     }
-    @RequestMapping("/buyStore")
+    @RequestMapping("/userManager/buyStore")
     public String toBuyStore(){
         return "buyStore";
     }
-    @RequestMapping("/myCollection")
+    @RequestMapping("/userManager/myCollection")
     public String toMyCollection(){
         return "myCollection";
     }
-    @RequestMapping("/myHistory")
+    @RequestMapping("/userManager/myHistory")
     public String toMyHistory(){
         return "myHistory";
     }
-    @RequestMapping("/proScore")
+    @RequestMapping("/userManager/proScore")
     public String toProScore(){
         return "proScore";
     }
 
+
     //后台admin卖家跳转页面
-    @RequestMapping("/orderList")
+    @RequestMapping("/adminManager/orderList")
     public String toOrderList(){
         return "adminManager/orderList";
     }
-    @RequestMapping("/productAdd")
+    @RequestMapping("/adminManager/productAdd")
     public String toProductAdd(){
         return "adminManager/productAdd";
     }
-    @RequestMapping("/productDetail")
+    @RequestMapping("/adminManager/productDetail")
     public String toProductDetail(){
         return "adminManager/productDetail";
     }
-    @RequestMapping("/productList")
+    @RequestMapping("/adminManager/productList")
     public String toProductList(){
         return "adminManager/productList";
     }
-    @RequestMapping("/productStock")
+    @RequestMapping("/adminManager/productStock")
     public String toProductStock(){
         return "adminManager/productStock";
     }
-    @RequestMapping("/updateProduct")
+    @RequestMapping("/adminManager/updateProduct")
     public String toUpdateProduct(){
         return "adminManager/updateProduct";
     }

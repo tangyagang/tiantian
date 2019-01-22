@@ -15,6 +15,30 @@
 		<link rel="stylesheet" href="../css/admin_index.css">
 		<script type="text/javascript" src="../js/sui.js" ></script>
 		<script type="text/javascript">
+			$(function () {
+				$("#provinceId").change(function () {
+					var provinceCode = $("#provinceId").val();
+					$.get("${request.contextPath}/getCity?provinceCode="+provinceCode,function (data) {
+						$("#cityId option").remove();
+						$("#areaId option").remove();
+						for (var i=0;i<data.length;i++){
+						    $("#cityId").append("<option value='"+data[i].cityCode+"'>"+data[i].city+"</option>");
+						}
+                        for (var j=0;j<data[0].areases.length;j++){
+                            $("#areaId").append("<option value='"+data[0].areases[j].areaCode+"'>"+data[0].areases[j].area+"</option>");
+                        }
+                    })
+                })
+                $("#cityId").change(function () {
+                    var cityCode = $("#cityId").val();
+                    $.get("${request.contextPath}/getAreas?cityCode="+cityCode,function (data) {
+                        $("#areaId option").remove();
+                        for (var i=0;i<data.length;i++){
+                            $("#areaId").append("<option value='"+data[i].areaCode+"'>"+data[i].area+"</option>");
+                        }
+                    })
+                })
+            });
             //获取验证码
             function getVerify(obj){
                 $("#veryCode").attr("src",httpurl + "${request.contextPath}/getVerify?"+Math.random());
@@ -329,21 +353,21 @@
 							<h3>
 								<strong>个人信息</strong>
 							</h3>
-							<form method="post" name="user" action="${request.contextPath}/userModify" enctype="multipart/form-data">
+							<form method="post" name="user" action="${request.contextPath}/userManager/userModify" enctype="multipart/form-data">
 								<!--<div class="main-wrap-info"><a href="#"> <span>基本资料</span></a><a href="#"><span>头像照片</span></a></div>-->
 								<div class="user-profile clearfix">
 									<div class="user-profile-wrap">
 										<p>当前头像：</p>
 										<div class="profile-avatar">
-										<img src="../img/头像.png" height="120" width="120">
-										<!--<a href="" name="">编辑头像</a>
-										<div class="edit_bg"></div>-->
+										<img src="${request.contextPath}/${user.userUrl}" height="120" width="120">
+										<a href="${request.contextPath}/userManager/userInfoImg" name="">编辑头像</a>
+										<div class="edit_bg"></div>
 									</div>
 									</div>
-									<div class="modify-file">
+									<#--<div class="modify-file">
 										<p>仅支持JPG、GIF、PNG图片文件，且文件小于5M</p>
 										<input type="file" name="filename" />
-									</div>
+									</div>-->
 								</div>
 
 								<div class="form-list tab-switch personal-wrap-show">
@@ -402,25 +426,25 @@
 										<label class="control-label"><em>*&nbsp;</em>居住地址：</label>
 										<div class="controls">
 											<div id="zhen" datas-id="" class="citySelect cityboxbtn">
-												<select >
+												<select id="provinceId">
 													<#list addressList as pro>
-														<option value="${pro.provinceId}" <#if pro.provinceId == areas.cities.provinces.provinceId> selected = "selected"</#if>>
+														<option value="${pro.provinceCode}" <#if pro.provinceId == areas.cities.provinces.provinceId> selected = "selected"</#if>>
 															${pro.province}
 														</option>
 													</#list>
 												</select>
-												<select>
+												<select id="cityId">
 													<#list addressList as pro>
 														<#if pro.provinceId == areas.cities.provinces.provinceId>
 															<#list pro.citieses as cities>
-																<option value="${cities.cityId}" <#if cities.cityId == areas.cities.cityId> selected = "selected"</#if>>
+																<option value="${cities.cityCode}" <#if cities.cityId == areas.cities.cityId> selected = "selected"</#if>>
 																	${cities.city}
 																</option>
 															</#list>
 														</#if>
 													</#list>
 												</select>
-												<select name="areaId">
+												<select id="areaId" name="areaId">
 													<#list addressList as pro>
 														<#if pro.provinceId == areas.cities.provinces.provinceId>
 															<#list pro.citieses as cities>
