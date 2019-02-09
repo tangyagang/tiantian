@@ -1,0 +1,93 @@
+package com.cssl.tiantian.controller;
+
+import com.cssl.tiantian.pojo.Order;
+import com.cssl.tiantian.pojo.User;
+import com.cssl.tiantian.service.sellOrder.SellOrderService;
+
+import com.cssl.tiantian.vo.SellFindVo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
+
+@Controller
+public class OrderController {
+
+    @Autowired
+    SellOrderService orderService;
+
+
+
+
+    //跳转到卖家订单列表
+    @RequestMapping("/sellManager/SellOrder")
+    public String OrderList(ModelMap modelmap, HttpServletRequest request,HttpServletResponse response){
+       // User user=(User)request.getSession().getAttribute("User");
+        User user=new User();
+        user.setUserId(1);
+        request.getSession().setAttribute("User",user);
+        List<Order> orderList=orderService.getAll1(user.getUserId());
+        modelmap.put("OrderList",orderList);
+        return "/sellManager/OrderList";
+    }
+
+    //发货
+    @RequestMapping("/sellManager/delivery")
+        public  String delivery(ModelMap modelmap,@RequestParam(value = "orderId") int orderId,HttpServletRequest request){
+        orderService.updateOrderByStatus(orderId,3);
+        User user=(User)request.getSession().getAttribute("User");
+        List<Order> orderList=orderService.getAll1(user.getUserId());
+        modelmap.put("OrderList",orderList);
+        return "/sellManager/OrderList";
+    }
+    //点击商品名称或者点击发货按键时，跳转到订单详情页面
+    @RequestMapping("/sellManager/OrderDetails")
+    public String OrderDetails(ModelMap modelmap,HttpServletRequest request){
+        User a=(User)request.getSession().getAttribute("User");
+        modelmap.put("Order",orderService.getOrderByOrderId(Integer.parseInt(request.getQueryString()),a.getUserId()));
+        return "/sellManager/OrderDetails";
+    }
+
+
+    //表头导航，根据session中的User.userId和URL中传过来的参数查询特定status状态商品
+    @RequestMapping("/sellManager/OrderWait")
+    public String Wait(ModelMap modelMap,@ModelAttribute("user")User user,HttpServletRequest request){
+        User a=(User)request.getSession().getAttribute("User");
+        modelMap.put("OrderList",orderService.getStatusByUserID(a.getUserId(), Integer.parseInt(request.getQueryString())));
+        return "/sellManager/OrderList";
+    }
+
+    //模糊查询方法，将查询FROM表单注入SellFindVo类中
+    @RequestMapping("/sellFindOrder")
+        public String Find(@ModelAttribute("from") SellFindVo vo, ModelMap modelMap, HttpServletRequest request){
+        User user=(User) request.getSession().getAttribute("User");
+        vo.setShopId(user.getUserId());
+        modelMap.put("OrderList",orderService.getOrderByOption(vo));
+        return "/sellManager/OrderList";
+    }
+
+    //关闭订单，并将冻结资金解锁转入买家账户
+    @RequestMapping("/sellManager/CloseOrder")
+        public String CloseOrder(HttpServletRequest request) {
+        User a=(User)request.getSession().getAttribute("User");
+        Order ord=orderService.getOrderByOrderId(Integer.parseInt(request.getQueryString()),a.getUserId());
+        double money=ord.getCost();
+        System.out.println(money);
+        if(ord.getStatus()==1){
+        orderService.closeOrder(Integer.parseInt(request.getQueryString()));}
+        if(ord.getStatus()==2){
+            orderService.closeOrder(Integer.parseInt(request.getQueryString()));
+            orderService.updateOrderDetail(ord.getOrderId());
+            orderService.addUserMoney(a.getUserId(),money);
+        }
+        return "forward:/sellManager/SellOrder";
+    }
+
+
+}

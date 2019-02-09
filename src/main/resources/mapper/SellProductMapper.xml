@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cssl.tiantian.dao.sellOrder.SellProductMapper">
+
+    <resultMap id="productMap" type="product">
+        <id column="proId" property="proId"/>
+        <association property="productCategory" column="pcId" select="findProductCategory"/>
+
+        <association property="shop" javaType="shop">
+            <id column="sId" property="shopId"/>
+            <association property="user" javaType="user" resultMap="findUserByUserIdMap"></association>
+        </association>
+        <collection property="orderDetails" ofType="orderDetail" resultMap="findOrderDetailMap"/>
+
+    </resultMap>
+
+    <resultMap id="findUserByUserIdMap" type="user">
+        <id column="uId" property="userId"/>
+    </resultMap>
+
+    <resultMap id="findOrderDetailMap" type="orderDetail">
+        <id column="odId" property="odId"/>
+    </resultMap>
+
+    <update id="updateProductByProduct" parameterType="Product">
+         UPDATE product SET `proName` = #{proName} ,
+        `description` =#{description} ,
+        `proPrice` = #{proPrice} ,
+        `stock` = #{stock} , `pcId` = #{productCategory.pcId} ,
+        `newPrice` = #{newPrice} WHERE `proId` = #{proId};
+    </update>
+    <update id="updateByProId" parameterType="Product">
+        UPDATE `tiantian`.`product`
+        <set>
+            <if test="stock>=0  and stock !=''">
+                stock = #{stock},
+            </if>
+            <if test="proPrice>=0  and proPrice !=''">
+                proPrice = #{proPrice},
+            </if>
+            <if test="newPrice>=0  and newPrice !=''">
+                newPrice = #{newPrice}
+            </if>
+        </set>
+        where proId=#{proId}
+    </update>
+
+
+    <insert id="insertProduct" useGeneratedKeys="true" keyProperty="proId">
+        INSERT INTO `tiantian`.`product` (`proName`, `description`, `proPrice`, `stock`, `pcId`, `proUrl`, `isdelete`,
+        `isPrice`, `newPrice`, `shopId`, `createTime`)
+        VALUES ( #{proName}, #{description}, #{proPrice}, #{stock},#{productCategory.pcId},#{proUrl}, '0',
+        <if test="isPrice>0">
+            b'1'
+        </if>
+        <if test="isPrice=0">
+            b'0'
+        </if>
+        , #{newPrice}, '1',#{createTime});
+    </insert>
+
+    <insert id="inserProImgs">
+        INSERT INTO `tiantian`.`proimg` (`proId`, `proImgUrl`,`shopId`) VALUES
+        <foreach collection="list" item="proImg" index="index" separator="," close=";">
+            (#{proImg.proId},#{proImg.proImgUrl},(SELECT shopId FROM product WHERE proID=#{proImg.proId}))
+        </foreach>
+
+    </insert>
+
+    <select id="findProductCategory" parameterType="int" resultType="ProductCategory">
+        SELECT * FROM ProductCategory where pcId=#{pcId}
+     </select>
+    <select id="getAllByUser" resultMap="productMap">
+                SELECT * FROM product WHERE shopId IN ( SELECT shopid FROM shop WHERE userid=#{userId}) ORDER BY createTime ASC
+        </select>
+
+    <select id="getAll" resultMap="productMap">
+            select * from product order by createTime asc
+        </select>
+
+    <select id="getProductByProName" resultType="product">
+        select * from product
+        <trim prefix="where" prefixOverrides="and | or">
+            <if test="proName != null and proName != ''">
+                and proName like CONCAT("%",#{proName},"%")
+            </if>
+        </trim>
+        LIMIT ${currentPage},${pageSize}
+    </select>
+
+
+    <select id="getCount" resultType="java.lang.Integer">
+        select count(1) from product
+        <trim prefix="where" prefixOverrides="and | or">
+            <if test="proName != null and proName != ''">
+                and proName like CONCAT("%",#{proName},"%")
+            </if>
+        </trim>
+    </select>
+
+
+    <select id="getProductByProId" resultMap="productMap">
+             SELECT p.*,p.proId pId,s.*,s.shopId sId,u.*,u.userId uId
+             FROM product p,shop s,user u
+             WHERE p.shopId=s.shopId
+             AND s.userId=u.userId
+             AND proId=${proId}
+        </select>
+
+
+    <select id="getProductByPcId" resultMap="productMap">
+            SELECT * FROM product WHERE pcId
+              IN(
+                SELECT pcId FROM productcategory WHERE parentId = ${pcId} OR pcId = ${pcId}
+              )
+              LIMIT ${currentPage},${pageSize}
+        </select>
+    <select id="getCountByPcId" resultType="java.lang.Integer">
+            SELECT count(1) FROM product WHERE pcId
+              IN(
+                SELECT pcId FROM productcategory WHERE parentId = ${pcId} OR pcId = ${pcId}
+              )
+        </select>
+    <select id="getProductByPcId3" resultMap="productMap">
+            SELECT * FROM product WHERE pcId
+              IN (
+                SELECT pcId FROM productcategory a WHERE a.parentId
+                  IN(
+                    SELECT parentId FROM productcategory WHERE pcId = ${pcId}
+                  )
+              )
+              LIMIT ${currentPage},${pageSize}
+        </select>
+    <select id="getCountByPcId3" resultType="java.lang.Integer">
+            SELECT count(1) FROM product WHERE pcId
+              IN (
+                SELECT pcId FROM productCategory a WHERE a.parentId
+                  IN(
+                    SELECT parentId FROM productcategory WHERE pcId = ${pcId}
+                  )
+              )
+        </select>
+    <select id="getAllByOrder" resultMap="productMap">
+            SELECT * FROM product ORDER BY proPrice DESC
+              LIMIT ${currentPage},${pageSize}
+        </select>
+    <select id="getAllByPrice" resultMap="productMap">
+            SELECT * FROM product WHERE proPrice=9.9
+        </select>
+    <select id="getAllByOrderCount" resultMap="productMap">
+            SELECT a.*,a.proId pId,b.* FROM product a,orderdetail b WHERE a.proId = b.proId
+        </select>
+</mapper>

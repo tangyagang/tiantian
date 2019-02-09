@@ -27,4 +27,9 @@ public class ProductCategoryImpl implements ProductCategoryService {
     public List<ProductCategory> findProductCategoryByPcId3(int pcId) {
         return productCategoryMapper.getProductCategoryByPcId3(pcId);
     }
+
+    @Override
+    public List<ProductCategory> findMenuByParentId(Integer parentId) {
+        return productCategoryMapper.findMenuByParentId(parentId);
+    }
 }

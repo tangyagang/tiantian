@@ -15,4 +15,6 @@ public interface ProductCategoryMapper {
     public ProductCategory getProductCategoryByPcId(@Param("pcId")int pcId);
     //根据ID查询所属分类的同级(三级分类)
     public List<ProductCategory> getProductCategoryByPcId3(@Param("pcId")int pcId);
+
+    public  List<ProductCategory> findMenuByParentId(@Param("pcId") Integer pcId);
 }
