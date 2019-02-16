@@ -26,4 +26,11 @@ public interface SellOrderService {
 
     public  int updateOrderByStatus(int orderId, int Status);
 
+
+    public List<Order> getOrderByUserId(int userId,int currentPage,int pageSize);
+
+    //获取卖家订单总量
+    public int findCountByUserId(int userId);
+
+
 }

@@ -9,8 +9,16 @@
         <association property="recAddress"  column="recAddressId" select="findRecAddress"/>
         <collection property="orderDetails" ofType="orderDetail" column="orderId" select="findOrderDetail"/>
         <collection property="proScores" ofType="proScore" column="orderId" select="findProScore"/>
-
     </resultMap>
+
+
+    <select id="getOrderByUserId" resultMap="orderMap">
+        SELECT * FROM `order` WHERE userid =${userId}
+         LIMIT ${currentPage},${pageSize}
+    </select>
+    <select id="findCountByUserId" resultType="java.lang.Integer">
+      SELECT COUNT(1) FROM `order` WHERE userid =${userId}
+    </select>
 
     <select id="getAllByUserId" resultMap="orderMap">
         SELECT * FROM `order` WHERE userid = ${userId}

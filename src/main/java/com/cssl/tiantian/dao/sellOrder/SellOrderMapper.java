@@ -11,6 +11,12 @@ import java.util.List;
 @Repository
 public interface SellOrderMapper {
 
+
+    //获取卖家订单总量
+    public int findCountByUserId(@Param("userId")int userId);
+    public List<Order> getOrderByUserId(@Param("userId")int userId,@Param("currentPage")int currentPage,@Param("pageSize")int pageSize);
+
+
     //根据用户ID查询用户订单
     public List<Order> getAllByUserId(@Param("userId") int userId);
 

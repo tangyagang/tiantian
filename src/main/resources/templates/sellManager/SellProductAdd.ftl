@@ -1,5 +1,5 @@
 <html>
-<script src="../js/jquery-1.8.3.js" type="text/javascript"></script>
+<script src="../js/jquery-1.9.1.min.js" type="text/javascript"></script>
 <script type="text/javascript">
     $(document).ready(function () {
         $("#pcId1").change(function () {
@@ -43,6 +43,29 @@
         })
     })
 
+
+
+
+    function preview(file,id) {
+        var prevDiv = document.getElementById('preview'+id);
+        if (file.files && file.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (evt) {
+                prevDiv.innerHTML = '<img style="height: 60px;width: 60px;" src="' + evt.target.result + '" />';
+            }
+            reader.readAsDataURL(file.files[0]);
+        } else {
+            prevDiv.innerHTML = '<p style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src=\'' + file.value + '\'"></p>';
+        }
+
+    }
+
+    function clean() {
+        document.getElementById("tr1").remove();
+        document.getElementById("tr2").remove();
+        document.getElementById("tr3").remove();
+    }
+
 </script>
 <head>
     <meta charset="utf-8">
@@ -51,7 +74,6 @@
     <script type="text/javascript" src="js/safe/da_opt.js" ></script>
     <meta name="keywords" content="">
     <meta name="description" content="">
-    <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
     <link rel="stylesheet" href="../css/safe/css.css" />
     <link rel="stylesheet" href="../css/safe/common.min.css" />
     <link rel="stylesheet" href="../css/yz.css" />
@@ -81,11 +103,11 @@
     <div class="ng-toolbar-con wrapper">
         <div class="ng-toolbar-left">
             <a  class="ng-bar-node ng-bar-node-backhome" id="ng-bar-node-backhome" style="display: block;">
-                <span><img src="img/Home.png" style="margin-right: 10px;"/>返回买啦首页</span>
+                <span><img src="../img/Home.png" style="margin-right: 10px;"/>返回买啦首页</span>
             </a>
             <div class="ng-bar-node-box ng-site-nav-box">
                 <a href="" class="ng-bar-node ng-bar-node-site" >
-                    <span><img src="img/daohang.png" style="margin-right: 5px;" />网站导航</span><em class="ng-iconfont down"></em>
+                    <span><img src="../img/daohang.png" style="margin-right: 5px;" />网站导航</span><em class="ng-iconfont down"></em>
                 </a>
                 <div class="ng-sn-site-nav ng-d-box site-nav-child" style="display:none;">
                     <dl class="sn-site-list lnb">
@@ -353,7 +375,7 @@
                         <dd><a ><span></span>安全设置</a></dd>
                         <dd><a ><span></span>资金管理</a></dd>
                         <dd><a ><span ></span>地址管理</a></dd>
-                        <dt><img src="../static/img/yz/shop.png" >店铺管理</dt>
+                        <dt><img src="../img/yz/shop.png" >店铺管理</dt>
                         <dd><a href="${request.contextPath}/sellManager/SellAdd"  style="color:#f70"><span ></span>发布商品</a></dd>
                         <dd><a href="${request.contextPath}/sellManager/SellProductController"><span ></span>出售中的商品</a></dd>
                         <dd><a href="ProdoctStock.html"><span ></span>仓库中的商品</a></dd>
@@ -367,7 +389,7 @@
             </div>
         </div>
 
-        <div style="margin-top: 30px;width: 1068px; margin: 15px 0 30px 170px;">
+        <div style="width: 1068px; margin: 15px 0 30px 170px;">
             <dl style="color: #F88600;font-size: 16px;margin-top: 69px;">添加商品</dl>
             <form enctype="multipart/form-data" class="manage" method="post" action="${request.contextPath}/sellManager/addProduct">
                 <table class="form">
@@ -404,9 +426,13 @@
                             </select>
                         </td>
                     </tr>
+                    <tr id="tr1">
+                        <td class="field">预览:</td>
+                        <td id="preview1" style="height: 60px;width: 60px;"><p></p></td>
+                    </tr>
                     <tr>
                         <td class="field">商品缩略图：</td>
-                        <td style="font-size: 12px"><input type="file" class="text" name="file"/></td>
+                        <td style="font-size: 12px"><input type="file"   onchange="preview(this,1)" class="text" name="file" /></td>
                     </tr>
                     <tr>
                         <td class="field">商品价格：</td>
@@ -421,13 +447,21 @@
                         <td class="field">库存：</td>
                         <td><input type="text" class="text tiny" name="stocks"/></td>
                     </tr>
-                    <tr>
+                    <tr id="tr2" >
+                        <td class="field">预览:</td>
+                        <td id="preview2" style="height: 60px;width: 60px;"><p></p></td>
+                    </tr>
+                    <tr >
                         <td class="field">商品展示图：</td>
-                        <td style="font-size: 12px"><input type="file" class="text" name="file1"/></td>
+                        <td style="font-size: 12px"><input type="file" class="text" name="file1"  onchange="preview(this,2)"/></td>
+                    </tr>
+                    <tr id="tr3">
+                        <td class="field">预览:</td>
+                        <td id="preview3" style="height: 60px;width: 60px;"><p></p></td>
                     </tr>
                     <tr>
                         <td class="field">商品展示图：</td>
-                        <td style="font-size: 12px"><input type="file" class="text" name="file1"/></td>
+                        <td style="font-size: 12px"><input type="file" class="text" name="file1"  onchange="preview(this,3)"/></td>
                     </tr>
                     <tr>
                         <td class="field">描述：</td>
@@ -438,7 +472,7 @@
                     </tr>
                     <tr>
                         <td></td>
-                        <td><label class="ui-blue"><input type="submit" name="submit" value="发布"/></label></td>
+                        <td><label class="ui-blue"><input type="submit" name="submit" value="发布" onclick="clean()"/></label></td>
                     </tr>
                 </table>
             </form>

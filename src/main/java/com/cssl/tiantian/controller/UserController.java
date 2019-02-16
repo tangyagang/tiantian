@@ -51,12 +51,13 @@ public class UserController {
         if (user != null){
             //登录成功
             Constants.USER_SESSION = user;
+            request.getSession().setAttribute("User",user);
             if (user.getUserType()==1){
                 //买家
                 return "userManager/userIndex";
             }else if (user.getUserType()==2){
                 //卖家
-                return "adminManager/adminIndex";
+                return "forward:/sellManager/SellOrder";
             }else {
                 //超级管理员
                 return "superManager/superIndex";

@@ -14,6 +14,17 @@ import java.util.List;
 public class SellOrderServiceImpl implements SellOrderService {
     @Autowired
     SellOrderMapper orderMapper;
+
+    @Override
+    public List<Order> getOrderByUserId(int userId, int currentPage, int pageSize) {
+        return orderMapper.getOrderByUserId(userId,currentPage,pageSize);
+    }
+
+    @Override
+    public int findCountByUserId(int userId) {
+        return orderMapper.findCountByUserId(userId);
+    }
+
     @Override
     public List<Order> getAll1(int userid) {
         List<Order> ord=orderMapper.getAll1(userid);

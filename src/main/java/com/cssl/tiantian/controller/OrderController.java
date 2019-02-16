@@ -1,9 +1,9 @@
 package com.cssl.tiantian.controller;
 
-import com.cssl.tiantian.pojo.Order;
-import com.cssl.tiantian.pojo.User;
+import com.cssl.tiantian.pojo.*;
 import com.cssl.tiantian.service.sellOrder.SellOrderService;
 
+import com.cssl.tiantian.tools.Constants;
 import com.cssl.tiantian.vo.SellFindVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,15 +25,29 @@ public class OrderController {
 
 
 
+
+
+
     //跳转到卖家订单列表
     @RequestMapping("/sellManager/SellOrder")
-    public String OrderList(ModelMap modelmap, HttpServletRequest request,HttpServletResponse response){
-       // User user=(User)request.getSession().getAttribute("User");
-        User user=new User();
-        user.setUserId(1);
+    public String OrderList(@RequestParam(value = "pageNo",required = false) String pageNo, ModelMap modelmap,
+                            HttpServletRequest request){
+        User user=(User)request.getSession().getAttribute("User");
+        Page page = new Page<>();
+        Integer pn = pageNo != null || pageNo.equals("") ? Integer.parseInt(pageNo) : 1;//当前页码
+        int totalCount =orderService.findCountByUserId(user.getUserId());//总数据量
+        List<Order> orderList = orderService.getOrderByUserId(user.getUserId(),(pn*Constants.PAGE_SIZE)-4,pn*Constants.PAGE_SIZE);//结果集
+        int totalPage = totalCount % Constants.PAGE_SIZE == 0 ? totalCount / Constants.PAGE_SIZE : totalCount / Constants.PAGE_SIZE + 1;//总页数
+        page.setList(orderList);
+        page.setPageNo(pn);
+        page.setPageSize(Constants.PAGE_SIZE);
+        page.setTotalCount(totalCount);
+        page.setTotalPage(totalPage);
+        int[] numbs = Page.getPageNumbers(pn,totalPage);
         request.getSession().setAttribute("User",user);
-        List<Order> orderList=orderService.getAll1(user.getUserId());
         modelmap.put("OrderList",orderList);
+        modelmap.put("page",page);
+        modelmap.put("numbs",numbs);
         return "/sellManager/OrderList";
     }
 
@@ -57,7 +71,7 @@ public class OrderController {
 
     //表头导航，根据session中的User.userId和URL中传过来的参数查询特定status状态商品
     @RequestMapping("/sellManager/OrderWait")
-    public String Wait(ModelMap modelMap,@ModelAttribute("user")User user,HttpServletRequest request){
+    public String Wait(ModelMap modelMap,@RequestParam(value = "pageNo",required = false) String pageNo,@ModelAttribute("user")User user,HttpServletRequest request){
         User a=(User)request.getSession().getAttribute("User");
         modelMap.put("OrderList",orderService.getStatusByUserID(a.getUserId(), Integer.parseInt(request.getQueryString())));
         return "/sellManager/OrderList";

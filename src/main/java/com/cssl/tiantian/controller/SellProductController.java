@@ -38,7 +38,7 @@ public class SellProductController {
     }
 
     //三级分类栏级联的ajax方法
-    @RequestMapping( value = "/pcId",method = RequestMethod.POST)
+    @RequestMapping( value = "/sellManager/pcId",method = RequestMethod.POST)
     @ResponseBody
     public  List<ProductCategory> list2(@RequestParam(value = "pdd") int pdd){
         List<ProductCategory> pro= productCategoryService.findMenuByParentId(pdd);
@@ -113,7 +113,7 @@ public class SellProductController {
     @RequestMapping("/sellManager/addProduct")
     public String addProduct(@RequestParam Map<String, Object> map, @RequestParam(value = "file") MultipartFile file,
                              @RequestParam(value = "file1",required = false)MultipartFile[] file1,
-                            ModelMap modelMap) throws IOException {
+                            ModelMap modelMap,HttpServletRequest request ) throws IOException {
         Product pro=new Product();
         ProductCategory pCate=new ProductCategory();
         if(Integer.parseInt(map.get("pcId2").toString())>Integer.parseInt(map.get("pcId1").toString())){
@@ -179,8 +179,7 @@ public class SellProductController {
             sellProductService.inserProImgs(list);
         }
 
-        User user=new User();
-        user.setUserId(1);
+        User user=(User)request.getSession().getAttribute("User");
         modelMap.put("ProductList",sellProductService.getAllByUser(user.getUserId()));
         return "/sellManager/SellProductList";
     }
