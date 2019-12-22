@@ -7,46 +7,23 @@
     <resultMap id="orderMap" type="order">
         <id property="orderId" column="orderId"/>
         <association property="recAddress"  column="recAddressId" select="findRecAddress"/>
-        <association property="user" javaType="user" column="userId" select="com.cssl.tiantian.dao.user.UserMapper.getUserByUserId"/>
         <collection property="orderDetails" ofType="orderDetail" column="orderId" select="findOrderDetail"/>
         <collection property="proScores" ofType="proScore" column="orderId" select="findProScore"/>
-    </resultMap>
-    <resultMap id="orderDetailMap" type="orderDetail">
-        <id column="odId" property="odId"/>
-        <association property="product" javaType="product" column="proId" select="getProduct"/>
-        <association property="shop" javaType="shop" column="shopId" select="getShop"/>
-    </resultMap>
-    <resultMap id="shopMap" type="shop">
-        <id column="shopId" property="shopId"/>
-        <association property="user" javaType="user" column="userId" select="getUser" />
-    </resultMap>
-    <resultMap id="recAddressMap" type="recAddress">
-        <id column="recAddressId" property="recAddressId"/>
-        <association property="areas" javaType="areas" column="areaId" select="com.cssl.tiantian.dao.areas.AreasMapper.getAreasByAreaId"/>
-    </resultMap>
 
-    <select id="getUser" resultType="user">
-         select * from `user` where userid = #{userId}
-    </select>
+    </resultMap>
 
     <select id="getAllByUserId" resultMap="orderMap">
         SELECT * FROM `order` WHERE userid = ${userId}
     </select>
 
-    <select id="findOrderDetail" resultMap="orderDetailMap">
+    <select id="findOrderDetail" resultType="OrderDetail">
         select * from orderdetail where orderid = #{orderId}
     </select>
     <select id="findProScore" resultType="proScore">
        select * from proScore where orderid = #{orderId}
     </select>
-    <select id="findRecAddress" parameterType="int" resultMap="recAddressMap">
+    <select id="findRecAddress" parameterType="int" resultType="recAddress">
         select * from recaddress where recaddressId = #{recAddressId}
-    </select>
-    <select id="getProduct" resultType="product">
-        select * from product where proid = #{proId}
-    </select>
-    <select id="getShop" resultMap="shopMap">
-        select * from shop where shopid = #{shopId}
     </select>
 
     <!--动态添加 // 设置useGeneratedKeys为true，返回数据库自动生成的记录主键id-->
@@ -67,68 +44,8 @@
         </trim>
     </insert>
 
-    <select id="getOrderById" resultMap="orderMap">
-        select * from `order` where orderId = #{orderId}
+    <select id="getOrderById" resultType="order">
+        select * from `order` where orderId = ${orderId}
     </select>
 
-    <select id="getOrderBySearch" resultMap="orderMap">
-        SELECT DISTINCT  a.* FROM `order` a,orderdetail b,product c,shop d
-            WHERE a.orderid = b.orderid
-            AND b.proid = c.proid
-            AND b.shopid = d.shopid
-            <if test="userId > 0"> AND a.userid = #{userId}</if>
-            <if test="like !=null and '' != like"> AND a.ordernum LIKE concat("%",#{like},"%") OR c.proname LIKE concat("%",#{like},"%") </if>
-            <if test="status > 0"> AND a.status = #{status}</if>
-            <if test="scoreStatus > 0"> AND scoreStatus = #{scoreStatus}</if>
-            <if test="shopName != null and shopName != ''"> AND d.shopname like concat("%",#{shopName},"%") </if>
-            <if test="startDate != null and '' != startDate">
-                <![CDATA[
-                    AND a.createtime >=  STR_TO_DATE(#{startDate},'%Y-%m-%d %H')
-                ]]>
-            </if>
-            <if test="endDate != null and '' != endDate"> AND a.createtime &lt;= STR_TO_DATE(#{endDate}, '%Y-%m-%d %H') </if>
-    </select>
-
-    <update id="updateStatusByUserId" parameterType="int[]">
-        update `order` set status = ${status} where userid = ${userId} and orderid in
-        <foreach collection="orderIds" item="orderId" open="(" close=")" separator=",">
-            #{orderId}
-        </foreach>
-    </update>
-
-    <select id="getAll" parameterType="superOrderListSearch" resultMap="orderMap">
-        SELECT * FROM `order` a,orderdetail b,product c,`user` d,shop e
-            WHERE a.orderid = b.orderid
-            AND b.proid = c.proid
-            AND a.userid = d.userid
-            AND b.shopid = e.shopid
-            <if test="search.proName != null and search.proName != ''"> AND c.proname LIKE CONCAT("%",#{search.proName},"%")</if>
-            <if test="search.orderNum != null and search.orderNum != ''"> AND a.ordernum LIKE CONCAT("%",#{search.orderNum},"%")</if>
-            <if test="search.userName != null and search.userName != ''"> AND d.username LIKE CONCAT("%",#{search.userName},"%")</if>
-            <if test="search.shopName != null and search.shopName != ''"> AND e.shopname LIKE CONCAT("%",#{search.shopName},"%")</if>
-    </select>
-
-    <select id="getAllByAdminId" resultMap="orderMap">
-        SELECT * FROM `order` a,orderdetail b,shop c,`user` d,product e,`user` f
-            WHERE a.orderid = b.orderid
-            AND b.shopid = c.shopid
-            AND c.userid = d.userid
-            AND b.proid = e.proid
-            AND a.userid = f.userid
-            <if test="adminId > 0"> AND d.userid = #{adminId}</if>
-            <if test="proName !=null and '' != proName"> AND e.proname LIKE concat("%",#{proName},"%") </if>
-            <if test="startDate != null and '' != startDate">
-                <![CDATA[
-                            AND a.createtime >=  STR_TO_DATE(#{startDate},'%Y-%m-%d %H')
-                        ]]>
-            </if>
-            <if test="endDate != null and '' != endDate"> AND a.createtime &lt;= STR_TO_DATE(#{endDate}, '%Y-%m-%d %H') </if>
-            <if test="userName != null and '' != userName"> and f.username like concat("%",#{userName},"%")</if>
-            <if test="orderNum != null and orderNum != ''"> AND a.ordernum like concat("%",#{orderNum},"%") </if>
-            <if test="status > 0"> AND a.status = #{status}</if>
-    </select>
-
-    <update id="updateStatusByOrderId" parameterType="int">
-        update `order` set status = ${status} where orderid = ${orderId}
-    </update>
 </mapper>

@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cssl.tiantian.dao.sellOrder.SellOrderMapper">
+    <update id="updateOrderByStatus">
+      UPDATE `tiantian`.`order` SET `status` = #{Status} WHERE `orderId` =#{orderId}
+    </update>
+
+    <update id="updateOrderInClose">
+      UPDATE `tiantian`.`order` SET `status` = '5', cost='0' WHERE `orderId` =#{orderId}
+    </update>
+
+    <update id="updateOrderDetail">
+        UPDATE `tiantian`.`orderdetail` SET `frozenPrice` = '0' WHERE`orderId` = #{orderId}
+    </update>
+
+    <update id="updateUserMoneyByUserId" >
+         UPDATE `tiantian`.`user` SET money = #{cost}+`money` WHERE userId=#{userId}
+    </update>
+
+    <!--一般查询返回订单列表-->
+    <resultMap id="orderMap" type="Order">
+        <id property="orderId" column="orderId"/>
+        <association property="recAddress" column="recAddressId" select="findRecAddress"/>
+        <association property="user" column="userId" select="findUser"/>
+        <collection property="orderDetails"  ofType="OrderDetail" column="orderId"
+                    select="findOrderDetail"/>
+        <collection property="proScores" ofType="ProScore" column="orderId"
+                    select="findProScore"/>
+    </resultMap>
+
+
+
+    <resultMap id="rec" type="recAddress">
+        <id property="recAddressId" column="recAddressId"/>
+        <association property="areas" column="areaId" select="findArea"/>
+    </resultMap>
+    <resultMap id="getAreasMap" type="areas">
+        <id property="areaId" column="areaId"/>
+        <association property="cities" javaType="cities" resultMap="getCitiesMap"/>
+    </resultMap>
+    <resultMap id="getCitiesMap" type="cities">
+        <id property="cityId" column="cityId"/>
+        <association property="provinces" javaType="provinces" resultMap="getProvincesMap"/>
+    </resultMap>
+    <resultMap id="getProvincesMap" type="provinces">
+        <id property="provinceId" column="provinceId"/>
+    </resultMap>
+
+
+    <resultMap id="proScore" type="ProScore">
+        <id property="scoreId" column="scoreId"/>
+        <association property="order" column="orderId" select="findOrder"/>
+    </resultMap>
+    
+    <resultMap id="orderDetail" type="OrderDetail">
+        <id property="odId" column="odId"/>
+        <association property="product" column="proId" select="findProduct"/>
+        <association property="shop" column="shopId" select="findShop"/>
+    </resultMap>
+
+
+    <!--
+    多条件模糊查询，有商品名称时拼接三表连接查询 没有时连结两表连结根据其他条件添加AND-->
+    <select id="getOrderByOption" resultMap="orderMap" parameterType="com.cssl.tiantian.vo.SellFindVo">
+        SELECT * FROM `order` where orderId IN
+        <choose>
+            <when test="proName != null and proName !=''">
+                (SELECT orderId FROM orderDetail AS a ,
+                (SELECT * FROM product WHERE proName LIKE  CONCAT("%",#{proName},"%")) AS b WHERE a.proid=b.proid AND a.shopId
+                IN(SELECT shopid FROM shop WHERE userid=#{shopId})
+                )
+            </when>
+            <otherwise>
+                ( SELECT orderId FROM orderdetail WHERE shopid IN(SELECT shopid FROM shop WHERE userid=#{shopId}))
+            </otherwise>
+        </choose>
+        <if test="orderNum != 0 and orderNum !=''and orderNum != null">
+            and orderNum = #{orderNum}
+        </if>
+        <if test="userId !='' and userId != null">
+            and userId IN( SELECT userId FROM  tiantian.`user` WHERE userName LIKE  #{userId})
+        </if>
+        <if test="createTime1 !=null ">
+            <if test="createTime2 !=null">
+                and createTime BETWEEN #{createTime1} AND #{createTime2}
+            </if>
+        </if>
+    </select>
+
+
+    <select id="getOrderByOrderId" resultMap="orderMap">
+         SELECT  * FROM `order` WHERE orderid =#{orderId}
+    </select>
+
+    <!--表头查询导航栏,根据status类型进行查询-->
+    <select id="getStatusByUserID" resultMap="orderMap">
+        SELECT  * FROM `order`
+           WHERE orderid IN( SELECT orderId FROM orderdetail WHERE shopid IN(SELECT shopid FROM shop WHERE userid=#{userId}))
+          and status=${status}
+    </select>
+
+    <!--根据用户ID获取该用户所有的订单-->
+    <select id="getAll1" resultMap="orderMap">
+         SELECT * FROM `order`
+          WHERE orderid IN( SELECT orderId FROM orderdetail WHERE shopid IN(SELECT shopid FROM shop WHERE userid=#{userId}))
+    </select>
+
+    <select id="getShopIdByUser" resultType="java.lang.Integer">
+          SELECT shopid FROM shop WHERE userid=#{userId}
+    </select>
+
+
+    <select id="getAllByUserId" resultMap="orderMap">
+        SELECT * FROM `order` WHERE userid = ${userId}
+    </select>
+
+
+
+    <select id="findShop" parameterType="int" resultType="Shop">
+        select * from shop WHERE shopid=#{shopId}
+    </select>
+    <select id="findProduct" parameterType="int" resultType="Product">
+       SELECT * FROM product WHERE proId =#{proId}
+    </select>
+    <select id="findOrderDetail" resultMap="orderDetail">
+        select * from orderdetail where orderid = #{orderId}
+    </select>
+    <select id="findProScore" resultMap="proScore">
+       select * from proScore where orderid = #{orderId}
+    </select>
+
+    <select id="findRecAddress" parameterType="int" resultMap="rec">
+        select * from recaddress where recaddressId = #{recAddressId}
+    </select>
+
+    <select id="findArea"  parameterType="int" resultMap="getAreasMap">
+        SELECT a.provinceId,a.provinceCode,a.province,
+	            b.cityId,b.cityCode,b.city,b.provinceId b_provinceId,
+	            c.areaId,c.areaCode,c.area,c.cityId c_cityId
+            FROM provinces a,cities b,areas c
+            WHERE a.provinceCode = b.provinceId
+              AND b.cityCode = c.cityId
+              and c.areaId = #{areaId}
+    </select>
+
+    <select id="findUser" parameterType="int" resultType="User">
+        SELECT * FROM `user` WHERE userid =#{userId}
+    </select>
+    <select id="findOrder" parameterType="int" resultType="Order">
+        SELECT * FROM  `order` WHERE orderid = #{orderId}
+    </select>
+</mapper>

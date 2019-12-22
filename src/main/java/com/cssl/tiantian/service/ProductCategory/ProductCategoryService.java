@@ -14,6 +14,7 @@ public interface ProductCategoryService {
     public ProductCategory findProductCategoryByPcId(int pcId);
     //根据ID查询所属分类(三级分类)
     public List<ProductCategory> findProductCategoryByPcId3(int pcId);
+<<<<<<< HEAD
     //添加分类
     public int addProductCategory(ProductCategory productCategory);
     //分页查询所有分类
@@ -27,4 +28,8 @@ public interface ProductCategoryService {
 
 
 
+=======
+
+    public  List<ProductCategory> findMenuByParentId(Integer parentId);
+>>>>>>> github/master
 }

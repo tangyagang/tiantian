@@ -14,6 +14,7 @@ public interface ProductCategoryMapper {
     public ProductCategory getProductCategoryByPcId(@Param("pcId")int pcId);
     //根据ID查询所属分类的同级(三级分类)
     public List<ProductCategory> getProductCategoryByPcId3(@Param("pcId")int pcId);
+<<<<<<< HEAD
     //添加分类
     public int saveProductCategory(ProductCategory productCategory);
     //查询所有子类及所属父类、根据分类名称模糊查询
@@ -24,4 +25,8 @@ public interface ProductCategoryMapper {
     public int delProductCategory(@Param("pcId") int pcId);
 
 
+=======
+
+    public  List<ProductCategory> findMenuByParentId(@Param("pcId") Integer pcId);
+>>>>>>> github/master
 }

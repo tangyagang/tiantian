@@ -44,13 +44,21 @@ public class UserController {
         if (user != null){
             //登录成功
             Constants.USER_SESSION = user;
+<<<<<<< HEAD
             request.getSession().setAttribute("user", Constants.USER_SESSION);
+=======
+            request.getSession().setAttribute("User",user);
+>>>>>>> github/master
             if (user.getUserType()==1){
                 //买家
                 return "redirect:/userManager/userIndex";
             }else if (user.getUserType()==2){
                 //卖家
+<<<<<<< HEAD
                 return "redirect:/adminManager/orderList";
+=======
+                return "forward:/sellManager/SellOrder";
+>>>>>>> github/master
             }else {
                 //超级管理员
                 return "redirect:/superManager/superOrderList";
