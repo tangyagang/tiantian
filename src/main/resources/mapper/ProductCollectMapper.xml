@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cssl.tiantian.dao.productCollect.ProductCollectMapper">
+    <resultMap id="productCollectMap" type="productCollect">
+        <id column="productCollectId" property="productCollectId"/>
+        <association property="product" javaType="product" column="proId"
+                     select="com.cssl.tiantian.dao.product.ProductMapper.getProductByProId"/>
+    </resultMap>
+
+    <select id="getAllProductCollectByUserId" resultMap="productCollectMap">
+        SELECT a.* FROM productcollect a,product b
+        WHERE a.proid = b.proid AND userid = ${userId}
+          <if test="proName != null and proName != ''"> AND b.proname LIKE CONCAT("%",#{proName},"%")</if>
+    </select>
+
+    <delete id="delByProductCollectIds" parameterType="int[]">
+        delete from productcollect where productCollectid in
+        <foreach collection="productCollectIds" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+    <insert id="saveCollection" parameterType="int">
+        insert into productcollect (userid,proid) values (${userId},${proId})
+    </insert>
+
+    <select id="getAllProductCollectByUserIdAndProId" resultMap="productCollectMap">
+        SELECT * FROM productcollect a
+        WHERE a.proid = ${proId} AND a.userid = ${userId}
+
+    </select>
+
+</mapper>

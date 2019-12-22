@@ -24,16 +24,16 @@ public class EncodingFilter implements Filter {
         response.setContentType("text/html;charset=UTF-8");
 
         //暂时做个假的登录
-        User user = new User();
+       /* User user = new User();
         RecAddress recAddress = new RecAddress();
         recAddress.setRecAddressId(3);
-        user.setUserId(2);
+        user.setUserId(4);
         user.setMoney(10000000.0);
-        user.setUserUrl("img/upload//d71c47ed6d314d9993f0943baf1e69b4.PNG");
+        user.setUserUrl("/img/upload/userUpload//49f7b3e8c4b94db495d07d20c859f1b3.jpg");
         List<RecAddress> list = new ArrayList<RecAddress>();
         list.add(recAddress);
         user.setRecAddresses(list);
-        Constants.USER_SESSION = user;
+        Constants.USER_SESSION = user;*/
         //////////////////
         //设置请求的字符集
 

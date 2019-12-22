@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cssl.tiantian.dao.recAddress.RecAddressMapper">
+    <resultMap id="recAddressMap" type="recAddress">
+        <id column="recAddressId" property="recAddressId"/>
+        <collection property="areas" ofType="areas" column="areaId"
+                    select="com.cssl.tiantian.dao.areas.AreasMapper.getAreasByAreaId"/>
+    </resultMap>
+
+    <select id="getAll" resultMap="recAddressMap">
+        select * from recaddress where userid = #{userId}
+    </select>
+    <select id="getCountByUserId"  resultType="java.lang.Integer">
+        select count(1) from recaddress where userid = ${userId}
+    </select>
+    <!--动态添加 // 设置useGeneratedKeys为true，返回数据库自动生成的记录主键id-->
+    <insert id="saveRecAddress" parameterType="map">
+        insert ignore into recaddress
+        <foreach collection="params.keys" item="key" open="(" close=")" separator=",">
+            <if test="null != key and '' != key"> ${key}</if>
+        </foreach>
+        values
+        <foreach collection="params.keys" item="key" open="(" close=")" separator=",">
+            <if test="null != key and '' != key">#{params.${key}}</if>
+        </foreach>
+    </insert>
+    <!--修改为非默认地址-->
+    <update id="updateNotDefault" parameterType="java.lang.Integer">
+        update recaddress set isdefault = 0 where userid = ${userId}
+    </update>
+
+    <update id="updateIsDefault" parameterType="java.lang.Integer">
+        update recaddress set isdefault = 1 where recaddressid = ${recAddressId}
+    </update>
+
+    <select id="getRecAddressById" parameterType="java.lang.Integer" resultMap="recAddressMap">
+        select * from recaddress where recaddressid = ${recAddressId}
+    </select>
+
+    <update id="updateRecAddress" parameterType="map">
+        UPDATE recaddress set
+        <foreach item="value" index="key" collection="params" separator=",">
+            <if test="key != 'recAddressId' and key != 'userId'">
+                ${key} = #{value}
+            </if>
+        </foreach>
+        WHERE
+        <foreach item="value" index="key" collection="params" separator=",">
+            <if test="key == 'recAddressId' and key != 'userId'">
+                recAddressId = #{value}
+            </if>
+        </foreach>
+    </update>
+
+    <delete id="delRecAddressById" parameterType="java.lang.Integer">
+        delete from recaddress where recaddressid = ${recAddressId}
+    </delete>
+</mapper>

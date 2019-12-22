@@ -5,13 +5,35 @@
 <mapper namespace="com.cssl.tiantian.dao.proScore.ProScoreMapper">
     <resultMap id="proScoreMap" type="proScore">
         <id column="scoreId" property="scoreId"/>
-        <association property="user" javaType="user" column="userId" select="com.cssl.tiantian.dao.user.UserMapper.getUserByUserId"/>
+        <association property="user" javaType="user" column="userId"
+                     select="com.cssl.tiantian.dao.user.UserMapper.getUserByUserId"/>
+        <association property="order" javaType="order" column="orderId"
+                     select="com.cssl.tiantian.dao.order.OrderMapper.getOrderById"/>
     </resultMap>
     <select id="getAllByProId" resultMap="proScoreMap">
         select * from proScore
         <where>
             <if test="proId != null and proId != ''"> and proid = ${proId}</if>
         </where>
+    </select>
+
+    <insert id="saveProScore" parameterType="map">
+        insert ignore into proscore
+        <foreach collection="params.keys" item="key" open="(" close=")" separator="," >
+            ${key}
+        </foreach>
+        values
+        <foreach collection="params.keys"  item="key" open="(" close=")" separator=",">
+            #{params.${key}}
+        </foreach>
+    </insert>
+
+    <select id="getAllByUserId" parameterType="scoreSearch" resultMap="proScoreMap">
+        select * from proscore where userid = ${userId}
+            <if test="scoreSearch.startScore != null and scoreSearch.startScore != ''"> and score &gt; #{scoreSearch.startScore}</if>
+            <if test="scoreSearch.endScore != null and scoreSearch.endScore != ''"> and score &lt;= #{scoreSearch.endScore}</if>
+            <if test="scoreSearch.isDetails == 1"> AND details IS not NULL</if>
+            <if test="scoreSearch.isDetails == 2"> AND details IS NULL</if>
     </select>
 
 </mapper>

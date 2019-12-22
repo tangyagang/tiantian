@@ -47,14 +47,21 @@ public class MvcConfigurer implements WebMvcConfigurer {
     }
 
     //添加文件上传的自动映射路径
+    //头像
    @Value("${file.staticAccessPath}")
    private String staticAccessPath;
     @Value("${file.uploadFolder}")
     private String uploadFolder;
+    //卖家
+    @Value("${file.staticProductPath}")
+    private String staticProductPath;
+    @Value("${file.uploadProductFolder}")
+    private String uploadProductFolder;
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler(staticAccessPath).addResourceLocations("file:" + uploadFolder);
+        registry.addResourceHandler(staticProductPath).addResourceLocations("file:" + uploadProductFolder);
     }
 
 }

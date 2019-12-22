@@ -13,7 +13,34 @@
     <link rel="stylesheet" href="../css/admin_index.css">
     <script type="text/javascript" src="../js/jquery-1.8.3.js" ></script>
     <script type="text/javascript" src="../js/sui.js" ></script>
-
+    <script type="text/javascript">
+        $(function () {
+            var lis=$(".main9");
+            for(var i=0;i<lis.length;i++){
+                if(i>3){
+                    $(".main9:eq("+i+")").addClass("con_none");
+                }
+            }
+            $(this).html("展开全部信息");
+            $("#show").toggle(
+                    function () {
+                        $(".main9").removeClass("con_none");
+                        $(this).html("收起");
+                    },
+                    function () {
+                        for(var i=0;i<lis.length;i++){
+                            if(i>3){
+                                $(".main9:eq("+i+")").addClass("con_none");
+                            }
+                        }
+                        $(this).html("展开全部信息");
+                    }
+            );
+        });
+        function buyProduct(proId) {
+            window.location.href = "${request.contextPath}/productDetails?proId="+proId;
+        }
+    </script>
     <style>
         body {
             background: #f5f5f5;
@@ -61,8 +88,8 @@
 <div class="ng-toolbar">
     <div class="ng-toolbar-con wrapper">
         <div class="ng-toolbar-left">
-            <a class="ng-bar-node ng-bar-node-backhome" id="ng-bar-node-backhome" style="display: block;">
-                <span><img src="../img/Home.png" style="margin-right: 10px;"/>返回买啦首页</span>
+            <a href="${request.contextPath}/index" class="ng-bar-node ng-bar-node-backhome" id="ng-bar-node-backhome" style="display: block;">
+                <span><img src="../img/Home.png" style="margin-right: 10px;"/>返回首页</span>
             </a>
             <div class="ng-bar-node-box ng-site-nav-box">
 
@@ -158,8 +185,8 @@
                     <a>修改订单</a>
                 </div>
             </div>
-            <a class="ng-bar-node ng-bar-node-mini-cart" rel="nofollow" href="">
-                <span><img src="../img/购物车.png" />&nbsp;购物车</span>
+            <a class="ng-bar-node ng-bar-node-mini-cart" rel="nofollow" href="${request.contextPath}/userManager/shopping">
+                <span style="display: inline-block;width: 72px;"><img src="../img/购物车.png" />&nbsp;购物车</span>
                 <span class="total-num-bg-box">
 						<em></em>
 						<i></i>
@@ -167,7 +194,7 @@
                 </span>
             </a>
             <div class="ng-bar-node-box mysuning-handle">
-                <a href="" rel="nofollow" name="" class="ng-bar-node ng-bar-node-fix touch-href ng-bar-node-pr5"><span>收藏夹</span><em class="ng-iconfont down"></em></a>
+                <a href="${request.contextPath}/userManager/myCollection" rel="nofollow" name="" class="ng-bar-node ng-bar-node-fix touch-href ng-bar-node-pr5"><span>收藏夹</span><em class="ng-iconfont down"></em></a>
                 <div class="ng-down-box ng-d-box mysuning-child" style="display:none;">
                     <a href="" rel="nofollow" target="_blank">我的二手</a>
                     <a href="" rel="nofollow" target="_blank">我的金融</a>
@@ -211,9 +238,9 @@
                 </div>
             </div>
 
-            <a href="" class="ng-bar-node ng-bar-node-pr5" target="_blank"><span>联系我们</span><em class="ng-iconfont down"></em></a>
+            <a href="${request.contextPath}/myInfo" class="ng-bar-node ng-bar-node-pr5"><span>联系我们</span><em class="ng-iconfont down"></em></a>
             <div class="ng-bar-node-box service-handle">
-                <a href="" class="ng-bar-node ng-bar-node-service ng-bar-node-fix touch-href ng-bar-node-pr5" rel="nofollow">退出登陆
+                <a href="${request.contextPath}/exit" class="ng-bar-node ng-bar-node-service ng-bar-node-fix touch-href ng-bar-node-pr5" rel="nofollow">退出登陆
                 </a>
                 <div class="ng-down-box ng-d-box service-center-child ng-ser-list" style="display:none;">
                     <a>帮助中心</a>
@@ -267,19 +294,13 @@
             </div>
             <nav class="ms-nav">
                 <ul>
-                    <li class=""><a href="" data-url=""  style="    padding-bottom: 17px;border-bottom: 3px #fff solid;">首页</a><i class="nav-arrow"></i></li>
-                    <li class="nav-manage selected">
-                        <i class="nav-arrow" hidden></i>
-                        <div class="list-nav-manage " hidden>
-                            <p class="nav-mge-hover"><em></em></p>
-                            <p><a >个人资料</a></p>
-                            <p><a >安全设置</a></p>
-                            <p><a >账号绑定</a></p>
-                            <p><a >地址管理</a></p>
-
+                    <li class=""><i class="nav-arrow"></i></li>
+                    <li class="nav-manage selected"><i ></i>
+                        <div class="list-nav-manage " hidden="">
+                            <p class="nav-mge-hover">账户管理<em></em></p>
                         </div>
                     </li>
-                    <li class="ms-nav-msg"><i class="nav-arrow"></i></li>
+                    <li class="ms-nav-msg"><i ></i></li>
                 </ul>
 
             </nav>
@@ -291,11 +312,11 @@
         <div class="header-useinfo" id="">
             <div class="ms-avatar">
                 <div class="useinfo-avatar">
-                    <img src="../img/头像.png">
+                    <img style="margin-left: 0px;width: 60px;height: 60px;"  src="<#if user.userUrl??>${request.contextPath}/${user.userUrl}</#if>">
                     <div class="edit-avatar"></div>
                     <a class="text-edit-avatar">修改</a>
                 </div>
-                <a>sunshine</a>
+                <a>&nbsp;<#if user.nickName??>${user.nickName}</#if></a>
             </div>
 
             <div class="ms-name-info">
@@ -306,7 +327,7 @@
 							<span class="name-member member-1">
         				 <i></i><a target="_blank" >注册会员</a></span>
                     <span style="margin-left: 20px;">
-        				 <a target="_blank" >我的资料</a></span>
+        				 <a href="${request.contextPath}/userManager/userInfo" >我的资料</a></span>
                 </div>
                 <div class="info-safety">
 							<span class="safety-lv lv-3">
@@ -316,7 +337,7 @@
                         <i style="background-image: url(../img/修改手机.png);"></i>修改手机</a>
                     <a class="bind-email">
                         <i style="background-image: url(../img/绑定邮箱.png);"></i>修改邮箱</a>
-                    <a class="manage-addr"><i style="background-image: url(../img/地址管理.png);"></i>地址管理</a>
+                    <a href="${request.contextPath}/userManager/recAddress" class="manage-addr"><i style="background-image: url(../img/地址管理.png);"></i>地址管理</a>
                 </div>
             </div>
         </div>
@@ -335,29 +356,29 @@
                         <dt><img src="../img/左侧/我的购物车.png"  style="margin-right: 10px;margin-left: -20px;"/>我的购物车</dt>
                         <dt><img src="../img/左侧/file.png"  style="margin-right: 10px;margin-left: -20px;"/>订单管理</dt>
                         <dd>
-                            <a href="我的订单.html">我的订单</a>
+                            <a href="${request.contextPath}/userManager/userOrder">我的订单</a>
                         </dd>
                         <dd>
-                            <a href="我的收藏.html">我的收藏</a>
+                            <a href="${request.contextPath}/userManager/myCollection">我的收藏</a>
                         </dd>
                         <dd>
-                            <a href="商品评价.html">商品评价</a>
+                            <a href="${request.contextPath}/userManager/proScore">商品评价</a>
                         </dd>
                         <dd>
-                            <a href="已买宝贝.html">已买宝贝</a>
+                            <a href="${request.contextPath}/userManager/buyProduct">已买宝贝</a>
                         </dd>
                         <dd>
-                            <a href="浏览足迹.html">浏览足迹</a>
+                            <a href="${request.contextPath}/userManager/myHistory">浏览足迹</a>
                         </dd>
                         <dd>
-                            <a href="购买过的店铺.html">购买过的店铺</a>
+                            <a href="${request.contextPath}/userManager/buyStore">购买过的店铺</a>
                         </dd>
                         <dt><img src="../img/左侧/我的买啦.png"  style="margin-right: 10px;margin-left: -20px;"/>个人信息</dt>
                         <dd>
-                            <a href="基本资料.html">基本资料</a>
+                            <a href="${request.contextPath}/userManager/userInfo">基本资料</a>
                         </dd>
                         <dd>
-                            <a href="收货地址.html">收货地址</a>
+                            <a href="${request.contextPath}/userManager/recAddress">收货地址</a>
                         </dd>
                     </dl>
                     <a ison="on" class="switch-side-menu icon-up-side"><i></i></a>
@@ -384,7 +405,7 @@
                                 <div style="float: left;width:200px ;height: 152px;;margin-left: 20px;border: 1px #ccc solid;box-shadow: 1px 1px 1px #F5F5F5;padding: 5px;">
                                     <div style="width: 100%;height: 100%;border: 1px #F2873B dashed;">
                                         <span style="font-size: 18px;color: #686868;font-weight: bold;display: block;    display: block; width: 100px; margin-left: 50px; margin-bottom: 20px;   margin-top: 20px;">我的资产</span>
-                                        <span style="width: 87px;height: 20px;background-color: #fee3dc;padding: 5px;border: 1px #C62B26 dashed;border-radius: 5px;">显示余额</span>
+                                        <span style="width: 87px;height: 20px;background-color: #fee3dc;padding: 5px;border: 1px #C62B26 dashed;border-radius: 5px;">${user.money}</span>
                                         <img src="../img/我的买豆/矢量智能对象.png" style="position: absolute; margin-top: 30px;  margin-left: -80px;;" />
                                     </div>
                                 </div>
@@ -392,7 +413,7 @@
                                 <div style="float: left;width:200px ;height: 152px;margin-left: 20px;border: 1px #ccc solid;box-shadow: 1px 1px 1px #F5F5F5;padding: 5px;">
                                     <div style="width: 100%;height: 100%;border: 1px #F2873B dashed;">
                                         <span style="font-size: 18px;color: #686868;font-weight: bold;display: block;    display: block; width: 100px; margin-left: 50px;    margin-top: 20px; margin-bottom: 20px;">我的积分</span>
-                                        <span style="width: 87px;height: 20px;background-color: #fee3dc;padding: 5px;border: 1px #C62B26 dashed;border-radius: 5px;">显示积分</span>
+                                        <span style="width: 87px;height: 20px;background-color: #fee3dc;padding: 5px;border: 1px #C62B26 dashed;border-radius: 5px;">${user.integra}</span>
                                         <img src="../img/我的买豆/猪的图标.png" style="position: absolute; margin-top: 13px;  margin-left: -80px;;" />									</div>
                                 </div>
 
@@ -402,57 +423,124 @@
                                     <font style="color: #CF2D27;">0</font>
                                     <span style="margin-left: 40px;margin-right: 40px;">|</span>
                                     <span >待发货</span>
-                                    <font style="color: #CF2D27;">0</font>
+                                    <font style="color: #CF2D27;">${orderStatusNums.num1}</font>
                                     <span style="margin-left: 40px;margin-right: 40px;">|</span>
                                     <span>待收货</span>
-                                    <font style="color: #CF2D27;">0</font>
+                                    <font style="color: #CF2D27;">${orderStatusNums.num2}</font>
                                     <span style="margin-left: 40px;margin-right: 40px;">|</span>
                                     <span>待评价</span>
-                                    <font style="color: #CF2D27;">0</font>
+                                    <font style="color: #CF2D27;">${orderStatusNums.num3}</font>
                                     <span style="margin-left: 40px;margin-right: 40px;">|</span>
                                     <span>退款</span>
                                 </div>
                             </div>
 
                             <div style="float: left;width:250px ;height: 152px;margin-left: 20px;">
-
-
-                                <div style="background-color: #fff;margin-top: 0px;height: 200px;padding: 10px;">
+                                <div style="background-color: #fff;margin-top: 0px;height: 280px;padding: 10px;">
                                     <p style="font-size: 20px;text-align: left;">收藏的商品</p>
-                                    <img src="../img/个人中心/形状-1.png" style="margin-top: 20px;"/>
-                                    <p style="margin-top: 30px;font-size: 14px;color: #686868;">您的收藏空空的，赶紧<br/>
-                                        去首页看看购物吧</p>
+                                    <#if productCollectList?? && (productCollectList?size > 0)>
+                                    <div style="width: 230px;height: 200px;">
+                                        <#assign x=0 />
+                                        <#list productCollectList as productCollect>
+                                            <div style="width:115px;float:left ;">
+                                                <img src="${request.contextPath}/${productCollect.product.proUrl}" style="margin-top: 10px;height: 100px;width: 100px;float: left;"/>
+                                                <br />
+                                                <p style="overflow:hidden; clear: both;margin:0px;line-height: 40px;">
+                                                <#if productCollect.product.isPrice == 1>
+                                                    <span style="display: block;float: left;margin-left: 10px;color: #f78642;font-size: 16px;">¥${productCollect.product.newPrice}</span>
+                                                    <del style="float: left;margin-left: 10px;">¥${productCollect.product.proPrice}</del>
+                                                <#else >
+                                                <span style="display: block;float: left;margin-left: 10px;color: #f78642;font-size: 16px;">¥${productCollect.product.proPrice}</span>
+                                                </#if>
+                                                </p>
+                                                <p style="width: 100px;font-size: 12px;color: #686868">${productCollect.product.proName}</p>
+                                            </div>
+                                            <#assign x=x+1/>
+                                            <#if x == 2>
+                                                <#break>
+                                            </#if>
+                                        </#list>
+                                        </div>
+                                        <p style="margin-top: 15px;font-size: 14px;color: #686868;">
+                                            <a href="${request.contextPath}/userManager/myCollection">查看我的收藏(<font color="red">${productCollectList?size}</font>)</a>
+                                        </p>
+                                    <#else >
+                                        <img src="../img/个人中心/形状-1.png" style="margin-top: 20px;"/>
+                                        <p style="margin-top: 30px;font-size: 14px;color: #686868;">您的收藏空空的，赶紧<br/>
+                                            去首页看看购物吧</p>
+                                    </#if>
                                 </div>
 
-                                <div style="background-color: #fff;margin-top: 10px;height: 300px;padding: 10px;">
+                                <div style="background-color: #fff;margin-top: 10px;height: 280px;padding: 10px;">
                                     <p style="font-size: 16px;text-align: left;">购物车</p>
-                                    <div style="float:left ;">
-                                        <img src="../img/个人中心/屏幕快照-2016-04-08-15.50.46.png" style="margin-top: 10px;height: 100px;width: 100px;float: left;"/>
-                                        <br />
-                                        <span style="display: block;float: left;margin-left: 10px;color: #f78642;font-size: 16px;">¥156</span>
-                                        <del style="float: left;margin-left: 20px;">¥189</del>
-                                        <p style="width: 100px;font-size: 12px;color: #686868">化妆水化妆水化妆水化妆水化妆水化妆水</p>
-                                    </div>
-                                    <div style="float:left ;">
-                                        <img src="../img/个人中心/屏幕快照-2016-04-08-15.50.46.png" style="margin-top: 10px;height: 100px;width: 100px;float: left;margin-left: 20px;"/>
-                                        <br />
-                                        <span style="display: block;float: left;margin-left: 40px;color: #f78642;font-size: 16px;">¥156</span>
-                                        <del style="float: left;margin-left: 20px;">¥189</del>
-                                        <p style="width: 100px;margin-left: 20px;font-size: 12px;color: #686868;">化妆水化妆水化妆水化妆水化妆水化妆水</p>
-                                    </div>
 
-                                    <p style="margin-top: 30px;font-size: 14px;color: #686868;">查看购物车(<font color="red">96</font>)</p>
-
+                                    <#if buycarList?? && (buycarList?size > 0)>
+                                    <div style="width: 230px;height: 200px;">
+                                        <#assign x=0 />
+                                        <#list buycarList as buycar>
+                                            <div style="width:115px;float:left ;">
+                                                <img src="${request.contextPath}/${buycar.product.proUrl}" style="margin-top: 10px;height: 100px;width: 100px;float: left;"/>
+                                                <br />
+                                                <p style="overflow:hidden; clear: both;margin:0px;line-height: 40px;">
+                                                <#if buycar.product.isPrice == 1>
+                                                    <span style="display: block;float: left;margin-left: 10px;color: #f78642;font-size: 16px;">¥${buycar.product.newPrice}</span>
+                                                    <del style="float: left;margin-left: 10px;">¥${buycar.product.proPrice}</del>
+                                                <#else >
+                                                <span style="display: block;float: left;margin-left: 10px;color: #f78642;font-size: 16px;">¥${buycar.product.proPrice}</span>
+                                                </#if>
+                                                </p>
+                                                <p style="width: 100px;font-size: 12px;color: #686868">${buycar.product.proName}</p>
+                                            </div>
+                                            <#assign x=x+1/>
+                                            <#if x == 2>
+                                                <#break>
+                                            </#if>
+                                        </#list>
+                                        </div>
+                                        <p style="margin-top: 15px;font-size: 14px;color: #686868;">
+                                            <a href="${request.contextPath}/userManager/shopping">查看购物车(<font color="red">${buycarList?size}</font>)</a>
+                                        </p>
+                                    <#else >
+                                        <img src="../img/个人中心/形状-1.png" style="margin-top: 20px;"/>
+                                        <p style="margin-top: 30px;font-size: 14px;color: #686868;">您的购物车空空的，赶紧<br/>
+                                            去首页看看购物吧</p>
+                                    </#if>
                                 </div>
 
 
-                                <div style="background-color: #fff;margin-top: 10px;height: 200px;padding: 10px;">
+                                <div style="background-color: #fff;margin-top: 10px;height: 280px;padding: 10px;">
                                     <p style="font-size: 16px;text-align: left;">我的足迹</p>
-                                    <img src="../img/个人中心/矢量智能对象.png" style="margin-top: 20px;"/>
-                                    <p style="margin-top: 30px;font-size: 14px;color: #686868;">您还没有留下任何足迹呢！</p>
+                                    <#if productList?? && (productList?size > 0)>
+                                    <div style="width: 230px;height: 200px;">
+                                        <#assign x=0 />
+                                        <#list productList as product>
+                                            <div style="width:115px;float:left ;">
+                                                <img src="${request.contextPath}/${product.proUrl}" style="margin-top: 10px;height: 100px;width: 100px;float: left;"/>
+                                                <br />
+                                                <p style="overflow:hidden; clear: both;margin:0px;line-height: 40px;">
+                                                    <#if product.isPrice == 1>
+                                                        <span style="display: block;float: left;margin-left: 10px;color: #f78642;font-size: 16px;">¥${product.newPrice}</span>
+                                                        <del style="float: left;margin-left: 10px;">¥${product.proPrice}</del>
+                                                    <#else >
+                                                    <span style="display: block;float: left;margin-left: 10px;color: #f78642;font-size: 16px;">¥${product.proPrice}</span>
+                                                    </#if>
+                                                </p>
+                                                <p style="width: 100px;font-size: 12px;color: #686868">${product.proName}</p>
+                                            </div>
+                                            <#assign x=x+1/>
+                                            <#if x == 2>
+                                                <#break>
+                                            </#if>
+                                        </#list>
+                                        </div>
+                                        <p style="margin-top: 15px;font-size: 14px;color: #686868;">
+                                            <a href="${request.contextPath}/userManager/myHistory"> 查看我的足迹(<font color="red">${productList?size}</font>)</a>
+                                        </p>
+                                    <#else >
+                                        <img src="../img/个人中心/矢量智能对象.png" style="margin-top: 20px;"/>
+                                        <p style="margin-top: 30px;font-size: 14px;color: #686868;">您还没有留下任何足迹呢！</p>
+                                    </#if>
                                 </div>
-
-
                             </div>
 
                             <!--右侧---end------->
@@ -461,117 +549,28 @@
                                 <div style="border-bottom: 1px #ccc solid;" class="main9">
                                     <p style="font-size: 20px;text-align: left;">买过的宝贝</p>
                                 </div>
-                                <div class="main9" style="padding: 20px 20px;border-bottom: 1px #F5F5F5 solid;height: 150px;">
-                                    <div style="float: left;margin-top: 10px;">
-                                        <img src="../img/宝贝收藏/组-58.png" />
-                                    </div>
-                                    <div  style="float: left;margin-top: 20px;">
-                                        <p>华为旗舰店</p>
-                                        <p>华为P9 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong style="color:red">￥：100</strong> </p>
-                                    </div>
-                                    <div style="float: right;margin-right: 20px;margin-top: 50px;">
-                                        <button style="border: 1px #ccc solid;padding: 5px;background-color: #fff;">再次购买</button>
-                                    </div>
-
-                                </div>
-
-
-                                <div class="main9" style="padding: 20px 20px;border-bottom: 1px #F5F5F5 solid;height: 150px;">
-                                    <div style="float: left;margin-top: 10px;">
-                                        <img src="../img/宝贝收藏/组-56.png" />
-                                    </div>
-                                    <div style="float: left;margin-top: 20px;">
-                                        <p>华为旗舰店</p>
-                                        <p>华为P9 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong style="color:red">￥：100</strong> </p>
-                                    </div>
-                                    <div style="float: right;margin-right: 20px;margin-top: 50px;">
-                                        <button style="border: 1px #ccc solid;padding: 5px;background-color: #fff;">再次购买</button>
-                                    </div>
-
-                                </div>
-                                <div class="main9" style="padding: 20px 20px;border-bottom: 1px #F5F5F5 solid;height: 150px;">
-                                    <div style="float: left;margin-top: 10px;">
-                                        <img src="../img/宝贝收藏/组-57.png" />
-                                    </div>
-                                    <div style="float: left;margin-top: 20px;">
-                                        <p>华为旗舰店</p>
-                                        <p>华为P9 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong style="color:red">￥：100</strong> </p>
-                                    </div>
-                                    <div style="float: right;margin-right: 20px;margin-top: 50px;">
-                                        <button style="border: 1px #ccc solid;padding: 5px;background-color: #fff;">再次购买</button>
-                                    </div>
-
-                                </div>
-
-                                <div class="main9" style="padding: 20px 20px;border-bottom: 1px #F5F5F5 solid;height: 150px;">
-                                    <div style="float: left;margin-top: 10px;">
-                                        <img src="../img/宝贝收藏/组-57.png" />
-                                    </div>
-                                    <div style="float: left;margin-top: 20px;">
-                                        <p>华为旗舰店</p>
-                                        <p>华为P9 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong style="color:red">￥：100</strong> </p>
-                                    </div>
-                                    <div style="float: right;margin-right: 20px;margin-top: 50px;">
-                                        <button style="border: 1px #ccc solid;padding: 5px;background-color: #fff;">再次购买</button>
-                                    </div>
-
-                                </div>
-
-                                <div class="main9" style="padding: 20px 20px;border-bottom: 1px #F5F5F5 solid;height: 150px;">
-                                    <div style="float: left;margin-top: 10px;">
-                                        <img src="../img/宝贝收藏/组-57.png" />
-                                    </div>
-                                    <div style="float: left;margin-top: 20px;">
-                                        <p>华为旗舰店</p>
-                                        <p>华为P9 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong style="color:red">￥：100</strong> </p>
-                                    </div>
-                                    <div style="float: right;margin-right: 20px;margin-top: 50px;">
-                                        <button style="border: 1px #ccc solid;padding: 5px;background-color: #fff;">再次购买</button>
-                                    </div>
-
-                                </div>
+                                <#list orderList as order>
+                                    <#list order.orderDetails as orderDetail>
+                                        <div class="main9" style="padding: 20px 20px;border-bottom: 1px #F5F5F5 solid;height: 150px;">
+                                            <div style="float: left;margin-top: 10px;">
+                                                <img src="${request.contextPath}/${orderDetail.product.proUrl}" style="height: 136px;width: 136px;"/>
+                                            </div>
+                                            <div  style="float: left;margin-top: 20px;">
+                                                <p>${orderDetail.shop.shopName}</p>
+                                                <p>${orderDetail.product.proName} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong style="color:red">
+                                                    ￥：<#if orderDetail.product.isPrice == 1>
+                                                    ${orderDetail.product.newPrice}
+                                                <#else>
+                                                    ${orderDetail.product.proPrice}
+                                                </#if> </strong> </p>
+                                            </div>
+                                            <div style="float: right;margin-right: 20px;margin-top: 50px;">
+                                                <button onclick="buyProduct(${orderDetail.product.proId})" style="border: 1px #ccc solid;padding: 5px;background-color: #fff;">再次购买</button>
+                                            </div>
+                                        </div>
+                                    </#list>
+                                </#list>
                                 <p style="text-align: center;margin-top: 30px;" id="show" >展开全部信息</p>
-
-
-
-                                <script type="text/javascript">
-
-                                    $(function () {
-                                        var lis=$(".main9");
-                                        for(var i=0;i<lis.length;i++){
-                                            if(i>3){
-                                                $(".main9:eq("+i+")").addClass("con_none");
-                                            }
-                                        }
-                                        $(this).html("展开全部信息");
-                                        $("#show").toggle(
-                                                function () {
-                                                    $(".main9").removeClass("con_none");
-                                                    $(this).html("收起");
-                                                },
-                                                function () {
-                                                    for(var i=0;i<lis.length;i++){
-                                                        if(i>3){
-                                                            $(".main9:eq("+i+")").addClass("con_none");
-                                                        }
-                                                    }
-                                                    $(this).html("展开全部信息");
-                                                }
-                                        );
-
-
-                                    })
-
-
-
-
-
-                                </script>
-
-
-
-
-
 
                                 <!--<div style="float:left;display: inline;border: 1px #ccc solid;display: inline-block;background-color: #f5f5f5;height: 25px;width: 150px;">
                                    <input type="text" placeholder="搜索会员编号"  style="padding-left:5px;width:130px;border: 0px;background-color: #fff;line-height: 25px;border-right: 0px #ccc solid;" />

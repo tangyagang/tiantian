@@ -9,8 +9,17 @@
         <collection property="productCategorys" ofType="productcategory" column="pcId" select="findMenuByParentId"/>
     </resultMap>
     <select id="getAll" resultMap="productcategoryMap">
-        SELECT * FROM productcategory WHERE parentId ='' or parentId is NULL ORDER BY pcId ASC
+        SELECT * FROM productcategory WHERE 1=1
+        <choose>
+            <when test="parentId != null and parentId != ''">
+                 and parentId=#{parentId}
+            </when>
+            <otherwise>
+                 and parentId ='' or parentId is NULL ORDER BY pcId ASC
+            </otherwise>
+        </choose>
     </select>
+
     <select id="findMenuByParentId" resultMap="productcategoryMap">
         SELECT * FROM productcategory WHERE parentId = #{pcId} ORDER BY pcId ASC
     </select>
@@ -19,6 +28,7 @@
         <id column="pcId" property="pcId"/>
         <association property="productCategory" column="parentId" select="getProductCategoryByPcId"/>
     </resultMap>
+
     <select id="getProductCategoryByPcId" resultMap="getProductCategoryMap">
         select * from productcategory where pcId = #{pcId}
     </select>
@@ -29,4 +39,24 @@
           SELECT parentId FROM productcategory WHERE pcId = ${pcId}
         )
     </select>
+
+    <insert id="saveProductCategory" parameterType="productCategory">
+        INSERT INTO ProductCategory VALUES(0,#{pcName},#{parentId},#{typeId});
+    </insert>
+
+    <select id="getProductCategoryByPcName" resultMap="getProductCategoryMap">
+        select * from productcategory
+          <where>
+              <if test="pcName != null and pcName.length() > 0">pcname like #{pcName}</if>
+              <if test="typeId > 0"> and typeId = #{typeId}</if>
+          </where>
+    </select>
+
+    <update id="updateProductCategory" parameterType="productCategory">
+        update  productcategory set pcname = #{pcName},parentid = #{parentId} where pcid = #{pcId}
+    </update>
+
+    <delete id="delProductCategory" parameterType="java.lang.Integer">
+        delete from productcategory where pcid = ${pcId}
+    </delete>
 </mapper>

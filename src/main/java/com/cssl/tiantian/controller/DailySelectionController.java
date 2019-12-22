@@ -1,4 +1,7 @@
 package com.cssl.tiantian.controller;
+/**
+ * 天天精选
+ */
 
 import com.cssl.tiantian.pojo.Page;
 import com.cssl.tiantian.pojo.Product;
@@ -25,13 +28,15 @@ public class DailySelectionController {
     @Autowired
     private ProductCategoryService productCategoryService;
 
-    @RequestMapping("/doDailySelection")
-    public String doDailySelection(@RequestParam(value = "pageNo",required = false) String pageNo, ModelMap modelMap){
+    @RequestMapping("/dailySelection")
+    public String doDailySelection(@RequestParam(value = "pageNo",required = false) String pageNo,
+                                   @RequestParam(value = "proName",required = false)String proName,
+                                   ModelMap modelMap){
         List<ProductCategory> list = productCategoryService.findAll(null);
         Page page = new Page<>();
-        Integer pn = pageNo != null && pageNo.equals("") ? Integer.parseInt(pageNo) : 1;//当前页码
-        int totalCount = productService.findCount(null);//总数据量
-        List<Product> products = productService.findAllByOrder(pn, Constants.PAGE_SIZE);//结果集
+        Integer pn = pageNo != null && !pageNo.equals("") ? Integer.parseInt(pageNo) : 1;//当前页码
+        int totalCount = productService.findCount(proName);//总数据量
+        List<Product> products = productService.findAllByOrder(proName,pn, Constants.PAGE_SIZE);//结果集
         int totalPage = totalCount % Constants.PAGE_SIZE == 0 ? totalCount / Constants.PAGE_SIZE : totalCount / Constants.PAGE_SIZE + 1;//总页数
         page.setList(products);
         page.setPageNo(pn);
@@ -42,6 +47,7 @@ public class DailySelectionController {
         modelMap.put("productCategorys",list);
         modelMap.put("page",page);
         modelMap.put("numbs",numbs);
+        modelMap.put("proName",proName);
         return "/dailySelection";
 
     }

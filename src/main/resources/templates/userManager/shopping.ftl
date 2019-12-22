@@ -13,18 +13,28 @@
 <header  class="main">
 	<div class="main1">
         <div class="test2">
-            <div class="A1"> <a href="#">登录&nbsp;&nbsp;</a> <a href="#">免费注册</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="#">我的订单&nbsp;&nbsp;</a>| </div>
+            <div class="A1">
+                <#if user??>
+                    <a href="${request.contextPath}/<#if user.userType==1>userManager/userIndex<#elseif user.userType==2>adminManager/orderList<#else >superManager/superOrderList</#if>">${user.userName}&nbsp;&nbsp;</a>
+                    <a href="${request.contextPath}/exit?msg=index">退出登录</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                    <a></a>
+                <#else >
+                    <a href="${request.contextPath}/login">登录&nbsp;&nbsp;</a>
+                    <a href="${request.contextPath}/register">免费注册</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                </#if>
+                <a href="${request.contextPath}/userManager/userOrder">我的订单&nbsp;&nbsp;</a>|
+            </div>
             <div class="A2">
-            <ul class="B1">
-            |
-            <li class="c1"><a href="#">&nbsp;&nbsp;&nbsp;收藏夹&nbsp;&nbsp;</a></li>
-            <li class="c1"><a href="#">&nbsp;<img src="../img/head_cart.png" />&nbsp;购物车&nbsp;&nbsp;&nbsp; </a> </li >
-            <li class="c1"><a href="#">关于我们&nbsp;</a></li>
+                <ul class="B1">
+                    |
+                    <li class="c1"><a href="${request.contextPath}/userManager/myCollection">&nbsp;&nbsp;&nbsp;收藏夹&nbsp;&nbsp;</a></li>
+                    <li class="c1"><a href="${request.contextPath}/userManager/shopping">&nbsp;<img src="${request.contextPath}/img/head_cart.png" />&nbsp;购物车&nbsp;&nbsp;&nbsp; </a> </li >
+                    <li class="c1"><a href="${request.contextPath}/info">关于我们&nbsp;</a></li>
             </div>
             </div>
             </div>
             <div class="top">
-              <div class="logo"> <a href="#"> <img src="../img/log.png"/> </a> </div>
+              <div class="logo"> <a href="${request.contextPath}/index"> <img src="../img/log.png"/> </a> </div>
               <div class="search">
                 <form>
                   <input type="search" value="" placeholder="请输入关键字" class="s_ipt"/>
@@ -70,7 +80,7 @@
 <div class="last">
       <div class="noshop">
          <img src="../img/icon_tips2.png" alt=""/>
-         <h3>你的1号店购物车还是空的</h3>
+         <h3>你的购物车还是空的</h3>
       </div>
 
           <div class="shop">
@@ -181,7 +191,7 @@
     <div class="btm"> 京ICP证120075号  京ICP备10051110号-5  京公网安备11010502025623  统一社会信用代码 91110105571298269B  食品流通许可证			SP1101051510352397 </br>
       出版物经营许可证 新出发京零字第朝160018号  Copyright©2011-2015 版权所有 ZHE800.COM </br>
       天天购物有限公司、地址：湖南长沙北大青鸟、电话：400-0611-800 <br/>
-      <img src="img/b_1.gif"/> <img src="img/b_2.gif"/> <img src="img/b_3.gif"/> <img src="img/b_4.gif"/> <img src="img/b_5.gif"/> <img src="img/b_6.gif"/> </div>
+      <img src="../img/b_1.gif"/> <img src="../img/b_2.gif"/> <img src="../img/b_3.gif"/> <img src="../img/b_4.gif"/> <img src="../img/b_5.gif"/> <img src="../img/b_6.gif"/> </div>
   </div>
 </footer>
 </body>

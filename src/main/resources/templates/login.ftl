@@ -17,6 +17,10 @@
             if (!checkRName()) flag = false;
             return flag;
         });
+
+        $(".index").click(function () {
+            window.location = "${request.contextPath}/index";
+        })
     });
 
     function checkL() {
@@ -44,7 +48,7 @@
 
 </script>
 <body>
-<div class="shangbiao"><img src="img/log.png" height="115px" width="100px"/></div>
+<div class="shangbiao" style="margin-left: 100px;"><img class="index" src="img/log.png" height="115px" width="100px"/></div>
 <div class="header">
 
     <div class="header_center">
@@ -53,45 +57,45 @@
             <form action="${request.contextPath}/doLogin" method="post" id="zhuce">
                 <ul>
                     <li>
+                        <span style="display: inline-block;text-align: center;color: red;font-size: 12px;"><#if message??>${message}</#if></span>
                         <div class="login">用户登录</div>
-                        <div class="register">新用户,<a href="#">马上注册</a></div>
+                        <div class="register">新用户,<a href="${request.contextPath}/register">马上注册</a></div>
                     </li>
                     <li >
-
-                            <div class="centre-left"><span class="pan">*</span>用户名</div>
-                            <div class="centre-right"><input placeholder="请您填写您的用户名" type="text" name="userName" id="userName"/>
-                                <p class="uName"></p>
-                            </div>
+                        <div class="centre-left"><span class="pan">*</span>用户名</div>
+                        <div class="centre-right"><input placeholder="请您填写您的用户名" type="text" name="userName" id="userName"/>
+                            <p class="uName"></p>
+                        </div>
 
                     </li>
                     <li>
-                            <div class="centre-left"><span class="pan">*</span>密码</div>
-                            <div class="centre-right"><input type="password" placeholder="请您填写您的密码" name="password" id="password"/>
-                                <p class="pass"></p>
-                            </div>
+                        <div class="centre-left"><span class="pan">*</span>密码</div>
+                        <div class="centre-right"><input type="password" placeholder="请您填写您的密码" name="password" id="password"/>
+                            <p class="pass"></p>
+                        </div>
                     </li>
-                   <#-- <li >
-                            <div class="centre-left"><span class="pan">*</span>手机号</div>
+                <#-- <li >
+                         <div class="centre-left"><span class="pan">*</span>手机号</div>
 
-                            <div class="centre-right"><input type="text" name="phone" id="phone"/>
-                                <p class="centre-right-bottom">请您填写您的密码</p>
-                            </div>
-                            <div class="phone"></div>
-                    </li>
-                    <li>
-                            <div class="centre-left"><span class="pan">*</span>验证码</div>
-                            <div class="centre-right">
-                                <input type="text" name="send" id="send"/>
-                                <button name="send" type="button">发送验证码</button>
-                                <p class="centre-right-bottom">请您填写您的密码</p>
-                            </div>
-                            <div class="send"></div>
-                    </li>-->
+                         <div class="centre-right"><input type="text" name="phone" id="phone"/>
+                             <p class="centre-right-bottom">请您填写您的密码</p>
+                         </div>
+                         <div class="phone"></div>
+                 </li>
+                 <li>
+                         <div class="centre-left"><span class="pan">*</span>验证码</div>
+                         <div class="centre-right">
+                             <input type="text" name="send" id="send"/>
+                             <button name="send" type="button">发送验证码</button>
+                             <p class="centre-right-bottom">请您填写您的密码</p>
+                         </div>
+                         <div class="send"></div>
+                 </li>-->
                     <li>
                         <button type="submit" id="button"><span class="button-span">登录</span></button>
                     </li>
                     <li>
-                        <a href="findPwd.html" class="findpwd">忘记密码</a>
+                        <a href="${request.contextPath}/findPwd" class="findpwd">忘记密码</a>
                     </li>
                 </ul>
 

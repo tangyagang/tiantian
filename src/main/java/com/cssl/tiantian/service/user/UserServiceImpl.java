@@ -3,12 +3,12 @@ package com.cssl.tiantian.service.user;
 import com.cssl.tiantian.dao.user.UserMapper;
 import com.cssl.tiantian.pojo.User;
 import com.cssl.tiantian.tools.PojoTransformationMap;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Field;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -50,6 +50,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findUserByPhone(String phone) {
         return userMapper.getUserByPhone(phone);
+    }
+
+    @Override
+    public PageInfo<User> findUserByUserIdAndUserType(int pageNo, int pageSize, int userId, int userType) {
+        PageHelper.startPage(pageNo,pageSize);
+        List<User> list = userMapper.getUserByUserIdAndUserType(userId,userType);
+        return new PageInfo<User>(list);
     }
 
 }

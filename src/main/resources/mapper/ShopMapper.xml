@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cssl.tiantian.dao.shop.ShopMapper">
+    <resultMap id="shopMap" type="shop">
+        <id column="shopid" property="shopId"/>
+        <association property="user" javaType="user" column="userId" select="getUserByUserId"/>
+    </resultMap>
+
+    <select id="getUserByUserId" resultType="user">
+        select * from user where userid = #{userId}
+    </select>
+
+    <select id="getAllByShopNameAndUserName" parameterType="shop" resultMap="shopMap">
+        select * from shop
+            <where>
+                <if test="shopName != null and shopName != ''">shopname like #{shopName}</if>
+                <if test="userName != null and userName != ''">
+                     AND userId IN (
+                          SELECT userId FROM `user` WHERE userName LIKE #{userName}
+                        )
+                </if>
+            </where>
+    </select>
+    
+    <delete id="deleteShopByShopId" parameterType="java.lang.Integer">
+        delete from shop where shopid = ${shopId}
+    </delete>
+
+    <select id="getShopByShopId" resultMap="shopMap">
+        select * from shop where shopid = #{shopId}
+    </select>
+
+    <select id="getAllByUserIdAndShopName" resultMap="shopMap">
+        SELECT * FROM shop WHERE shopid IN
+            (
+            SELECT a.shopid FROM shop a,orderdetail b,`order` c
+            WHERE a.shopid = b.shopid AND b.orderid = c.orderid AND c.userid = ${userId}
+            GROUP BY shopid
+            )
+            <if test="shopName != null and shopName != ''">  AND shopname LIKE CONCAT("%",#{shopName},"%")</if>
+    </select>
+
+    <select id="getAllByUserId" resultType="shop">
+        SELECT * FROM shop a,`user` b WHERE a.userid = b.userid AND b.userid = ${adminId}
+    </select>
+
+</mapper>

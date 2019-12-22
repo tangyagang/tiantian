@@ -36,7 +36,7 @@
 .address select{
     height: 30px;
     width: 130px;
-    color: #CCCCCC;
+    /*color: #CCCCCC;*/
 }
  a{
      color: #000000;

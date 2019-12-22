@@ -65,7 +65,12 @@
 			<div class="logo"> <img src="img/logo1.png" style=" width:50px;height: 50px;float: left" />
 				<p style="font-size: 16px;color: #3d3d3d;margin-left: 16px;font-weight: bold;margin-top: 20px;    float: left">忘记密码</p>
 			</div>
-			<div style="width: 1200px;margin: 0 auto;font-size: 12px;margin-top: -38px;"> <span style="float: right;color: #333333;"><a href="" style="color: #333333;">注册</a><span style="margin-left: 20px;margin-right: 20px;">|</span><a href="" style="color: #333333;">登录</a><span style="margin-left: 20px;margin-right: 20px;">|</span><a href="" style="color: #333333;">天天商城</a></span>
+			<div style="width: 1200px;margin: 0 auto;font-size: 12px;margin-top: -38px;">
+				<span style="float: right;color: #333333;">
+					<a href="${request.contextPath}/register" style="color: #333333;">注册</a><span style="margin-left: 20px;margin-right: 20px;">|</span>
+					<a href="${request.contextPath}/login" style="color: #333333;">登录</a><span style="margin-left: 20px;margin-right: 20px;">|</span>
+					<a href="${request.contextPath}/index" style="color: #333333;">天天商城</a>
+				</span>
 			</div>
 		</div>
 		</div>

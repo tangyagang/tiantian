@@ -4,9 +4,10 @@ import com.cssl.tiantian.pojo.User;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Map;
 
-@Repository
+
 public interface UserMapper {
 
     //判断用户名是否存在
@@ -23,4 +24,7 @@ public interface UserMapper {
     public User getUserByUserId(@Param("userId") int userId);
     //根据电话号码查询用户
     public User getUserByPhone(@Param("phone")String phone);
+    //查询所有用户 || 根据用户ID、用户类型查询用户
+    public List<User> getUserByUserIdAndUserType(@Param("userId")int userId,@Param("userType")int userType);
+
 }

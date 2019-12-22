@@ -22,8 +22,7 @@
             $("#first_page").click(function(){
                 //首页
                 proName = $(".s_ipt").val();
-                pageNo = $("#current").val();
-                proName = $(".s_ipt").val();
+                pageNo = parseInt($("#current").val());
                 if(pageNo > 1){
                     pageNo = 1;
                     $("#current").val(pageNo);
@@ -33,7 +32,7 @@
             $("#pre_page").click(function(){
                 //上一页
                 proName = $(".s_ipt").val();
-                pageNo = $("#current").val();
+                pageNo = parseInt($("#current").val());
                 if(pageNo > 1){
                     pageNo = pageNo-1;
                     $("#current").val(pageNo);
@@ -43,11 +42,10 @@
             $("#fenye .fenye_main #next_page").click(function(){
                 //下一页
                 proName = $(".s_ipt").val();
-                pageNo = $("#current").val();
-                totalPage = $("#totalPage").val();
+                pageNo = parseInt($("#current").val());
+                totalPage = parseInt($("#totalPage").val());
                 if(pageNo < totalPage){
-                    pageNo = $("#current").val();
-                    pageNo = parseInt(pageNo) + 1
+                    pageNo = pageNo + 1;
                     $("#current").val(pageNo);
                     window.location.href="${request.contextPath}/index?pageNo="+pageNo+"&proName="+proName;
                 }
@@ -55,8 +53,8 @@
             $("#end_page").click(function(){
                 //末页
                 proName = $(".s_ipt").val();
-                pageNo = $("#current").val();
-                totalPage = $("#totalPage").val();
+                pageNo = parseInt($("#current").val());
+                totalPage = parseInt($("#totalPage").val());
                 if(totalPage > pageNo){
                     pageNo = totalPage;
                     $("#current").val(pageNo);
@@ -80,13 +78,23 @@
 <header>
     <div class="main1">
         <div class="test2">
-            <div class="A1"> <a href="#">登录&nbsp;&nbsp;</a> <a href="#">免费注册</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="#">我的订单&nbsp;&nbsp;</a>| </div>
+            <div class="A1">
+                <#if user??>
+                    <a href="${request.contextPath}/<#if user.userType==1>userManager/userIndex<#elseif user.userType==2>adminManager/orderList<#else >superManager/superOrderList</#if>">${user.userName}&nbsp;&nbsp;</a>
+                    <a href="${request.contextPath}/exit?msg=index">退出登录</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                    <a></a>
+                <#else >
+                    <a href="${request.contextPath}/login">登录&nbsp;&nbsp;</a>
+                    <a href="${request.contextPath}/register">免费注册</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                </#if>
+                <a href="${request.contextPath}/userManager/userOrder">我的订单&nbsp;&nbsp;</a>|
+            </div>
             <div class="A2">
                 <ul class="B1">
                     |
-                    <li class="c1"><a href="#">&nbsp;&nbsp;&nbsp;收藏夹&nbsp;&nbsp;</a></li>
-                    <li class="c1"><a href="#">&nbsp;<img src="img/head_cart.png" />&nbsp;购物车&nbsp;&nbsp;&nbsp; </a> </li >
-                    <li class="c1"><a href="#">关于我们&nbsp;</a></li>
+                    <li class="c1"><a href="${request.contextPath}/userManager/myCollection">&nbsp;&nbsp;&nbsp;收藏夹&nbsp;&nbsp;</a></li>
+                    <li class="c1"><a href="${request.contextPath}/userManager/shopping">&nbsp;<img src="img/head_cart.png" />&nbsp;购物车&nbsp;&nbsp;&nbsp; </a> </li >
+                    <li class="c1"><a href="${request.contextPath}/info">关于我们&nbsp;</a></li>
             </div>
         </div>
     </div>
@@ -98,7 +106,15 @@
         </div>
     </div>
     <div class="head_nav_main">
-        <div class="head_nav_main1"> <a href="#" class="head_index_on" style="color:#FFF"> 首页 </a> <a href="#"> 天天精选 </a> <a href="#"> 9块9包邮 </a> <a href="#"> 排行榜 </a> <a href="#"> 品牌团 </a> <a href="#">积分商城</a> <span class="n"></span> </div>
+        <div class="head_nav_main1">
+            <a href="${request.contextPath}/index" class="head_index_on" style="color:#FFF"> 首页 </a>
+            <a href="${request.contextPath}/dailySelection"> 天天精选 </a>
+            <a href="${request.contextPath}/tejia"> 9块9包邮 </a>
+            <a href="${request.contextPath}/rankingList"> 排行榜 </a>
+            <a href="#"> 品牌团 </a>
+            <a href="#">积分商城</a>
+            <span class="n"></span>
+        </div>
     </div>
 </header>
 
@@ -117,7 +133,7 @@
                               <#items as productCategory >
                               <li>
                                   <div class="fj">
-                                      <span class="fl">${productCategory.pcName}</span>
+                                      <span class="fl"><a href="${request.contextPath}/detail?pcId=${productCategory.pcId}">${productCategory.pcName}</a></span>
                                   </div>
                                   <!--目前不显示，鼠标移入显示-->
                                   <#assign num>${-40*productCategory?index}</#assign>
@@ -126,10 +142,10 @@
                                           <#list productCategory.productCategorys>
                                               <#items as type2>
                                                   <div class="zj_l_c">
-                                                      <h2>${type2.pcName}</h2>
+                                                      <h2><a href="${request.contextPath}/detail?pcId=${type2.pcId}">${type2.pcName}</a></h2>
                                                       <#list type2.productCategorys>
                                                           <#items as type3>
-                                                              <a href="#">${type3.pcName}</a>|
+                                                              <a href="${request.contextPath}/detail2?pcId=${type3.pcId}">${type3.pcName}</a>|
                                                           </#items>
                                                       </#list>
                                                   </div>
@@ -242,9 +258,9 @@
                     <ul >
                         <#items as product>
                             <li class="but_m2">
-                                <div class="but_img"><a href="${request.contextPath}/productDetails?proId=${product.proId}"><img src="img/center1.jpg" style="width:270px; height:250px;" /></a></div>
+                                <div class="but_img"><a href="${request.contextPath}/productDetails?proId=${product.proId}"><img src="${request.contextPath}/${product.proUrl}" style="width:270px; height:250px;" /></a></div>
                                 <div class="name"><a href="${request.contextPath}/productDetails?proId=${product.proId}"><h2>${product.proName}</h2><span>${product.description}</span></a></div>
-                                <div class="price"><strong>￥<span>${product.proPrice}</span></strong></div>
+                                <div class="price"><strong>￥<span><#if product.isPrice == 1>${product.newPrice}<#else >${product.proPrice}</#if></span></strong></div>
                             </li>
                         </#items>
                         <li style="clear:both"></li>

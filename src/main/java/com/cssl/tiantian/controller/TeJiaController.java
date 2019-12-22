@@ -23,15 +23,18 @@ public class TeJiaController {
     @Autowired
     private ProductCategoryService productCategoryService;
 
-    @RequestMapping("/doTeJia")
-    public String doTeJia(@RequestParam(value = "pageNo",required = false) String pageNo, ModelMap modelMap){
+    @RequestMapping("/tejia")
+    public String doTeJia(@RequestParam(value = "pageNo",required = false) String pageNo,
+                          @RequestParam(value = "proName",required = false)String proName,
+                          ModelMap modelMap){
         List<ProductCategory> list = productCategoryService.findAll(null);
-        Integer pn = pageNo != null && pageNo.equals("") ? Integer.parseInt(pageNo) : 1;//当前页码
-        PageInfo<Product> pageInfo = productService.findAllByPrice(pn,Constants.PAGE_SIZE);
+        Integer pn = pageNo != null && !pageNo.equals("") ? Integer.parseInt(pageNo) : 1;//当前页码
+        PageInfo<Product> pageInfo = productService.findAllByPrice(proName,pn,Constants.PAGE_SIZE);
         int[] numbs = Page.getPageNumbers(pn,pageInfo.getPages());//页号
         modelMap.put("productCategorys",list);
         modelMap.put("pageInfo",pageInfo);
         modelMap.put("numbs",numbs);
+        modelMap.put("proName", proName);
         return "/tejia";
 
     }

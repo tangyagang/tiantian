@@ -1,6 +1,7 @@
 package com.cssl.tiantian.service.user;
 
 import com.cssl.tiantian.pojo.User;
+import com.github.pagehelper.PageInfo;
 import org.apache.ibatis.annotations.Param;
 
 public interface UserService {
@@ -19,4 +20,8 @@ public interface UserService {
     public User findUserByUserId(int userId);
     //根据电话号码查询用户
     public User findUserByPhone(String phone);
+    //分页查询所有用户 || 根据用户ID、用户类型查询用户
+    public PageInfo<User> findUserByUserIdAndUserType(int pageNo, int pageSize, int userId, int userType);
+
+
 }

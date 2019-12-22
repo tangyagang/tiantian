@@ -8,6 +8,7 @@ import com.cssl.tiantian.service.ProductCategory.ProductCategoryService;
 import com.cssl.tiantian.service.proScore.ProScoreService;
 import com.cssl.tiantian.service.product.ProductService;
 import com.cssl.tiantian.tools.Constants;
+import com.cssl.tiantian.tools.HistoryList;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,14 +32,19 @@ public class ProductController {
     private ProScoreService proScoreService;
 
     //分类查询所有商品(一、二级分类)
-    @RequestMapping("/doDetail")
-    public String doDetail(@RequestParam(value = "pcId",required = false) int pcId,String pageNo, ModelMap modelMap){
+    @RequestMapping("/detail")
+    public String doDetail(@RequestParam(value = "pcId",required = false) int pcId,
+                           @RequestParam(value = "choose",required = false)String choose,
+                           @RequestParam(value = "pageNo",required = false)String pageNo,
+                           @RequestParam(value = "proName",required = false)String proName,
+                           ModelMap modelMap){
         List<ProductCategory> list = productCategoryService.findAll(null);
         ProductCategory productCategory = productCategoryService.findProductCategoryByPcId(pcId);
         Page page = new Page<>();
-        Integer pn = pageNo != null && pageNo.equals("") ? Integer.parseInt(pageNo) : 1;//当前页码
-        int totalCount = productService.findCountByPcId(pcId);//总数据量
-        List<Product> products = productService.findProductByPcId(pcId,pn, Constants.PAGE_SIZE);//结果集
+        Integer pn = pageNo != null && !pageNo.equals("") ? Integer.parseInt(pageNo) : 1;//当前页码
+        int totalCount = productService.findCountByPcId(pcId,proName);//总数据量
+        int cho = choose != null && !choose.equals("") ? Integer.parseInt(choose) : 0;
+        List<Product> products = productService.findProductByPcId(pcId,proName,cho,pn, Constants.PAGE_SIZE);//结果集
         int totalPage = totalCount % Constants.PAGE_SIZE == 0 ? totalCount / Constants.PAGE_SIZE : totalCount / Constants.PAGE_SIZE + 1;//总页数
         page.setList(products);
         page.setPageNo(pn);
@@ -50,18 +56,25 @@ public class ProductController {
         modelMap.put("productCategory",productCategory);
         modelMap.put("page",page);
         modelMap.put("numbs",numbs);
+        modelMap.put("pcId", pcId);
+        modelMap.put("proName",proName);
         return "/detail";
     }
 
     //分类查询所有商品(三级分类)
-    @RequestMapping("/doDetail2")
-    public String doDetail2(@RequestParam(value = "pcId",required = false) int pcId,String pageNo, ModelMap modelMap){
+    @RequestMapping("/detail2")
+    public String doDetail2(@RequestParam(value = "pcId",required = false) int pcId,
+                            @RequestParam(value = "pageNo",required = false)String pageNo,
+                            @RequestParam(value = "choose",required = false)String choose,
+                            @RequestParam(value = "proName",required = false)String proName,
+                            ModelMap modelMap){
         List<ProductCategory> list = productCategoryService.findProductCategoryByPcId3(pcId);//所有同级分类
         ProductCategory productCategory = productCategoryService.findProductCategoryByPcId(pcId);//查询所属分类
         Page page = new Page<>();
-        Integer pn = pageNo != null && pageNo.equals("") ? Integer.parseInt(pageNo) : 1;//当前页码
-        int totalCount = productService.findCountByPcId3(pcId);//总数据量
-        List<Product> products = productService.findProductByPcId3(pcId,pn, Constants.PAGE_SIZE);//结果集
+        Integer pn = pageNo != null && !pageNo.equals("") ? Integer.parseInt(pageNo) : 1;//当前页码
+        int totalCount = productService.findCountByPcId3(pcId,proName);//总数据量
+        int cho = choose != null && !choose.equals("") ? Integer.parseInt(choose) : 0;
+        List<Product> products = productService.findProductByPcId3(pcId,proName,cho,pn, Constants.PAGE_SIZE);//结果集
         int totalPage = totalCount % Constants.PAGE_SIZE == 0 ? totalCount / Constants.PAGE_SIZE : totalCount / Constants.PAGE_SIZE + 1;//总页数
         page.setList(products);
         page.setPageNo(pn);
@@ -73,15 +86,22 @@ public class ProductController {
         modelMap.put("productCategory",productCategory);
         modelMap.put("page",page);
         modelMap.put("numbs",numbs);
+        modelMap.put("pcId", pcId);
+        modelMap.put("proName",proName);
         return "/detail2";
     }
 
+    //商品详情
     @RequestMapping("/productDetails")
-    public String productDetails( int proId,String pageNo,ModelMap modelMap){
+    public String productDetails( int proId,String pageNo,ModelMap modelMap,
+                                  HttpServletRequest request,HttpServletResponse response){
         Product product = productService.findProductByProId(proId);
-        Integer pn = pageNo != null && pageNo.equals("") ? Integer.parseInt(pageNo) : 1;//当前页码
+        Integer pn = pageNo != null && !pageNo.equals("") ? Integer.parseInt(pageNo) : 1;//当前页码
         PageInfo<ProScore> pageInfo = proScoreService.findAllByProId(proId,pn,Constants.PAGE_SIZE);
         int[] numbs = Page.getPageNumbers(pn,pageInfo.getPages());
+        //把当前商品的id，添加到cookie里面
+        HistoryList historyList = new HistoryList();
+        historyList.addHistory(String.valueOf(proId), request, response);
         modelMap.put("product",product);
         modelMap.put("pageInfo",pageInfo);
         modelMap.put("numbs",numbs);

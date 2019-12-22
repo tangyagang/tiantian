@@ -167,7 +167,7 @@ $(function(){
                     if (buyCarIds.length > 0){
                         $.getJSON(path+"/userManager/doSent?buyCarIds="+buyCarIds,"totalPrice="+totalPrice,function (data) {
                             if (data == 7){
-                                window.location.href = path + "/"
+                                window.location.href = path + "/userManager/userOrder";
                             }else {
                                 alert("订单生成失败！");
                             }

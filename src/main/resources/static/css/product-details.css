@@ -226,6 +226,7 @@ section a{
 	text-align:center;
 	font-size:18px;
 	color:#999;
+	text-decoration: line-through;
 }
 .c{
 	display:inline-block;
@@ -233,7 +234,7 @@ section a{
 	position:relative;
 	left:40px;
 	font-size:14px;
-	color:#CCC;
+	color:#999;
 }
 .span3{
 	position:relative;
@@ -291,7 +292,7 @@ section a{
 
 .number2{
 	font-size:20px;
-	width:40px;
+	width:80px;
 	height:37px;
 	position:relative;
 	text-align:center;
@@ -370,6 +371,7 @@ section a{
 	position:relative;
 	top:10px;
 	color:red;
+	font-size: 18px;
 }
 /*中间结束*/
 .review-product{
@@ -396,10 +398,8 @@ section a{
 
 }
 .review-section1{
-
 	width:740px;
-	height:820px;
-	margin:10px auto;
+	margin:15px auto;
 	overflow:hidden;
 }
 .seller{

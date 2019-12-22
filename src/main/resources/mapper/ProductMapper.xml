@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cssl.tiantian.dao.product.ProductMapper">
     <resultMap id="productMap" type="product">
-        <id column="pId" property="proId"/>
+        <id column="proId" property="proId"/>
         <association property="shop" javaType="shop">
             <id column="sId" property="shopId"/>
             <association property="user" javaType="user"  resultMap="findUserByUserIdMap"></association>
@@ -12,6 +12,8 @@
         <association property="productCategory" javaType="productCategory" column="pcId"
                      select="com.cssl.tiantian.dao.productCategory.ProductCategoryMapper.getProductCategoryByPcId"/>
         <collection property="orderDetails" ofType="orderDetail" resultMap="findOrderDetailMap"/>
+        <collection property="proImgs" ofType="proImg" column="proId"
+                    select="com.cssl.tiantian.dao.proImg.ProImgMapper.getProImgByProId"/>
     </resultMap>
     <resultMap id="findUserByUserIdMap" type="user">
         <id column="uId" property="userId"/>
@@ -23,26 +25,27 @@
     <select id="getAll" resultMap="productMap">
         select * from product order by createTime asc
     </select>
+
     <select id="getProductByProName" resultType="product">
-        select * from product
-        <trim prefix="where" prefixOverrides="and | or">
+        select * from product where isdelete = 0
+
             <if test="proName != null and proName != ''">
                 and proName like CONCAT("%",#{proName},"%")
             </if>
-        </trim>
+
         LIMIT ${currentPage},${pageSize}
     </select>
+
     <select id="getCount" resultType="java.lang.Integer">
-        select count(1) from product
-        <trim prefix="where" prefixOverrides="and | or">
+        select count(1) from product where isdelete = 0
             <if test="proName != null and proName != ''">
                 and proName like CONCAT("%",#{proName},"%")
             </if>
-        </trim>
+
     </select>
 
     <select id="getProductByProId" parameterType="java.lang.Integer" resultMap="productMap">
-         SELECT p.*,p.proId pId,p.pcId pcId,s.*,s.shopId sId,u.*,u.userId uId
+         SELECT p.*,p.proId,p.pcId pcId,s.*,s.shopId sId,u.*,u.userId uId
          FROM product p,shop s,user u
          WHERE p.shopId=s.shopId
          AND s.userId=u.userId
@@ -54,14 +57,25 @@
           IN(
             SELECT pcId FROM productcategory WHERE parentId = ${pcId} OR pcId = ${pcId}
           )
+          <if test="proName != null and proName != ''">
+            and proName like CONCAT("%",#{proName},"%")
+          </if>
+          <if test="choose == 1"> ORDER BY proprice DESC</if>
+          <if test="choose == 2"> ORDER BY proprice asc</if>
+          <if test="choose == 3"> ORDER BY createtime DESC</if>
           LIMIT ${currentPage},${pageSize}
     </select>
+
     <select id="getCountByPcId" resultType="java.lang.Integer">
         SELECT count(1) FROM product WHERE pcId
           IN(
             SELECT pcId FROM productcategory WHERE parentId = ${pcId} OR pcId = ${pcId}
           )
+        <if test="proName != null and proName != ''">
+            and proName like CONCAT("%",#{proName},"%")
+        </if>
     </select>
+
     <select id="getProductByPcId3" resultMap="productMap">
         SELECT * FROM product WHERE pcId
           IN (
@@ -70,8 +84,15 @@
                 SELECT parentId FROM productcategory WHERE pcId = ${pcId}
               )
           )
+        <if test="proName != null and proName != ''">
+            and proName like CONCAT("%",#{proName},"%")
+        </if>
+            <if test="choose == 1"> ORDER BY proprice DESC</if>
+            <if test="choose == 2"> ORDER BY proprice asc</if>
+            <if test="choose == 3"> ORDER BY createtime DESC</if>
           LIMIT ${currentPage},${pageSize}
     </select>
+
     <select id="getCountByPcId3" resultType="java.lang.Integer">
         SELECT count(1) FROM product WHERE pcId
           IN (
@@ -80,16 +101,34 @@
                 SELECT parentId FROM productcategory WHERE pcId = ${pcId}
               )
           )
+        <if test="proName != null and proName != ''">
+            and proName like CONCAT("%",#{proName},"%")
+        </if>
     </select>
+
     <select id="getAllByOrder" resultMap="productMap">
-        SELECT * FROM product ORDER BY proPrice DESC
+        SELECT * FROM product
+          <if test="proName != null and proName != ''"> where proname like concat("%",#{proName},"%")</if>
+          ORDER BY proPrice DESC
           LIMIT ${currentPage},${pageSize}
     </select>
+
     <select id="getAllByPrice" resultMap="productMap">
-        SELECT * FROM product WHERE proPrice=9.9
+        SELECT * FROM product WHERE proPrice &lt;= 9.9 or newPrice &lt;= 9.9
+        <if test="proName != null and proName != ''">
+            and proname like concat("%",#{proName},"%")
+        </if>
     </select>
+
     <select id="getAllByOrderCount" resultMap="productMap">
-        SELECT a.*,a.proId pId,b.* FROM product a,orderdetail b WHERE a.proId = b.proId
+        SELECT * FROM product WHERE proid IN
+            (
+            SELECT a.proId FROM product a,orderdetail b WHERE a.proId = b.proId
+              GROUP BY a.proId ORDER BY b.count DESC
+            )
+        <if test="proName != null and proName != ''">
+            and proname like concat("%",#{proName},"%")
+        </if>
     </select>
 
     <update id="updateProductById" parameterType="java.util.Map">
@@ -110,4 +149,56 @@
     <update id="updateStockById" parameterType="int">
         update product set stock = #{stock} where proId = #{proId}
     </update>
+
+    <update id="updateByProIds" parameterType="int[]">
+        update product set isdelete = ${isDelete} where proid in
+        <foreach collection="proIds" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <delete id="delByProIds" parameterType="int[]">
+        delete from product where proid in
+        <foreach collection="proIds" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="getAllByAdminId" resultMap="productMap">
+        SELECT * FROM product a,shop b,`user` c
+            WHERE a.shopid = b.shopid
+            AND b.userid = c.userid
+            AND c.userid = ${adminId}
+    </select>
+
+    <insert id="saveProduct" parameterType="productAddVo" useGeneratedKeys="true" keyProperty="productAddVo.proId">
+        insert ignore into product
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="productAddVo.proName neq null and productAddVo.proName neq ''">proName,</if>
+            <if test="productAddVo.description neq null and productAddVo.description neq ''">description,</if>
+            <if test="productAddVo.proPrice &gt;= 0 ">proPrice,</if>
+            <if test="productAddVo.stock &gt;= 0">stock,</if>
+            <if test="productAddVo.pcId &gt; 0 ">pcId,</if>
+            <if test="productAddVo.proUrl neq null and productAddVo.proUrl neq ''">proUrl,</if>
+            <if test="productAddVo.isDelete &gt;= 0">isDelete,</if>
+            <if test="productAddVo.isPrice &gt;= 0">isPrice,</if>
+            <if test="productAddVo.newPrice &gt;= 0">newPrice,</if>
+            <if test="productAddVo.shopId &gt; 0 ">shopId,</if>
+            <if test="productAddVo.spare &gt;= 0">spare,</if>
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="productAddVo.proName neq null and productAddVo.proName neq ''">#{productAddVo.proName},</if>
+            <if test="productAddVo.description neq null and productAddVo.description neq ''">#{productAddVo.description},</if>
+            <if test="productAddVo.proPrice &gt;= 0">#{productAddVo.proPrice},</if>
+            <if test="productAddVo.stock &gt;= 0">#{productAddVo.stock},</if>
+            <if test="productAddVo.pcId &gt; 0 ">#{productAddVo.pcId},</if>
+            <if test="productAddVo.proUrl neq null and productAddVo.proUrl neq ''">#{productAddVo.proUrl},</if>
+            <if test="productAddVo.isDelete &gt;= 0">#{productAddVo.isDelete},</if>
+            <if test="productAddVo.isPrice &gt;= 0">#{productAddVo.isPrice},</if>
+            <if test="productAddVo.newPrice &gt;= 0">#{productAddVo.newPrice},</if>
+            <if test="productAddVo.shopId &gt; 0 ">#{productAddVo.shopId},</if>
+            <if test="productAddVo.spare &gt;= 0">#{productAddVo.spare},</if>
+        </trim>
+    </insert>
 </mapper>

@@ -5,8 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.*;
 
+import javax.annotation.Resource;
 
-//@Configuration
+
+@Configuration
 public class LoginConfiguration implements WebMvcConfigurer {
     //    以下WebMvcConfigurerAdapter 比较常用的重写接口
 //    /** 解决跨域问题 **/
@@ -26,7 +28,7 @@ public class LoginConfiguration implements WebMvcConfigurer {
 //    /** 默认静态资源处理器 **/
 //    void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer);
 
-   // @Autowired
+    @Resource
     private LoginInterceptor loginInterceptor;
 
     public void addViewControllers(ViewControllerRegistry registry) {

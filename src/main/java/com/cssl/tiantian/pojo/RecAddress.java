@@ -12,6 +12,7 @@ public class RecAddress implements Serializable {
     private Areas areas;
     private String recName;
     private String recAddress;
+    private String addressCode;
     private String phone;
     private Date createTime;
     private int isDefault;
@@ -32,6 +33,14 @@ public class RecAddress implements Serializable {
 
     public void setRecAddressId(int recAddressId) {
         this.recAddressId = recAddressId;
+    }
+
+    public String getAddressCode() {
+        return addressCode;
+    }
+
+    public void setAddressCode(String addressCode) {
+        this.addressCode = addressCode;
     }
 
     public User getUser() {

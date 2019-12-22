@@ -21,7 +21,7 @@
             FROM provinces a,cities b,areas c
             WHERE a.provinceCode = b.provinceId
               AND b.cityCode = c.cityId
-              and c.areaId = ${areaId}
+              and c.areaId = #{areaId}
     </select>
 
     <select id="getAreasByCityCode" resultType="areas">

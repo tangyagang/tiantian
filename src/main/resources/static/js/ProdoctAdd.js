@@ -1,10 +1,10 @@
 // JavaScript Document
 $(function(){
 		var num;
-			$("#qw").focus(function(){
+			$(".qw").focus(function(){
 				num=$(this).val();
 				})	
-			$("#qw").blur(function(){
+			$(".qw").blur(function(){
 				var num1=$(this).val();
 				var reg =/^\d*\.{0,1}\d{0,1}$/;
 				if(reg.test($(this).val()) ==true){

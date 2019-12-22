@@ -1,7 +1,5 @@
 package com.cssl.tiantian.controller;
 
-import com.cssl.tiantian.pojo.Areas;
-import com.cssl.tiantian.pojo.Provinces;
 import com.cssl.tiantian.pojo.User;
 import com.cssl.tiantian.service.areas.AreasService;
 import com.cssl.tiantian.service.product.ProductService;
@@ -13,20 +11,15 @@ import com.cssl.tiantian.tools.SendMessageUtil;
 import com.cssl.tiantian.tools.SendPasswordUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.*;
-import java.net.URLDecoder;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.sql.Date;
 import java.util.*;
 
@@ -51,18 +44,19 @@ public class UserController {
         if (user != null){
             //登录成功
             Constants.USER_SESSION = user;
+            request.getSession().setAttribute("user", Constants.USER_SESSION);
             if (user.getUserType()==1){
                 //买家
-                return "userManager/userIndex";
+                return "redirect:/userManager/userIndex";
             }else if (user.getUserType()==2){
                 //卖家
-                return "adminManager/adminIndex";
+                return "redirect:/adminManager/orderList";
             }else {
                 //超级管理员
-                return "superManager/superIndex";
+                return "redirect:/superManager/superOrderList";
             }
         }
-        return "login";
+        return "redirect:/login";
     }
     //判断用户是否存在
     @RequestMapping("/isExistUser")
@@ -118,7 +112,7 @@ public class UserController {
             }else{//发送失败
                 System.out.println("发送短信失败:"+result.toString());
                 map.put("success", false);
-                map.put("msg", "发送失败");
+                map.put("msg", "手机号频率限制，发送失败");
                 return map;
             }
             //TimerTask实现5分钟后从session中删除code
@@ -273,6 +267,16 @@ public class UserController {
             session.removeAttribute("RANDOMVALIDATECODEKEY");
             return "Y";
         }
+    }
+
+    //退出登录
+    @RequestMapping("/exit")
+    public String exit(@RequestParam(value = "msg",required = false)String msg, HttpServletRequest request){
+        request.getSession().removeAttribute("user");
+        if(!"".equals(msg) && msg != null){
+            return "redirect:/"+msg;
+        }
+        return "redirect:/login";
     }
 
 

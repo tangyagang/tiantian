@@ -10,26 +10,40 @@
 <script type="text/javascript" src="js/product-details.js"></script>
 <script type="text/javascript">
     $(function(){
-        $("#buyCar").click(function () {
+        //加入购物车
+        $(".buyCar").click(function () {
             var num = $(".number2").val();
             var proId = $(".proId").val();
             window.location.href = "${request.contextPath}/userManager/doShopping?proId=${product.proId}&num="+num;
-        })
+        });
     })
+    //加入收藏
+    function myCollection(proId) {
+        window.location.href="${request.contextPath}/userManager/proCollection?proId="+proId;
+    }
 </script>
 <body>
 <!--网页头部-->
 <header>
 <div class="main1">
 <div class="test2">
-<div class="A1"> <a href="#">登录&nbsp;&nbsp;</a> <a href="#">免费注册</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="#">我的订单&nbsp;&nbsp;</a>| </div>
-<div class="A2">
-<ul class="B1">
-|
-<li class="c1"><a href="#">&nbsp;&nbsp;&nbsp;收藏夹&nbsp;&nbsp;</a></li>
-<li class="c1"><a href="#">&nbsp;<img src="img/head_cart.png" />&nbsp;购物车&nbsp;&nbsp;&nbsp; </a> </li >
-<li class="c1"><a href="#">关于我们&nbsp;</a></li>
+<div class="A1">
+  <#if user??>
+    <a href="${request.contextPath}/<#if user.userType==1>userManager/userIndex<#elseif user.userType==2>adminManager/orderList<#else >superManager/superOrderList</#if>">${user.userName}&nbsp;&nbsp;</a>
+    <a href="${request.contextPath}/exit?msg=productDetails">退出登录</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <#else >
+    <a href="${request.contextPath}/login">登录&nbsp;&nbsp;</a>
+    <a href="${request.contextPath}/register">免费注册</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  </#if>
+    <a href="${request.contextPath}/userManager/userOrder">我的订单&nbsp;&nbsp;</a>|
 </div>
+    <div class="A2">
+        <ul class="B1">
+            |
+            <li class="c1"><a href="${request.contextPath}/userManager/myCollection">&nbsp;&nbsp;&nbsp;收藏夹&nbsp;&nbsp;</a></li>
+            <li class="c1"><a href="${request.contextPath}/userManager/shopping">&nbsp;<img src="img/head_cart.png" />&nbsp;购物车&nbsp;&nbsp;&nbsp; </a> </li >
+            <li class="c1"><a href="${request.contextPath}/info">关于我们&nbsp;</a></li>
+    </div>
 </div>
 </div>
 <div class="top">
@@ -42,7 +56,13 @@
   </div>
 </div>
 <div class="head_nav_main">
-  <div class="head_nav_main1"> <a href="#" class="head_index_on" style="color:#FFF"> 首页 </a> <a href="#"> 天天精选 </a> <a href="#"> 9块9包邮 </a> <a href="#"> 排行榜 </a> <a href="#"> 品牌团 </a> <a href="#">积分商城</a> <span class="n"></span> </div>
+  <div class="head_nav_main1">
+      <a href="${request.contextPath}/index" class="head_index_on" style="color:#FFF"> 首页 </a>
+      <a href="${request.contextPath}/dailySelection"> 天天精选 </a>
+      <a href="${request.contextPath}/tejia"> 9块9包邮 </a>
+      <a href="${request.contextPath}/rankingList"> 排行榜 </a>
+      <a href="#"> 品牌团 </a>
+      <a href="#">积分商城</a> <span class="n"></span> </div>
 </div>
 </header>
 
@@ -54,15 +74,17 @@
         <span class="span2"> ${product.productCategory.pcName}</span>
      </div>
     <div>
-    	<div class="img"><img src="${product.proUrl}" width="420px" height="420pxs"></div>
+    	<div class="img"><img src="${request.contextPath}/${product.proUrl}" width="420px" height="420pxs"></div>
         <div class="section-left">
         	<span>${product.proName}</span>
         </div>
         <div class="section-section">
         	<div class="section-section-a">
-            	<span class="section-a">￥${product.proPrice}</span>
                 <#if product.isPrice == 1>
-                    <span class="b">￥${product.newPrice}</span>
+                    <span class="section-a">￥${product.newPrice}</span>
+                    <span class="b">￥${product.proPrice}</span>
+                <#else >
+                 <span class="section-a">￥${product.proPrice}</span>
                 </#if>
                <span class="c">去客户端签到可领红包</span>
             </div>
@@ -81,35 +103,41 @@
             <span class="number-n2">库存<span class="number-n2-no">${product.stock}</span>件</span>
       </div>
       <div class="section-bottom">
-      	<a href="#"><div class="section-bottom-left">立即购买</div></a>
+      	<a href="javascript:void(0)" class="buyCar"><div class="section-bottom-left">立即购买</div></a>
         <input type="hidden" value="${product.proId}" name="proId" class="proId"/>
-        <a href="javascript:void(0)" id="buyCar"><div class="section-bottom-right">加入购物车</div></a>
+        <a href="javascript:void(0)" class="buyCar"><div class="section-bottom-right">加入购物车</div></a>
       </div>
     </div>
     <div class="section-right">
-    	<div class="section-right-header"><img src="${product.shop.user.userUrl}" width="330px" height="170px"></div>
+    	<div class="section-right-header"><img src="${request.contextPath}/${product.shop.user.userUrl}" width="170px" height="150px"></div>
         <div class="section-right-section">
         	${product.shop.shopName}
         </div>
         <div class="pingfen">描述综合评分<span class="pingfen1">10</span></div>
         <div class="pingfen">服务综合评分<span class="pingfen1">10</span></div>
         <div class="pingfen">发货综合评分<span class="pingfen1">10</span></div>
-        <div class="section-right-bottom"><a href="#"><span class="product">店铺收藏</span></a></div>
+        <div class="section-right-bottom"><a href="javascript:void(0)" onclick="myCollection(${product.proId})"><span class="product">宝贝收藏</span></a></div>
     </div>
 </section>
 
 
 <div class="review-product">
 	<div class="review-header">商品详情</div>
-    <div class="review-section"><img src="img/de8.jpg"></div>
-    <div class="review-section1"><img src="img/de7 (1).jpg"></div>
+    <#if product.description??>
+        <div style="width: 750px;line-height:30px;margin: 15px auto;font-size: 16px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            ${product.description}
+        </div>
+    </#if>
+    <#list product.proImgs as proImg>
+        <div class="review-section1"><img src="${request.contextPath}/${proImg.proImgUrl}"></div>
+    </#list>
     <div  class="review-header">商品评价</div>
 	<div class="review">
         <#list pageInfo.list as proScore>
             <div class="review-re">
                 <div class="review1">${proScore.user.nickName}</div>
                 <div class="review2">${proScore.details}</div>
-                <div class="review3">${proScore.createTime}</div>
+                <div class="review3">${proScore.createTime?string("yyyy-MM-dd hh:mm:ss")}</div>
             </div>
         </#list>
 	</div>

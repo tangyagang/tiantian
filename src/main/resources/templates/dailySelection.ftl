@@ -14,57 +14,55 @@
             $(".s_btn").click(function () {
                 proName = $(".s_ipt").val();
                 pageNo = $("input:hidden[name=pageNo]").val();
-                window.location.href="${request.contextPath}/index?proName="+proName;
+                window.location.href="${request.contextPath}/dailySelection?proName="+proName;
             });
             //分页
             $("#first_page").click(function(){
                 //首页
                 proName = $(".s_ipt").val();
-                pageNo = $("#current").val();
-                proName = $(".s_ipt").val();
+                pageNo = parseInt($("#current").val());
                 if(pageNo > 1){
                     pageNo = 1;
                     $("#current").val(pageNo);
-                    window.location.href="${request.contextPath}/index?pageNo="+pageNo+"&proName="+proName;
+                    window.location.href="${request.contextPath}/dailySelection?pageNo="+pageNo+"&proName="+proName;
                 }
             })
             $("#pre_page").click(function(){
                 //上一页
                 proName = $(".s_ipt").val();
-                pageNo = $("#current").val();
+                pageNo = parseInt($("#current").val());
                 if(pageNo > 1){
                     pageNo = pageNo-1;
                     $("#current").val(pageNo);
-                    window.location.href="${request.contextPath}/index?pageNo="+pageNo+"&proName="+proName;
+                    window.location.href="${request.contextPath}/dailySelection?pageNo="+pageNo+"&proName="+proName;
                 }
             });
             $("#fenye .fenye_main #next_page").click(function(){
                 //下一页
                 proName = $(".s_ipt").val();
-                pageNo = $("#current").val();
-                totalPage = $("#totalPage").val();
+                pageNo = parseInt($("#current").val());
+                totalPage = parseInt($("#totalPage").val());
                 if(pageNo < totalPage){
-                    pageNo = $("#current").val();
-                    pageNo = parseInt(pageNo) + 1
-                    $("#current").val(pageNo);
-                    window.location.href="${request.contextPath}/index?pageNo="+pageNo+"&proName="+proName;
+                    pageNo = pageNo + 1;
+                    //$("#current").val(pageNo);..
+                    window.location.href="${request.contextPath}/dailySelection?pageNo="+pageNo+"&proName="+proName;
                 }
             });
             $("#end_page").click(function(){
                 //末页
                 proName = $(".s_ipt").val();
-                pageNo = $("#current").val();
-                totalPage = $("#totalPage").val();
+                pageNo = parseInt($("#current").val());
+                totalPage = parseInt($("#totalPage").val());
                 if(totalPage > pageNo){
                     pageNo = totalPage;
                     $("#current").val(pageNo);
-                    window.location.href="${request.contextPath}/index?pageNo="+pageNo+"&proName="+proName;
+                    window.location.href="${request.contextPath}/dailySelection?pageNo="+pageNo+"&proName="+proName;
                 }
             });
             $(".fenye_test").click(function () {
                 pageNo = $(this).children("a").html();
                 proName = $(".s_ipt").val();
-                window.location.href="${request.contextPath}/index?pageNo="+pageNo+"&proName="+proName;
+                window.location.href="${request.contextPath}/dailySelection?pageNo="+pageNo+"&proName="+proName;
             });
         });
     </script>
@@ -75,31 +73,38 @@
 <header  class="main">
 	<div class="main1">
         <div class="test2">
-            <div class="A1"> <a href="#">登录&nbsp;&nbsp;</a> <a href="#">免费注册</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="#">我的订单&nbsp;&nbsp;</a>| </div>
+            <div class="A1">
+                <#if user??>
+                    <a href="${request.contextPath}/<#if user.userType==1>userManager/userIndex<#elseif user.userType==2>adminManager/orderList<#else >superManager/superOrderList</#if>">${user.userName}&nbsp;&nbsp;</a>
+                    <a href="${request.contextPath}/exit?msg=dailySelection">退出登录</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                <#else >
+                    <a href="${request.contextPath}/login">登录&nbsp;&nbsp;</a>
+                    <a href="${request.contextPath}/register">免费注册</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                </#if>
+                <a href="${request.contextPath}/userManager/userOrder">我的订单&nbsp;&nbsp;</a>|
+            </div>
             <div class="A2">
-            <ul class="B1">
-            |
-            <li class="c1"><a href="#">&nbsp;&nbsp;&nbsp;收藏夹&nbsp;&nbsp;</a></li>
-            <li class="c1"><a href="#">&nbsp;<img src="img/head_cart.png" />&nbsp;购物车&nbsp;&nbsp;&nbsp; </a> </li >
-            <li class="c1"><a href="#">关于我们&nbsp;</a></li>
+                <ul class="B1">
+                    |
+                    <li class="c1"><a href="${request.contextPath}/userManager/myCollection">&nbsp;&nbsp;&nbsp;收藏夹&nbsp;&nbsp;</a></li>
+                    <li class="c1"><a href="${request.contextPath}/userManager/shopping">&nbsp;<img src="img/head_cart.png" />&nbsp;购物车&nbsp;&nbsp;&nbsp; </a> </li >
+                    <li class="c1"><a href="${request.contextPath}/info">关于我们&nbsp;</a></li>
             </div>
             </div>
             </div>
             <div class="top">
               <div class="logo"> <a href="#"> <img src="img/log.png"/> </a> </div>
               <div class="search">
-                <form>
                   <input type="search" value="<#if proName??>${proName}</#if>" placeholder="请输入关键字" class="s_ipt"/>
-                  <input type="submit" value="搜索" class="s_btn"/>
-                </form>
+                  <input type="button" value="搜索" class="s_btn"/>
               </div>
             </div>
             <div class="head_nav_main">
             <div class="head_nav_main1"> 
-              	<a href="#" class="head_index_on" > 首页 </a>
-                <a href="#" class="head_index_one"> 天天精选 </a> 
-                <a href="#" class="head_index_two"> 9块9包邮 </a> 
-                <a href="#" class="head_index_stree"> 排行榜 </a> 
+              	<a href="${request.contextPath}/index" class="head_index_on" > 首页 </a>
+                <a href="${request.contextPath}/dailySelection" class="head_index_one"> 天天精选 </a>
+                <a href="${request.contextPath}/tejia" class="head_index_two"> 9块9包邮 </a>
+                <a href="${request.contextPath}/rankingList" class="head_index_stree"> 排行榜 </a>
                 <a href="#"> 品牌团 </a> <a href="#" class="head_index_for">积分商城</a> 
              </div>
     </div>
@@ -128,9 +133,9 @@
                     <ul >
                         <#items as product>
                             <li class="but_m2">
-                                <div class="but_img"><a><img src="${product.proUrl}" style="width:270px; height:250px;" /></a></div>
-                                <div class="name"><a><h2>${product.proName}</h2><span>${product.description}</span></a></div>
-                                <div class="price"><strong>￥<span>${product.proPrice}</span></strong></div>
+                                <div class="but_img"><a href="${request.contextPath}/productDetails?proId=${product.proId}"><img src="${request.contextPath}/${product.proUrl}" style="width:270px; height:250px;" /></a></div>
+                                <div class="name"><a href="${request.contextPath}/productDetails?proId=${product.proId}"><h2>${product.proName}</h2><span>${product.description}</span></a></div>
+                                <div class="price"><strong>￥<span><#if product.isPrice == 1>${product.newPrice}<#else >${product.proPrice}</#if></span></strong></div>
                             </li>
                         </#items>
                         <li style="clear:both"></li>

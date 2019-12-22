@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cssl.tiantian.dao.proImg.ProImgMapper">
+    <resultMap id="proImgMap" type="proImg">
+        <id column="proimgid" property="proImgId"/>
+        <association property="product" javaType="product" column="proId"
+                     select="com.cssl.tiantian.dao.product.ProductMapper.getProductByProId"/>
+    </resultMap>
+
+    <insert id="saveProImg" parameterType="map">
+        insert ignore into proimg
+        <foreach collection="params.keys" item="key" open="(" close=")" separator="," >
+            ${key}
+        </foreach>
+        values
+        <foreach collection="params.keys"  item="key" open="(" close=")" separator=",">
+            #{params.${key}}
+        </foreach>
+    </insert>
+
+    <select id="getProImgByProId" resultMap="proImgMap">
+        select * from proimg where proid = #{proId}
+    </select>
+
+    <update id="updateProImgById" parameterType="java.util.Map">
+        UPDATE proimg set
+        <foreach item="value" index="key" collection="proImg" separator=",">
+            <if test="key != 'proImgId'">
+                ${key} = #{value}
+            </if>
+        </foreach>
+        WHERE
+        <foreach item="value" index="key" collection="proImg" separator=",">
+            <if test="key == 'proImgId'">
+                proImgId = #{value}
+            </if>
+        </foreach>
+    </update>
+
+</mapper>

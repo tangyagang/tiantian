@@ -15,6 +15,7 @@ public class Order implements Serializable {
     private int status;
     private int paymentType;
     private String orderNum;
+    private int scoreStatus;
 
     private List<ProScore> proScores;
     private List<OrderDetail> orderDetails;
@@ -97,5 +98,13 @@ public class Order implements Serializable {
 
     public void setOrderNum(String orderNum) {
         this.orderNum = orderNum;
+    }
+
+    public int getScoreStatus() {
+        return scoreStatus;
+    }
+
+    public void setScoreStatus(int scoreStatus) {
+        this.scoreStatus = scoreStatus;
     }
 }

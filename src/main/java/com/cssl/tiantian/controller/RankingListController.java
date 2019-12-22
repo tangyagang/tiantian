@@ -20,13 +20,16 @@ public class RankingListController {
     @Autowired
     private ProductService productService;
 
-    @RequestMapping("/doRankingList")
-    public String doRankingList(@RequestParam(value = "pageNo",required = false) String pageNo, ModelMap modelMap){
-        Integer pn = pageNo != null && pageNo.equals("") ? Integer.parseInt(pageNo) : 1;//当前页码
-        PageInfo<Product> pageInfo = productService.findAllByOrderCount(pn, Constants.PAGE_SIZE);
+    @RequestMapping("/rankingList")
+    public String doRankingList(@RequestParam(value = "pageNo",required = false) String pageNo,
+                                @RequestParam(value = "proName",required = false)String proName,
+                                ModelMap modelMap){
+        Integer pn = pageNo != null && !pageNo.equals("") ? Integer.parseInt(pageNo) : 1;//当前页码
+        PageInfo<Product> pageInfo = productService.findAllByOrderCount(proName,pn, Constants.PAGE_SIZE);
         int[] numbs = Page.getPageNumbers(pn,pageInfo.getPages());//页号
         modelMap.put("pageInfo",pageInfo);
         modelMap.put("numbs",numbs);
+        modelMap.put("proName", proName);
         return "rankingList";
     }
 }

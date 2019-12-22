@@ -12,6 +12,7 @@
     <artifactId>tiantian</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>tiantian</name>
+    <packaging>war</packaging>
     <description>Demo project for Spring Boot</description>
 
     <properties>
@@ -142,6 +143,14 @@
             <groupId>com.qcloud</groupId>
             <artifactId>qcloud-java-sdk</artifactId>
             <version>2.0.1</version>
+        </dependency>
+
+        <!-- 增加lombok依赖，用于生成Getter、Setter -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.16.20</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 

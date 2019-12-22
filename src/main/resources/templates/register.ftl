@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>易买网 - 首页</title>
+    <title>注册</title>
     <link type="text/css" rel="stylesheet" href="css/style_reg.css" />
     <script type="text/javascript" src="js/jquery-1.8.3.js"></script>
     <script type="text/javascript">
@@ -158,14 +158,18 @@
                     }
                 });
             }
+
+            $(".index").click(function () {
+                window.location = "${request.contextPath}/index";
+            })
         });
 
     </script>
 </head>
 <body>
 <div id="header" class="wrap" >
-    <div id="logo"><img  src="img/logo1.png" style="width: 130px;height: 149px"/></div>
-    <div class="help"><span>已有天天购物账号了？</span><a href="#">去登陆</a>
+    <div id="logo"><img class="index" src="img/logo1.png" style="width: 130px;height: 149px"/></div>
+    <div class="help"><span>已有天天购物账号了？</span><a href="${request.contextPath}/login">去登陆</a>
 
     </div>
     <div class="navbar">
@@ -212,7 +216,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="field"><strong style="color:red"></strong>生日：</td>
+                        <td class="field"><strong style="color:red">*</strong>生日：</td>
                         <td><input placeholder="日期格式：yyyy-MM-dd" class="text" type="text" name="strBirthday" /><span></span></td>
                     </tr>
                     <tr>
@@ -229,7 +233,7 @@
                     </tr>
 
                     <tr>
-                        <td class="field">验证码：</td>
+                        <td class="field"><strong style="color:red">* </strong>验证码：</td>
                         <td><input class="text verycode" type="text" name="veryCode" /><img id="veryCode" src="${request.contextPath}/getVerify" /><a id="rand" onclick="getVerify(this);" href="javascript:void(0)">看不清 换一张</a><span></span></td>
                     </tr>
                     <tr>
@@ -237,7 +241,8 @@
                         <td>
                             <select name="userType">
                                 <option value="1">普通用户</option>
-                                <option value="2">管理员</option>
+                                <option value="2">商家</option>
+                                <option value="3">管理员</option>
                             </select>
                             <span></span>
                         </td>

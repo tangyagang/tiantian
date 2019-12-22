@@ -3,6 +3,14 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cssl.tiantian.dao.orderDetail.OrderDetailMapper">
+    <resultMap id="orderDetailMap" type="orderDetail">
+        <id column="odid" property="odId"/>
+        <association property="shop" javaType="shop" column="shopId"
+                     select="com.cssl.tiantian.dao.shop.ShopMapper.getShopByShopId"/>
+        <association property="product" javaType="product" column="proId"
+                     select="com.cssl.tiantian.dao.product.ProductMapper.getProductByProId"/>
+    </resultMap>
+
     <insert id="saveOderDetailByMap" >
         insert ignore into orderdetail values
         <foreach collection="list" item="orderDetail" separator=",">
@@ -10,5 +18,31 @@
             #{orderDetail.cost},#{orderDetail.shop.shopId},#{orderDetail.frozenPrice},#{orderDetail.dPrice},null)
         </foreach>
     </insert>
+
+    <select id="getOrderDetailByOrderId" resultMap="orderDetailMap">
+        SELECT DISTINCT b.odid,b.orderid,SUM(b.frozenPrice) frozenPrice,b.shopid FROM `order` a,orderdetail b WHERE a.orderid = b.orderid
+            AND a.userid=${userId} AND a.orderid IN
+            <foreach collection="orderIds" item="orderId" open="(" close=")" separator=",">
+                #{orderId}
+            </foreach>
+            GROUP BY a.orderid
+    </select>
+
+    <delete id="updateFrozenPrice">
+        update orderdetail set frozenPrice = #{frozenPrice} where orderid in
+        <foreach collection="orderIds" item="orderId" open="(" close=")" separator=",">
+            #{orderId}
+        </foreach>
+    </delete>
+
+    <select id="getAllByUserId" parameterType="int" resultMap="orderDetailMap">
+        SELECT a.* FROM orderdetail a, `order` b WHERE a.orderid = b.orderid AND userid = ${userId}
+    </select>
+
+    <select id="getAllByUserIdAndShopId" resultMap="orderDetailMap">
+        SELECT a.* FROM orderdetail a,`order` b
+          WHERE a.orderid = b.orderid AND userid = ${userId} AND shopid = ${shopId}
+          GROUP BY a.proid ORDER BY b.createtime DESC
+    </select>
 
 </mapper>

@@ -630,13 +630,12 @@ ul.menu_r li a:hover, ul.menu_r .active a {
 }
 .name >a >span{
     display:inline-block;
-
     text-align:center;
-    line-height:30px;
+    height:30px;
     width:264px;
     font-weight:600;
     color:#999;
-
+    overflow: hidden;
 }
 
 .name >a >h2:hover{

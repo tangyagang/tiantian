@@ -8,6 +8,21 @@
         <association property="product" javaType="product" column="proId"
                      select="com.cssl.tiantian.dao.product.ProductMapper.getProductByProId"/>
     </resultMap>
+    <!--订单拆分-->
+    <select id="getShopIdByGroupShopId" parameterType="int[]" resultType="int">
+        SELECT b.shopId FROM buycar a,product b
+          WHERE a.proid = b.proid
+          AND a.userid = ${userId}
+          AND buycarid IN
+          <foreach collection="buyCarIds" item="id" open="(" close=")" separator=",">
+              #{id}
+          </foreach>
+          GROUP BY b.shopId
+    </select>
+    <select id="getBuycarByShopId" resultMap="buyCarMap">
+        SELECT a.* FROM buycar a,product b WHERE a.proid = b.proid AND a.userid = ${userId} AND b.shopid =${shopId}
+    </select>
+    <!--//////////////////////-->
     <insert id="saveByCar" parameterType="java.lang.Integer">
         insert into buycar values (0,${userId},${proId},${num})
     </insert>
@@ -36,5 +51,12 @@
     <select id="getBuyCarById" resultMap="buyCarMap">
         select * from buycar where buyCarId = #{buyCarId}
     </select>
+
+    <select id="getBuycarByProIdAndUserId" resultType="buycar">
+        select * from buycar where userid = ${userId} and proid = ${proId}
+    </select>
+    <delete id="delBuyCarById" parameterType="int">
+        delete from buycar where buycarid = ${buyCarId}
+    </delete>
 
 </mapper>
